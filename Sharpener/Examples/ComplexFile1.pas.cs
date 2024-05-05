@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TestLibrary
 {
-    public class SimpleClass
+    internal class SimpleClass
     {
         public String SimpleString { get; set; }
 

@@ -35,7 +35,7 @@
         "$type": "Sharpener.SyntaxTree.Scopes.ClassSyntaxElement, Sharpener",
         "ClassName": "SimpleClass",
         "InheritsFrom": [],
-        "Visibility": "Public",
+        "Visibility": "Assembly",
         "IsStatic": false,
         "Children": [
           {

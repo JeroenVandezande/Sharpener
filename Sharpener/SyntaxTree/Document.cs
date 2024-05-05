@@ -82,17 +82,17 @@ public class Document
         }
     }
     
-    private void RecurseThroughChildElements(List<ISyntaxElement> childElements, NamespaceDeclarationSyntax syntaxNode)
+    private void RecurseThroughChildElements(List<ISyntaxElement> childElements, ref NamespaceDeclarationSyntax syntaxNode)
     {
         foreach (var child in childElements)
         {
-            if (child is IGenerateMemberSyntax)
+            /*if (child is IGenerateMemberSyntax)
             {
                 if (syntaxNode is NamespaceDeclarationSyntax memberDeclaration)
                 {
                     syntaxNode = memberDeclaration.AddMembers(((IGenerateMemberSyntax)child).GenerateCodeNode());
                 }
-            }
+            }*/
 
             if (child is ClassSyntaxElement expression)
             {
@@ -101,7 +101,7 @@ public class Document
 
             if (child.Children.Count > 0)
             {
-                RecurseThroughChildElements(child.Children, syntaxNode);
+         //       RecurseThroughChildElements(child.Children, syntaxNode);
             }
         }
     }
@@ -120,7 +120,7 @@ public class Document
        
         var namespaceSyntax = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(RootElement.NameSpace)).NormalizeWhitespace();
 
-        RecurseThroughChildElements(RootElement.Children, namespaceSyntax);
+        RecurseThroughChildElements(RootElement.Children, ref namespaceSyntax);
 
         syntaxFactory = syntaxFactory.AddMembers(namespaceSyntax);
 

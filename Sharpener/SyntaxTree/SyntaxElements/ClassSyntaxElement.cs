@@ -13,7 +13,7 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
     
     public ClassSyntaxElement WithVisibility(VisibilityLevel visibilityLevel)
     {
-        visibilityLevel = visibilityLevel;
+        Visibility = visibilityLevel;
         return this;
     }
 
@@ -51,7 +51,7 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
                 vis = SyntaxKind.ProtectedKeyword;
                 break;
             case VisibilityLevel.Assembly:
-                vis = SyntaxKind.AssemblyKeyword;
+                vis = SyntaxKind.InternalKeyword;
                 break;
         }
         
