@@ -1,0 +1,12 @@
+
+SharpererRTL/obj/
+
+Sharpener_UnitTests/obj/
+
+Sharpener_UnitTests/bin/Debug/net6.0/
+
+Sharpener/obj/
+
+.vs/Sharpener/v17/
+
+.vs/Sharpener/DesignTimeBuild/

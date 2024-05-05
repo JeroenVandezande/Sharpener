@@ -1,0 +1,476 @@
+KeywordTokenType: NamespaceKeyword, Line: 1, Token Index 0
+IdentifierTokenText: TestLibrary, Line: 1, Token Index 1
+SeperatorTokenType: SemiColon, Line: 1, Token Index 2
+
+CommentTokenType: Comment, Line: 3, Token Index 0
+
+CommentTokenType: Comment, Line: 4, Token Index 0
+
+KeywordTokenType: UsesKeyword, Line: 6, Token Index 0
+
+IdentifierTokenText: System.Collections.Generic, Line: 7, Token Index 0
+SeperatorTokenType: Comma, Line: 7, Token Index 1
+
+IdentifierTokenText: System.Linq, Line: 8, Token Index 0
+SeperatorTokenType: SemiColon, Line: 8, Token Index 1
+
+KeywordTokenType: TypeDeclarationKeyword, Line: 10, Token Index 0
+
+CommentTokenType: Comment, Line: 11, Token Index 0
+
+IdentifierTokenText: SimpleClass, Line: 12, Token Index 0
+OperatorTokenType: BooleanEquals, Line: 12, Token Index 1
+KeywordTokenType: AssemblyKeyword, Line: 12, Token Index 2
+KeywordTokenType: ClassKeyword, Line: 12, Token Index 3
+
+KeywordTokenType: PublicKeyword, Line: 13, Token Index 0
+
+KeywordTokenType: PropertyKeyword, Line: 14, Token Index 0
+IdentifierTokenText: SimpleString, Line: 14, Token Index 1
+SeperatorTokenType: Colon, Line: 14, Token Index 2
+IdentifierTokenText: String, Line: 14, Token Index 3
+SeperatorTokenType: SemiColon, Line: 14, Token Index 4
+
+CommentTokenType: Comment, Line: 15, Token Index 0
+
+IdentifierTokenText: SomeInt, Line: 16, Token Index 0
+SeperatorTokenType: Colon, Line: 16, Token Index 1
+IdentifierTokenText: Int32, Line: 16, Token Index 2
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 16, Token Index 3
+IdentifierTokenText: 5, Line: 16, Token Index 4
+SeperatorTokenType: SemiColon, Line: 16, Token Index 5
+
+IdentifierTokenText: SomeDouble, Line: 17, Token Index 0
+SeperatorTokenType: Colon, Line: 17, Token Index 1
+IdentifierTokenText: Double, Line: 17, Token Index 2
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 17, Token Index 3
+IdentifierTokenText: 5.5, Line: 17, Token Index 4
+SeperatorTokenType: SemiColon, Line: 17, Token Index 5
+
+KeywordTokenType: MethodKeyword, Line: 18, Token Index 0
+IdentifierTokenText: InternalSimpleMethod, Line: 18, Token Index 1
+SeperatorTokenType: OpenParathesis, Line: 18, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 18, Token Index 3
+SeperatorTokenType: SemiColon, Line: 18, Token Index 4
+
+KeywordTokenType: CodeBlockBegin, Line: 19, Token Index 0
+
+IdentifierTokenText: Console.WriteLine, Line: 20, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 20, Token Index 1
+IdentifierTokenText: SomeDouble, Line: 20, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 20, Token Index 3
+SeperatorTokenType: SemiColon, Line: 20, Token Index 4
+
+KeywordTokenType: CodeBlockEnd, Line: 21, Token Index 0
+SeperatorTokenType: SemiColon, Line: 21, Token Index 1
+
+KeywordTokenType: CodeBlockEnd, Line: 22, Token Index 0
+SeperatorTokenType: SemiColon, Line: 22, Token Index 1
+
+IdentifierTokenText: TestClassName, Line: 24, Token Index 0
+OperatorTokenType: BooleanEquals, Line: 24, Token Index 1
+KeywordTokenType: PublicKeyword, Line: 24, Token Index 2
+KeywordTokenType: ClassKeyword, Line: 24, Token Index 3
+
+KeywordTokenType: PrivateKeyword, Line: 25, Token Index 0
+
+CommentTokenType: Comment, Line: 26, Token Index 0
+
+KeywordTokenType: ClassKeyword, Line: 27, Token Index 0
+IdentifierTokenText: _staticPrivate, Line: 27, Token Index 1
+SeperatorTokenType: Colon, Line: 27, Token Index 2
+IdentifierTokenText: Int32, Line: 27, Token Index 3
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 27, Token Index 4
+IdentifierTokenText: 15, Line: 27, Token Index 5
+SeperatorTokenType: SemiColon, Line: 27, Token Index 6
+
+CommentTokenType: Comment, Line: 28, Token Index 0
+
+KeywordTokenType: PropertyKeyword, Line: 29, Token Index 0
+IdentifierTokenText: _testDoubleLiteral, Line: 29, Token Index 1
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 29, Token Index 2
+IdentifierTokenText: 9.9, Line: 29, Token Index 3
+SeperatorTokenType: SemiColon, Line: 29, Token Index 4
+
+KeywordTokenType: PropertyKeyword, Line: 30, Token Index 0
+IdentifierTokenText: _testIntLiteral, Line: 30, Token Index 1
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 30, Token Index 2
+IdentifierTokenText: 9, Line: 30, Token Index 3
+SeperatorTokenType: SemiColon, Line: 30, Token Index 4
+
+KeywordTokenType: ProtectedKeyword, Line: 31, Token Index 0
+
+KeywordTokenType: PropertyKeyword, Line: 32, Token Index 0
+IdentifierTokenText: protectedString, Line: 32, Token Index 1
+SeperatorTokenType: Colon, Line: 32, Token Index 2
+IdentifierTokenText: String, Line: 32, Token Index 3
+SeperatorTokenType: SemiColon, Line: 32, Token Index 4
+
+KeywordTokenType: PublicKeyword, Line: 33, Token Index 0
+
+CommentTokenType: Comment, Line: 34, Token Index 0
+
+KeywordTokenType: ConstructorKeyword, Line: 35, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 35, Token Index 1
+SeperatorTokenType: ClosedParathesis, Line: 35, Token Index 2
+SeperatorTokenType: SemiColon, Line: 35, Token Index 3
+
+KeywordTokenType: CodeBlockBegin, Line: 36, Token Index 0
+
+IdentifierTokenText: _testDoubleLiteral, Line: 37, Token Index 0
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 37, Token Index 1
+IdentifierTokenText: 9.9, Line: 37, Token Index 2
+SeperatorTokenType: SemiColon, Line: 37, Token Index 3
+
+KeywordTokenType: CodeBlockEnd, Line: 38, Token Index 0
+SeperatorTokenType: SemiColon, Line: 38, Token Index 1
+
+CommentTokenType: Comment, Line: 40, Token Index 0
+
+KeywordTokenType: ConstructorKeyword, Line: 41, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 41, Token Index 1
+IdentifierTokenText: aInputParamOne, Line: 41, Token Index 2
+SeperatorTokenType: Colon, Line: 41, Token Index 3
+IdentifierTokenText: Double, Line: 41, Token Index 4
+SeperatorTokenType: SemiColon, Line: 41, Token Index 5
+IdentifierTokenText: aOptionalParam, Line: 41, Token Index 6
+SeperatorTokenType: Colon, Line: 41, Token Index 7
+IdentifierTokenText: Boolean, Line: 41, Token Index 8
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 41, Token Index 9
+IdentifierTokenText: false, Line: 41, Token Index 10
+SeperatorTokenType: ClosedParathesis, Line: 41, Token Index 11
+SeperatorTokenType: SemiColon, Line: 41, Token Index 12
+
+KeywordTokenType: CodeBlockBegin, Line: 42, Token Index 0
+
+IdentifierTokenText: _testDoubleLiteral, Line: 43, Token Index 0
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 43, Token Index 1
+IdentifierTokenText: aInputParamOne, Line: 43, Token Index 2
+SeperatorTokenType: SemiColon, Line: 43, Token Index 3
+
+KeywordTokenType: CodeBlockEnd, Line: 44, Token Index 0
+SeperatorTokenType: SemiColon, Line: 44, Token Index 1
+
+CommentTokenType: Comment, Line: 46, Token Index 0
+
+KeywordTokenType: MethodKeyword, Line: 47, Token Index 0
+IdentifierTokenText: EmptyMethod, Line: 47, Token Index 1
+SeperatorTokenType: OpenParathesis, Line: 47, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 47, Token Index 3
+SeperatorTokenType: SemiColon, Line: 47, Token Index 4
+KeywordTokenType: EmptyKeyword, Line: 47, Token Index 5
+SeperatorTokenType: SemiColon, Line: 47, Token Index 6
+
+CommentTokenType: Comment, Line: 49, Token Index 0
+
+KeywordTokenType: ClassKeyword, Line: 50, Token Index 0
+KeywordTokenType: MethodKeyword, Line: 50, Token Index 1
+IdentifierTokenText: Main, Line: 50, Token Index 2
+SeperatorTokenType: OpenParathesis, Line: 50, Token Index 3
+SeperatorTokenType: ClosedParathesis, Line: 50, Token Index 4
+SeperatorTokenType: Colon, Line: 50, Token Index 5
+IdentifierTokenText: Int32, Line: 50, Token Index 6
+SeperatorTokenType: SemiColon, Line: 50, Token Index 7
+
+KeywordTokenType: CodeBlockBegin, Line: 51, Token Index 0
+
+CommentTokenType: Comment, Line: 52, Token Index 0
+
+IdentifierTokenText: Console.WriteLine, Line: 53, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 53, Token Index 1
+IdentifierTokenText: 'Some Classic Code', Line: 53, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 53, Token Index 3
+SeperatorTokenType: SemiColon, Line: 53, Token Index 4
+
+CommentTokenType: Comment, Line: 54, Token Index 0
+
+IdentifierTokenText: Console.WriteLine, Line: 55, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 55, Token Index 1
+IdentifierTokenText: "Some More Code", Line: 55, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 55, Token Index 3
+SeperatorTokenType: SemiColon, Line: 55, Token Index 4
+
+CommentTokenType: Comment, Line: 56, Token Index 0
+
+IdentifierTokenText: Console.WriteLine, Line: 57, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 57, Token Index 1
+IdentifierTokenText: #9, Line: 57, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 57, Token Index 3
+SeperatorTokenType: SemiColon, Line: 57, Token Index 4
+
+IdentifierTokenText: Console.WriteLine, Line: 58, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 58, Token Index 1
+IdentifierTokenText: _staticPrivate, Line: 58, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 58, Token Index 3
+SeperatorTokenType: SemiColon, Line: 58, Token Index 4
+
+CommentTokenType: Comment, Line: 60, Token Index 0
+
+KeywordTokenType: VarKeyword, Line: 61, Token Index 0
+IdentifierTokenText: internalObj, Line: 61, Token Index 1
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 61, Token Index 2
+KeywordTokenType: NewKeyword, Line: 61, Token Index 3
+IdentifierTokenText: SimpleClass, Line: 61, Token Index 4
+SeperatorTokenType: OpenParathesis, Line: 61, Token Index 5
+SeperatorTokenType: ClosedParathesis, Line: 61, Token Index 6
+SeperatorTokenType: SemiColon, Line: 61, Token Index 7
+
+CommentTokenType: Comment, Line: 63, Token Index 0
+
+KeywordTokenType: VarKeyword, Line: 64, Token Index 0
+IdentifierTokenText: internalObjInitialize, Line: 64, Token Index 1
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 64, Token Index 2
+KeywordTokenType: NewKeyword, Line: 64, Token Index 3
+IdentifierTokenText: SimpleClass, Line: 64, Token Index 4
+SeperatorTokenType: OpenParathesis, Line: 64, Token Index 5
+
+IdentifierTokenText: SimpleString, Line: 65, Token Index 0
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 65, Token Index 1
+IdentifierTokenText: "SimpleStringTest", Line: 65, Token Index 2
+SeperatorTokenType: Comma, Line: 65, Token Index 3
+
+IdentifierTokenText: SomeInt, Line: 66, Token Index 0
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 66, Token Index 1
+IdentifierTokenText: 8, Line: 66, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 66, Token Index 3
+SeperatorTokenType: SemiColon, Line: 66, Token Index 4
+
+KeywordTokenType: CodeBlockEnd, Line: 67, Token Index 0
+SeperatorTokenType: SemiColon, Line: 67, Token Index 1
+
+KeywordTokenType: MethodKeyword, Line: 69, Token Index 0
+IdentifierTokenText: TestMethod, Line: 69, Token Index 1
+SeperatorTokenType: OpenParathesis, Line: 69, Token Index 2
+IdentifierTokenText: aSomeParam, Line: 69, Token Index 3
+SeperatorTokenType: Colon, Line: 69, Token Index 4
+IdentifierTokenText: String, Line: 69, Token Index 5
+SeperatorTokenType: ClosedParathesis, Line: 69, Token Index 6
+SeperatorTokenType: SemiColon, Line: 69, Token Index 7
+
+KeywordTokenType: CodeBlockBegin, Line: 70, Token Index 0
+
+CommentTokenType: Comment, Line: 71, Token Index 0
+
+KeywordTokenType: MethodKeyword, Line: 72, Token Index 0
+IdentifierTokenText: DoSomethingInsideAMethod, Line: 72, Token Index 1
+SeperatorTokenType: OpenParathesis, Line: 72, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 72, Token Index 3
+SeperatorTokenType: Colon, Line: 72, Token Index 4
+IdentifierTokenText: Boolean, Line: 72, Token Index 5
+SeperatorTokenType: SemiColon, Line: 72, Token Index 6
+
+KeywordTokenType: CodeBlockBegin, Line: 73, Token Index 0
+
+KeywordTokenType: ResultVariableKeyword, Line: 74, Token Index 0
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 74, Token Index 1
+IdentifierTokenText: false, Line: 74, Token Index 2
+SeperatorTokenType: SemiColon, Line: 74, Token Index 3
+
+KeywordTokenType: ResultVariableKeyword, Line: 75, Token Index 0
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 75, Token Index 1
+IdentifierTokenText: true, Line: 75, Token Index 2
+SeperatorTokenType: SemiColon, Line: 75, Token Index 3
+
+KeywordTokenType: CodeBlockEnd, Line: 76, Token Index 0
+SeperatorTokenType: SemiColon, Line: 76, Token Index 1
+
+CommentTokenType: Comment, Line: 78, Token Index 0
+
+KeywordTokenType: IfKeyword, Line: 79, Token Index 0
+IdentifierTokenText: DoSomethingInsideAMethod, Line: 79, Token Index 1
+KeywordTokenType: ThenKeyword, Line: 79, Token Index 2
+
+KeywordTokenType: CodeBlockBegin, Line: 80, Token Index 0
+
+KeywordTokenType: ExitReturnKeyword, Line: 81, Token Index 0
+SeperatorTokenType: SemiColon, Line: 81, Token Index 1
+
+KeywordTokenType: CodeBlockEnd, Line: 82, Token Index 0
+
+KeywordTokenType: ElseKeyword, Line: 83, Token Index 0
+
+KeywordTokenType: CodeBlockBegin, Line: 84, Token Index 0
+
+IdentifierTokenText: Console.WriteLine, Line: 85, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 85, Token Index 1
+IdentifierTokenText: "DoSomething", Line: 85, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 85, Token Index 3
+SeperatorTokenType: SemiColon, Line: 85, Token Index 4
+
+KeywordTokenType: CodeBlockEnd, Line: 86, Token Index 0
+SeperatorTokenType: SemiColon, Line: 86, Token Index 1
+
+KeywordTokenType: CodeBlockEnd, Line: 87, Token Index 0
+SeperatorTokenType: SemiColon, Line: 87, Token Index 1
+
+KeywordTokenType: MethodKeyword, Line: 89, Token Index 0
+IdentifierTokenText: TestMethod2, Line: 89, Token Index 1
+SeperatorTokenType: OpenParathesis, Line: 89, Token Index 2
+IdentifierTokenText: aSomeClassParam, Line: 89, Token Index 3
+SeperatorTokenType: Colon, Line: 89, Token Index 4
+IdentifierTokenText: TestClassName, Line: 89, Token Index 5
+SeperatorTokenType: ClosedParathesis, Line: 89, Token Index 6
+SeperatorTokenType: SemiColon, Line: 89, Token Index 7
+
+KeywordTokenType: CodeBlockBegin, Line: 90, Token Index 0
+
+CommentTokenType: Comment, Line: 91, Token Index 0
+
+KeywordTokenType: VarKeyword, Line: 92, Token Index 0
+IdentifierTokenText: Myclass, Line: 92, Token Index 1
+SeperatorTokenType: Colon, Line: 92, Token Index 2
+IdentifierTokenText: TestClassName, Line: 92, Token Index 3
+SeperatorTokenType: SemiColon, Line: 92, Token Index 4
+
+CommentTokenType: Comment, Line: 94, Token Index 0
+
+IdentifierTokenText: aSomeClassParam.protectedString, Line: 95, Token Index 0
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 95, Token Index 1
+IdentifierTokenText: nil, Line: 95, Token Index 2
+SeperatorTokenType: SemiColon, Line: 95, Token Index 3
+
+CommentTokenType: Comment, Line: 97, Token Index 0
+
+KeywordTokenType: IfKeyword, Line: 98, Token Index 0
+IdentifierTokenText: String.IsNullOrEmpty, Line: 98, Token Index 1
+SeperatorTokenType: OpenParathesis, Line: 98, Token Index 2
+IdentifierTokenText: aSomeClassParam.protectedString, Line: 98, Token Index 3
+SeperatorTokenType: ClosedParathesis, Line: 98, Token Index 4
+KeywordTokenType: ThenKeyword, Line: 98, Token Index 5
+
+KeywordTokenType: CodeBlockBegin, Line: 99, Token Index 0
+
+KeywordTokenType: ExitReturnKeyword, Line: 100, Token Index 0
+SeperatorTokenType: SemiColon, Line: 100, Token Index 1
+
+KeywordTokenType: CodeBlockEnd, Line: 101, Token Index 0
+
+KeywordTokenType: ElseKeyword, Line: 102, Token Index 0
+KeywordTokenType: IfKeyword, Line: 102, Token Index 1
+IdentifierTokenText: assigned, Line: 102, Token Index 2
+SeperatorTokenType: OpenParathesis, Line: 102, Token Index 3
+IdentifierTokenText: Myclass, Line: 102, Token Index 4
+SeperatorTokenType: ClosedParathesis, Line: 102, Token Index 5
+KeywordTokenType: ThenKeyword, Line: 102, Token Index 6
+
+KeywordTokenType: CodeBlockBegin, Line: 103, Token Index 0
+
+IdentifierTokenText: Console.WriteLine, Line: 104, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 104, Token Index 1
+IdentifierTokenText: "DoSomething2", Line: 104, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 104, Token Index 3
+SeperatorTokenType: SemiColon, Line: 104, Token Index 4
+
+KeywordTokenType: CodeBlockEnd, Line: 105, Token Index 0
+
+KeywordTokenType: ElseKeyword, Line: 106, Token Index 0
+
+KeywordTokenType: CodeBlockBegin, Line: 107, Token Index 0
+
+IdentifierTokenText: Console.WriteLine, Line: 108, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 108, Token Index 1
+IdentifierTokenText: "DoSomethingElse", Line: 108, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 108, Token Index 3
+SeperatorTokenType: SemiColon, Line: 108, Token Index 4
+
+KeywordTokenType: CodeBlockEnd, Line: 109, Token Index 0
+SeperatorTokenType: SemiColon, Line: 109, Token Index 1
+
+KeywordTokenType: CodeBlockEnd, Line: 110, Token Index 0
+SeperatorTokenType: SemiColon, Line: 110, Token Index 1
+
+CommentTokenType: Comment, Line: 112, Token Index 0
+
+KeywordTokenType: MethodKeyword, Line: 113, Token Index 0
+IdentifierTokenText: SwitchCaseMethod, Line: 113, Token Index 1
+SeperatorTokenType: OpenParathesis, Line: 113, Token Index 2
+IdentifierTokenText: aMyEnum, Line: 113, Token Index 3
+SeperatorTokenType: Colon, Line: 113, Token Index 4
+IdentifierTokenText: MyEnum, Line: 113, Token Index 5
+SeperatorTokenType: ClosedParathesis, Line: 113, Token Index 6
+SeperatorTokenType: Colon, Line: 113, Token Index 7
+IdentifierTokenText: String, Line: 113, Token Index 8
+SeperatorTokenType: SemiColon, Line: 113, Token Index 9
+
+KeywordTokenType: CodeBlockBegin, Line: 114, Token Index 0
+
+KeywordTokenType: CaseKeyword, Line: 115, Token Index 0
+IdentifierTokenText: aMyEnum, Line: 115, Token Index 1
+KeywordTokenType: OfTypeKeyword, Line: 115, Token Index 2
+
+IdentifierTokenText: MyEnum.Hello, Line: 116, Token Index 0
+SeperatorTokenType: Colon, Line: 116, Token Index 1
+KeywordTokenType: ExitReturnKeyword, Line: 116, Token Index 2
+IdentifierTokenText: "Hello", Line: 116, Token Index 3
+SeperatorTokenType: SemiColon, Line: 116, Token Index 4
+
+IdentifierTokenText: MyEnum.Bonjour, Line: 117, Token Index 0
+SeperatorTokenType: Colon, Line: 117, Token Index 1
+KeywordTokenType: ResultVariableKeyword, Line: 117, Token Index 2
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 117, Token Index 3
+IdentifierTokenText: "Bonjour", Line: 117, Token Index 4
+SeperatorTokenType: SemiColon, Line: 117, Token Index 5
+
+IdentifierTokenText: MyEnum.Hola, Line: 118, Token Index 0
+SeperatorTokenType: Colon, Line: 118, Token Index 1
+KeywordTokenType: ExitReturnKeyword, Line: 118, Token Index 2
+IdentifierTokenText: "Hola", Line: 118, Token Index 3
+SeperatorTokenType: SemiColon, Line: 118, Token Index 4
+
+KeywordTokenType: ElseKeyword, Line: 119, Token Index 0
+
+KeywordTokenType: ResultVariableKeyword, Line: 120, Token Index 0
+OperatorTokenType: ClassDefinitionAndPropertyNullAccessor, Line: 120, Token Index 1
+IdentifierTokenText: "Huh?", Line: 120, Token Index 2
+SeperatorTokenType: SemiColon, Line: 120, Token Index 3
+
+KeywordTokenType: CodeBlockEnd, Line: 121, Token Index 0
+SeperatorTokenType: SemiColon, Line: 121, Token Index 1
+
+KeywordTokenType: CodeBlockEnd, Line: 122, Token Index 0
+SeperatorTokenType: SemiColon, Line: 122, Token Index 1
+
+CommentTokenType: Comment, Line: 124, Token Index 0
+
+KeywordTokenType: PropertyKeyword, Line: 125, Token Index 0
+IdentifierTokenText: TestDoubleLiteral, Line: 125, Token Index 1
+SeperatorTokenType: Colon, Line: 125, Token Index 2
+IdentifierTokenText: Double, Line: 125, Token Index 3
+KeywordTokenType: ReadGetterKeyword, Line: 125, Token Index 4
+IdentifierTokenText: _testDoubleLiteral, Line: 125, Token Index 5
+KeywordTokenType: WriteSetterKeyword, Line: 125, Token Index 6
+IdentifierTokenText: _testDoubleLiteral, Line: 125, Token Index 7
+SeperatorTokenType: SemiColon, Line: 125, Token Index 8
+
+KeywordTokenType: CodeBlockEnd, Line: 127, Token Index 0
+SeperatorTokenType: SemiColon, Line: 127, Token Index 1
+
+IdentifierTokenText: MyEnum, Line: 129, Token Index 0
+OperatorTokenType: BooleanEquals, Line: 129, Token Index 1
+KeywordTokenType: PublicKeyword, Line: 129, Token Index 2
+KeywordTokenType: EnumKeyword, Line: 129, Token Index 3
+SeperatorTokenType: OpenParathesis, Line: 129, Token Index 4
+IdentifierTokenText: Hello, Line: 129, Token Index 5
+SeperatorTokenType: Comma, Line: 129, Token Index 6
+IdentifierTokenText: Bonjour, Line: 129, Token Index 7
+SeperatorTokenType: Comma, Line: 129, Token Index 8
+IdentifierTokenText: Hola, Line: 129, Token Index 9
+SeperatorTokenType: ClosedParathesis, Line: 129, Token Index 10
+SeperatorTokenType: SemiColon, Line: 129, Token Index 11
+
+IdentifierTokenText: MyTypedEnum, Line: 131, Token Index 0
+OperatorTokenType: BooleanEquals, Line: 131, Token Index 1
+KeywordTokenType: PublicKeyword, Line: 131, Token Index 2
+KeywordTokenType: EnumKeyword, Line: 131, Token Index 3
+SeperatorTokenType: OpenParathesis, Line: 131, Token Index 4
+IdentifierTokenText: Hello, Line: 131, Token Index 5
+SeperatorTokenType: Comma, Line: 131, Token Index 6
+IdentifierTokenText: Bonjour, Line: 131, Token Index 7
+SeperatorTokenType: Comma, Line: 131, Token Index 8
+IdentifierTokenText: Hola, Line: 131, Token Index 9
+SeperatorTokenType: ClosedParathesis, Line: 131, Token Index 10
+KeywordTokenType: OfTypeKeyword, Line: 131, Token Index 11
+IdentifierTokenText: UInt16, Line: 131, Token Index 12
+SeperatorTokenType: SemiColon, Line: 131, Token Index 13
+
+KeywordTokenType: EndOfFile, Line: 133, Token Index 0

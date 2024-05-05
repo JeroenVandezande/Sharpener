@@ -1,0 +1,45 @@
+{
+  "RootElement": {
+    "Usings": [
+      "System",
+      "System.Linq"
+    ],
+    "NameSpace": "SimpleConsoleApp",
+    "Children": [
+      {
+        "$type": "Sharpener.SyntaxTree.Scopes.ClassSyntaxElement, Sharpener",
+        "ClassName": "Program",
+        "InheritsFrom": [],
+        "Visibility": "Public",
+        "IsStatic": false,
+        "Children": [
+          {
+            "$type": "Sharpener.SyntaxTree.Scopes.MethodElement, Sharpener",
+            "MethodName": "Main",
+            "ReturnType": "Int32",
+            "Parameters": [],
+            "VisibilityLevel": "Public",
+            "IsStatic": true,
+            "Children": [
+              {
+                "$type": "Sharpener.SyntaxTree.Scopes.CommentSyntaxElement, Sharpener",
+                "CommentLines": [
+                  "// add your own code here"
+                ],
+                "CommentType": "SingleLineDocComment",
+                "Children": []
+              },
+              {
+                "$type": "Sharpener.SyntaxTree.Scopes.WriteLnSyntaxElement, Sharpener",
+                "Children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "LastKnownVisibilityLevel": "Public",
+  "LastKnownStatic": false,
+  "LastKnownVariable": "'The magic happens here.'"
+}
