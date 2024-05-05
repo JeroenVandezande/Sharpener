@@ -4,6 +4,7 @@ using Sharpener.Enums;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Sharpener.SyntaxTree.Scopes;
 
 
 namespace Sharpener.SyntaxTree;
@@ -81,7 +82,7 @@ public class Document
         }
     }
     
-    private void RecurseThroughChildElements(List<ISyntaxElement> childElements, MemberDeclarationSyntax syntaxNode)
+    private void RecurseThroughChildElements(List<ISyntaxElement> childElements, NamespaceDeclarationSyntax syntaxNode)
     {
         foreach (var child in childElements)
         {
@@ -93,9 +94,9 @@ public class Document
                 }
             }
 
-            if (child is IGenerateExpressionSyntax expression)
+            if (child is ClassSyntaxElement expression)
             {
-                syntaxNode = syntaxNode.(expression.GenerateCode());
+                  syntaxNode = syntaxNode.AddMembers(expression.GenerateCodeNode());
             }
 
             if (child.Children.Count > 0)
