@@ -66,7 +66,7 @@
                 "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
                 "Children": [
                   {
-                    "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                    "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                     "Literal": "TestClassName",
                     "Children": []
                   }
@@ -149,7 +149,7 @@
                 "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
                 "Children": [
                   {
-                    "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                    "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                     "Literal": "9.9",
                     "Children": []
                   }
@@ -184,7 +184,7 @@
                 "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
                 "Children": [
                   {
-                    "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                    "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                     "Literal": "aInputParamOne",
                     "Children": []
                   }
@@ -243,7 +243,7 @@
                             "Children": []
                           },
                           {
-                            "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                            "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                             "Literal": "_staticPrivate",
                             "Children": []
                           },
@@ -341,7 +341,7 @@
                                 "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
                                 "Children": [
                                   {
-                                    "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                                    "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                                     "Literal": "DoSomethingInsideAMethod",
                                     "Children": []
                                   }
@@ -365,7 +365,7 @@
                             "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
                             "Children": [
                               {
-                                "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                                "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                                 "Literal": "\"DoSomething\"",
                                 "Children": []
                               }
@@ -425,7 +425,7 @@
                             "Children": []
                           },
                           {
-                            "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                            "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                             "Literal": "Myclass",
                             "Children": []
                           },
@@ -433,7 +433,7 @@
                             "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
                             "Children": [
                               {
-                                "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                                "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                                 "Literal": "\"DoSomething2\"",
                                 "Children": []
                               }
@@ -443,7 +443,7 @@
                             "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
                             "Children": [
                               {
-                                "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                                "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                                 "Literal": "\"DoSomethingElse\"",
                                 "Children": []
                               }
@@ -478,7 +478,7 @@
                         "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
                         "Children": [
                           {
-                            "$type": "Sharpener.SyntaxTree.SyntaxElements.LiteralSyntaxElement, Sharpener",
+                            "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
                             "Literal": "\"Huh?\"",
                             "Children": []
                           }
