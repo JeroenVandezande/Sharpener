@@ -21,6 +21,11 @@ public interface IGenerateMemberSyntax : ISyntaxElement
     public MemberDeclarationSyntax GenerateCodeNode();
 }
 
+public interface IGenerateCodeBlock : ISyntaxElement
+{
+    public BlockSyntax GenerateCodeNode();
+}
+
 public interface IGenerateExpressionSyntax : ISyntaxElement
 {
     public ExpressionSyntax GenerateCode();

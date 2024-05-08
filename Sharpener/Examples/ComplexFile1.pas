@@ -31,7 +31,7 @@ type
   protected
     property protectedString: String;
   public
-    // Contrustor
+    // Constructor
     constructor();
     begin
       _testDoubleLiteral := 9.9;

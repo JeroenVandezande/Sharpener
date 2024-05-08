@@ -65,6 +65,13 @@ public class TokenParser
                     
                     case TokenType.CodeBlockEnd:
                     {
+                        if (document.CurrentElement is CodeBlockSyntaxElement cbElement)
+                        {
+                            cbElement.EndLine = token.LineNumber;
+                            var subset = tonkenizer.Lines.Skip(cbElement.StartLine - 1).Take(cbElement.EndLine - cbElement.StartLine + 1);
+
+                            cbElement.CodeBlock = String.Join(Environment.NewLine, subset);
+                        }
                         document.returnFromCurrentScope();
                         break;
                     }
@@ -77,7 +84,9 @@ public class TokenParser
 
                     case TokenType.CodeBlockBegin:
                     {
-                        document.AddNewElementToCurrentAndMakeCurrent(new CodeBlockSyntaxElement());
+                        var cb = new CodeBlockSyntaxElement();
+                        cb.StartLine = token.LineNumber;
+                        document.AddNewElementToCurrentAndMakeCurrent(cb);
                         break;
                     }
 

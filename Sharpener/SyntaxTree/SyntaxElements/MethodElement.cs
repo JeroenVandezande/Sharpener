@@ -79,6 +79,12 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, ISyntaxEleme
                 var ch = (IGenerateStatementSyntax) child;
                 methodDeclaration = methodDeclaration.AddBodyStatements(ch.GenerateCodeNode());
             }
+            
+            if (child is IGenerateCodeBlock)
+            {
+                var ch = (IGenerateCodeBlock) child;
+                methodDeclaration = methodDeclaration.WithBody(ch.GenerateCodeNode());
+            }
         }
 
         return methodDeclaration;

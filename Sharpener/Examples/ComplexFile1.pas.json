@@ -64,6 +64,9 @@
             "Children": [
               {
                 "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                "StartLine": 19,
+                "EndLine": 0,
+                "CodeBlock": null,
                 "Children": [
                   {
                     "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
@@ -147,6 +150,9 @@
             "Children": [
               {
                 "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                "StartLine": 36,
+                "EndLine": 0,
+                "CodeBlock": null,
                 "Children": [
                   {
                     "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
@@ -182,6 +188,9 @@
             "Children": [
               {
                 "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                "StartLine": 42,
+                "EndLine": 0,
+                "CodeBlock": null,
                 "Children": [
                   {
                     "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
@@ -233,6 +242,9 @@
                     "Children": [
                       {
                         "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                        "StartLine": 51,
+                        "EndLine": 0,
+                        "CodeBlock": null,
                         "Children": [
                           {
                             "$type": "Sharpener.SyntaxTree.Scopes.CommentSyntaxElement, Sharpener",
@@ -320,6 +332,9 @@
                     "Children": [
                       {
                         "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                        "StartLine": 70,
+                        "EndLine": 0,
+                        "CodeBlock": null,
                         "Children": [
                           {
                             "$type": "Sharpener.SyntaxTree.Scopes.CommentSyntaxElement, Sharpener",
@@ -339,6 +354,9 @@
                             "Children": [
                               {
                                 "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                                "StartLine": 73,
+                                "EndLine": 0,
+                                "CodeBlock": null,
                                 "Children": [
                                   {
                                     "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
@@ -359,10 +377,16 @@
                           },
                           {
                             "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                            "StartLine": 80,
+                            "EndLine": 82,
+                            "CodeBlock": "      begin\r\n        exit;\r\n      end",
                             "Children": []
                           },
                           {
                             "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                            "StartLine": 84,
+                            "EndLine": 0,
+                            "CodeBlock": null,
                             "Children": [
                               {
                                 "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
@@ -390,6 +414,9 @@
                     "Children": [
                       {
                         "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                        "StartLine": 90,
+                        "EndLine": 0,
+                        "CodeBlock": null,
                         "Children": [
                           {
                             "$type": "Sharpener.SyntaxTree.Scopes.CommentSyntaxElement, Sharpener",
@@ -422,6 +449,9 @@
                           },
                           {
                             "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                            "StartLine": 99,
+                            "EndLine": 101,
+                            "CodeBlock": "      begin\r\n        exit;\r\n      end",
                             "Children": []
                           },
                           {
@@ -431,6 +461,9 @@
                           },
                           {
                             "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                            "StartLine": 103,
+                            "EndLine": 0,
+                            "CodeBlock": null,
                             "Children": [
                               {
                                 "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
@@ -441,6 +474,9 @@
                           },
                           {
                             "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                            "StartLine": 107,
+                            "EndLine": 0,
+                            "CodeBlock": null,
                             "Children": [
                               {
                                 "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
@@ -476,6 +512,9 @@
                     "Children": [
                       {
                         "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
+                        "StartLine": 114,
+                        "EndLine": 0,
+                        "CodeBlock": null,
                         "Children": [
                           {
                             "$type": "Sharpener.SyntaxTree.Literals.LiteralSyntaxElement, Sharpener",
