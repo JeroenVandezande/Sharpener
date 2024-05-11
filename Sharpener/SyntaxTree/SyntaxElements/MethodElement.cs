@@ -70,16 +70,32 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
 
     public MemberDeclarationSyntax GenerateCodeNode()
     {
+        //setup parameters
+        var paramList = new List<ParameterSyntax>();
+        foreach (var par in Parameters)
+        {
+            paramList.Add(SyntaxFactory.Parameter(SyntaxFactory.Identifier(par.Key))
+                .WithType(SyntaxFactory.ParseTypeName(par.Value)));
+        }
+        var methodparams = SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(paramList));
+        
         var vis = Tools.VisibilityToSyntaxKind(VisibilityLevel);
         // Create a method
         var methodDeclaration = SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(ReturnType), MethodName)
             .AddModifiers(SyntaxFactory.Token(vis))
-            .WithBody(SyntaxFactory.Block());
+            .WithBody(SyntaxFactory.Block())
+            .WithParameterList(methodparams);
         if (IsStatic)
         {
             methodDeclaration = methodDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
         }
+        
+        if (IsEmpty)
+        {
+            return methodDeclaration;
+        }
 
+        
         foreach (var child in Children)
         {
             if (child is IGenerateStatementSyntax)
