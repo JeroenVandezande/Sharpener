@@ -40,53 +40,44 @@ public class TokenParser
                         break;
                     }
 
-                    case TokenType.WriteLnMagicFunction:
-                    {
-                        var wl = new WriteLnSyntaxElement();
-                        document.AddNewElementToCurrentAndMakeCurrent(wl);
-                        break;
-                    }
-
                     case TokenType.PropertyKeyword:
                     {
                         document.AddNewElementToCurrentAndMakeCurrent(new PropertySyntaxElement()
                             .WithVisibility(document.LastKnownVisibilityLevel)
-                            .WithStaticApplied(document.LastKnownStatic));
+                            .WithStaticApplied(document.LastKnownStatic)
+                            .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         document.LastKnownStatic = false;
                         break;
                     }
 
-                case TokenType.ConstKeyword:
+                    case TokenType.ConstKeyword:
                     {
                         document.AddNewElementToCurrentAndMakeCurrent(new ConstantSyntaxElement()
-                            .WithVisibility(document.LastKnownVisibilityLevel));
+                            .WithVisibility(document.LastKnownVisibilityLevel)
+                            .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
                     }
                     
                     case TokenType.CodeBlockEnd:
                     {
-                        if (document.CurrentElement is CodeBlockSyntaxElement cbElement)
-                        {
-                            cbElement.EndLine = token.LineNumber;
-                            var subset = tonkenizer.Lines.Skip(cbElement.StartLine - 1).Take(cbElement.EndLine - cbElement.StartLine + 1);
-
-                            cbElement.CodeBlock = String.Join(Environment.NewLine, subset);
-                        }
-                        document.returnFromCurrentScope();
+                        var current = document.returnFromCurrentScope();
+                        current.OriginalSourceCodeStopLineNumber = token.LineNumber;
+                        current.OriginalSourceCodeStopColumnNumber = token.TokenIndex;
+                        current.FinishSyntaxElement(document);
                         break;
                     }
 
                     case TokenType.TypeDeclarationKeyword:
                     {
-                        document.AddNewElementToCurrentAndMakeCurrent(new TypeSyntaxElement());
+                        document.AddNewElementToCurrentAndMakeCurrent(new TypeSyntaxElement().WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
                     }
 
                     case TokenType.CodeBlockBegin:
                     {
-                        var cb = new CodeBlockSyntaxElement();
-                        cb.StartLine = token.LineNumber;
+                        var cb = new CodeBlockSyntaxElement().WithStartSourceCodePosition(token.LineNumber, token.TokenIndex);
                         document.AddNewElementToCurrentAndMakeCurrent(cb);
+                        document.LastKnownInCodeBlock = true;
                         break;
                     }
 
@@ -104,9 +95,11 @@ public class TokenParser
 
                     case TokenType.MethodKeyword:
                     {
+                        if (document.LastKnownInCodeBlock) break;
                         document.AddNewElementToCurrentAndMakeCurrent(new MethodElement()
                             .WithVisibility(document.LastKnownVisibilityLevel)
-                            .WithStaticApplied(document.LastKnownStatic));
+                            .WithStaticApplied(document.LastKnownStatic)
+                            .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         document.LastKnownStatic = false;
                         break;
                     }
@@ -187,6 +180,19 @@ public class TokenParser
                             document.CurrentElement.AddParameter(null, TokenType.ClosedParathesis);
                         }
 
+                        break;
+                    }
+                    
+                    case TokenType.EmptyKeyword:
+                    {
+                        if (document.CurrentScope is MethodElement me)
+                        {
+                            var current = document.returnFromCurrentScope();
+                            current.OriginalSourceCodeStopLineNumber = token.LineNumber;
+                            current.OriginalSourceCodeStopColumnNumber = token.TokenIndex;
+                            current.FinishSyntaxElement(document);
+                            me.IsEmpty = true;
+                        }
                         break;
                     }
 

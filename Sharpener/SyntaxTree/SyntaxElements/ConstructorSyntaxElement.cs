@@ -10,6 +10,12 @@ public class ConstructorSyntaxElement: SyntaxElement, ISyntaxElementWithScope, I
     public VisibilityLevel VisibilityLevel { get; set; }
     public bool IsStatic { get; set; }
     
+    public override void FinishSyntaxElement(Document document)
+    {
+        base.FinishSyntaxElement(document);
+        document.LastKnownInCodeBlock = false;
+    }
+    
     public ConstructorSyntaxElement WithVisibility(VisibilityLevel visibilityLevel)
     {
         visibilityLevel = visibilityLevel;

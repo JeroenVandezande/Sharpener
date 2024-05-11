@@ -4,7 +4,7 @@ using Sharpener.Enums;
 
 namespace Sharpener.SyntaxTree.Scopes;
 
-public class MethodElement: SyntaxElement, ISyntaxElementWithScope, ISyntaxElementAutoReturnsFromScope, IGenerateMemberSyntax
+public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMemberSyntax, ISyntaxElementAutoReturnsFromScope
 {
     private bool _ParamType;
     private String _ParamName;
@@ -14,7 +14,14 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, ISyntaxEleme
     public List<KeyValuePair<string, string>> Parameters { get; } = new List<KeyValuePair<string, string>>();
     public VisibilityLevel VisibilityLevel { get; set; }
     public bool IsStatic { get; set; }
-    
+    public bool IsEmpty { get; set; }
+
+    public override void FinishSyntaxElement(Document document)
+    {
+        base.FinishSyntaxElement(document);
+        document.LastKnownInCodeBlock = false;
+    }
+
     public MethodElement WithVisibility(VisibilityLevel visibilityLevel)
     {
         visibilityLevel = visibilityLevel;
@@ -26,6 +33,7 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, ISyntaxEleme
         IsStatic = isStaticApplied;
         return this;
     }
+    
     public override void AddParameter(string param, TokenType tokenType)
     {
         if (tokenType == TokenType.ClosedParathesis)

@@ -12,7 +12,7 @@ namespace Sharpener
             if (args.Length == 0)
                 return; // return if no file was dragged onto exe
             string filename = args[0];
-            var lines = File.ReadLines(filename);
+            var lines = File.ReadLines(filename).ToArray();
             var tokenizer = new Tokenizer();
             
             // Parser lines into tokens
@@ -22,6 +22,7 @@ namespace Sharpener
             //Token Parser
             var tp = new TokenParser();
             var doc = new Document();
+            doc.OriginalOxygeneCode = lines;
             tp.ParseTokens(tokenizer, ref doc);
             string json = JsonConvert.SerializeObject(doc, Formatting.Indented, new JsonSerializerSettings
             {

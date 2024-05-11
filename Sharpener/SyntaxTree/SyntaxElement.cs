@@ -13,7 +13,13 @@ public interface ISyntaxElement
 {
     public List<ISyntaxElement> Children { get; set; }
     public ISyntaxElement Parent { get; set; }
+    public string OriginalSourceCode { get; set; }
+    public int OriginalSourceCodeStartLineNumber { get; set; }
+    public int OriginalSourceCodeStartColumnNumber { get; set; }
+    public int OriginalSourceCodeStopLineNumber { get; set; }
+    public int OriginalSourceCodeStopColumnNumber { get; set; }
     public void AddParameter(string param, TokenType tokenType);
+    public void FinishSyntaxElement(Document document);
 }
 
 public interface IGenerateMemberSyntax : ISyntaxElement
@@ -55,8 +61,27 @@ public abstract class SyntaxElement: ISyntaxElement
     [IgnoreDataMember] 
     public ISyntaxElement Parent { get; set; }
 
+    public string OriginalSourceCode { get; set; }
+    public int OriginalSourceCodeStartLineNumber { get; set; }
+    public int OriginalSourceCodeStartColumnNumber { get; set; }
+    public int OriginalSourceCodeStopLineNumber { get; set; }
+    public int OriginalSourceCodeStopColumnNumber { get; set; }
+
     public virtual void AddParameter(string param, TokenType tokenType)
     {
+    }
+
+    public virtual void FinishSyntaxElement(Document document)
+    {
+        var subset = document.OriginalOxygeneCode.Skip(OriginalSourceCodeStartLineNumber - 1).Take(OriginalSourceCodeStopLineNumber - OriginalSourceCodeStartLineNumber + 1);
+        OriginalSourceCode = String.Join(Environment.NewLine, subset);
+    }
+    
+    public SyntaxElement WithStartSourceCodePosition(int startLineNumber, int startColumnNumber)
+    {
+        OriginalSourceCodeStartLineNumber = startLineNumber;
+        OriginalSourceCodeStartColumnNumber = startColumnNumber;
+        return this;
     }
 }
 

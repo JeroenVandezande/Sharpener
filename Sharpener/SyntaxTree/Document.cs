@@ -11,6 +11,7 @@ namespace Sharpener.SyntaxTree;
 
 public class Document
 {
+    public String[] OriginalOxygeneCode { get; set; }
     public NameSpaceElement RootElement { get; set; }
     [JsonIgnore] 
     [IgnoreDataMember] 
@@ -43,14 +44,18 @@ public class Document
     
     public bool LastKnownStatic { get; set; }
     public string LastKnownVariable { get; set; }
+    
+    public bool LastKnownInCodeBlock { get; set; }
 
-    public void returnFromCurrentScope()
+    public SyntaxElement returnFromCurrentScope()
     {
-        Scopes.Pop();
-        while (Scopes.Peek() is ISyntaxElementAutoReturnsFromScope)
+        SyntaxElement result;
+        result = Scopes.Pop();
+        while (( Scopes.Count > 0) && Scopes.Peek() is ISyntaxElementAutoReturnsFromScope)
         {
-            Scopes.Pop();
+            result = Scopes.Pop();
         }
+        return result;
     }
 
     public void AddNewElementToCurrent(SyntaxElement element)
@@ -81,27 +86,24 @@ public class Document
             Scopes.Push(element);
         }
     }
+
+    private NamespaceDeclarationSyntax _currentNameSpaceSyntax;
+    private ClassDeclarationSyntax _currentClassDeclarationSyntax;
+    private InterfaceDeclarationSyntax _currentInterfaceDelDeclarationSyntax;
     
-    private void RecurseThroughChildElements(List<ISyntaxElement> childElements, ref NamespaceDeclarationSyntax syntaxNode)
+    private void RecurseThroughChildElements(List<ISyntaxElement> childElements)
     {
         foreach (var child in childElements)
         {
-            /*if (child is IGenerateMemberSyntax)
-            {
-                if (syntaxNode is NamespaceDeclarationSyntax memberDeclaration)
-                {
-                    syntaxNode = memberDeclaration.AddMembers(((IGenerateMemberSyntax)child).GenerateCodeNode());
-                }
-            }*/
-
             if (child is ClassSyntaxElement expression)
             {
-                  syntaxNode = syntaxNode.AddMembers(expression.GenerateCodeNode());
+                _currentClassDeclarationSyntax = (ClassDeclarationSyntax) expression.GenerateCodeNode();
+                _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(_currentClassDeclarationSyntax);
             }
 
             if (child.Children.Count > 0)
             {
-         //       RecurseThroughChildElements(child.Children, syntaxNode);
+                RecurseThroughChildElements(child.Children);
             }
         }
     }
@@ -118,11 +120,11 @@ public class Document
             syntaxFactory = syntaxFactory.AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(us)));
         }
        
-        var namespaceSyntax = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(RootElement.NameSpace)).NormalizeWhitespace();
+        _currentNameSpaceSyntax = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(RootElement.NameSpace)).NormalizeWhitespace();
 
-        RecurseThroughChildElements(RootElement.Children, ref namespaceSyntax);
+        RecurseThroughChildElements(RootElement.Children);
 
-        syntaxFactory = syntaxFactory.AddMembers(namespaceSyntax);
+        syntaxFactory = syntaxFactory.AddMembers(_currentNameSpaceSyntax);
 
 
         // Add System using statement: (using System)
