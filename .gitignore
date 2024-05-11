@@ -426,3 +426,11 @@ SharpererRTL/bin/Debug/netstandard2.0/SharpererRTL.deps.json
 SharpererRTL/bin/Debug/netstandard2.0/SharpererRTL.dll
 
 SharpererRTL/bin/Debug/netstandard2.0/SharpererRTL.pdb
+
+*.user
+
+.idea/.idea.Sharpener/.idea/
+
+Sharpener/Examples/ComplexFile1.pas.cs
+
+Sharpener/Examples/ComplexFile1.pas.json
