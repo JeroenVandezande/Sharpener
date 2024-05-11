@@ -6,6 +6,76 @@ using Sharpener.OpenAI;
 
 namespace Sharpener.SyntaxTree.Scopes;
 
+
+public class MethodImplementationElement : SyntaxElement, ISyntaxElementWithScope, ISyntaxElementAutoReturnsFromScope
+{
+    private bool _NextParamIsReturnType;
+    private bool _ParamType;
+    private String _ParamName;
+    
+    public string ClassName { get; set; }
+    public string MethodName { get; set; }
+    public string ReturnType { get; set; } = "void";
+    public List<KeyValuePair<string, string>> Parameters { get; } = new List<KeyValuePair<string, string>>();
+    public override void FinishSyntaxElement(Document document)
+    {
+        base.FinishSyntaxElement(document);
+        document.LastKnownInCodeBlock = false;
+        var cls = document.FindClassByName(ClassName);
+        if (cls != null)
+        {
+            foreach (var e in cls.Children)
+            {
+                if (e is MethodElement me)
+                {
+                    if (me.MethodName.ToLower() == MethodName)
+                    {
+                        me.OriginalSourceCode = OriginalSourceCode;
+                    }
+                }
+            }
+        }
+    }
+    
+    public override void AddParameter(string param, TokenType tokenType)
+    {
+        if (tokenType == TokenType.ClosedParathesis)
+        {
+            _NextParamIsReturnType = true;
+            return;
+        }
+
+        if (_NextParamIsReturnType)
+        {
+            ReturnType = param;
+            return;
+        }
+        
+        if (string.IsNullOrEmpty(ClassName) && string.IsNullOrEmpty(MethodName))
+        {
+            var classAndMethod = param.Split(".");
+            ClassName = classAndMethod[0];
+            MethodName = classAndMethod[1];
+        }
+        else
+        {
+            if (!_ParamType)
+            {
+                _ParamName = param;
+                _ParamType = true;
+            }
+            else
+            {
+                var kvp = new KeyValuePair<string, string>(_ParamName, param);
+                Parameters.Add(kvp);
+                _ParamType = false;
+            }
+        }
+        
+    }
+
+}
+
 public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMemberSyntax, ISyntaxElementAutoReturnsFromScope
 {
     private bool _ParamType;
@@ -96,8 +166,6 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
         {
             return methodDeclaration;
         }
-
-        //methodDeclaration = methodDeclaration.WithBody(ch.GenerateCodeNode());
 
         var cscode = MethodBodyTranslation.TranslateOxygeneToCS(OriginalSourceCode);
         var cscodeLines = cscode.Split("\n").ToList();

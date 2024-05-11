@@ -11,21 +11,15 @@ namespace Sharpener.SyntaxTree;
 
 public class Document
 {
+    public bool IsInImplementationPartOfFile { get; set; }
     public String[] OriginalOxygeneCode { get; set; }
     public NameSpaceElement RootElement { get; set; }
-    [JsonIgnore] 
-    [IgnoreDataMember] 
-    public Stack<SyntaxElement> Scopes { get; } = new Stack<SyntaxElement>();
+    [JsonIgnore] [IgnoreDataMember] public Stack<SyntaxElement> Scopes { get; } = new Stack<SyntaxElement>();
 
-    [JsonIgnore] 
-    [IgnoreDataMember] 
-    public SyntaxElement CurrentElement
-    {
-        get;
-        set;
-    }
-    [JsonIgnore] 
-    [IgnoreDataMember] 
+    [JsonIgnore] [IgnoreDataMember] public SyntaxElement CurrentElement { get; set; }
+
+    [JsonIgnore]
+    [IgnoreDataMember]
     public SyntaxElement CurrentScope
     {
         get
@@ -40,21 +34,45 @@ public class Document
             }
         }
     }
-    public VisibilityLevel LastKnownVisibilityLevel { get; set; }
+
+    public ClassSyntaxElement _FindClassByName(string className, ISyntaxElement parent)
+    {
+        if (parent is ClassSyntaxElement cse)
+        {
+            if (cse.ClassName.ToLower() == className)
+            {
+                return cse;
+            }
+        }
+
+        foreach (var c in parent.Children)
+        {
+            return _FindClassByName(className, c);
+        }
+
+        return null;
+    }
     
+    public ClassSyntaxElement FindClassByName(string className)
+    {
+        return _FindClassByName(className, RootElement);
+    }
+
+    public VisibilityLevel LastKnownVisibilityLevel { get; set; }
     public bool LastKnownStatic { get; set; }
     public string LastKnownVariable { get; set; }
-    
     public bool LastKnownInCodeBlock { get; set; }
 
     public SyntaxElement returnFromCurrentScope()
     {
         SyntaxElement result;
         result = Scopes.Pop();
-        while (( Scopes.Count > 0) && Scopes.Peek() is ISyntaxElementAutoReturnsFromScope)
+        while ((Scopes.Count > 0) && Scopes.Peek() is ISyntaxElementAutoReturnsFromScope)
         {
             result = Scopes.Pop();
         }
+        
+        CurrentElement = Scopes.Peek();
         return result;
     }
 
@@ -72,13 +90,19 @@ public class Document
 
         if (RootElement == null)
         {
-            RootElement =(NameSpaceElement) element;
+            RootElement = (NameSpaceElement)element;
         }
-        
     }
-    
+
     public void AddNewElementToCurrentAndMakeCurrent(SyntaxElement element)
     {
+        if (CurrentElement is MethodElement)
+        {
+            if (element is MethodElement)
+            {
+                returnFromCurrentScope();
+            }
+        }
         AddNewElementToCurrent(element);
         CurrentElement = element;
         if (element is ISyntaxElementWithScope)
@@ -90,14 +114,14 @@ public class Document
     private NamespaceDeclarationSyntax _currentNameSpaceSyntax;
     private ClassDeclarationSyntax _currentClassDeclarationSyntax;
     private InterfaceDeclarationSyntax _currentInterfaceDelDeclarationSyntax;
-    
+
     private void RecurseThroughChildElements(List<ISyntaxElement> childElements)
     {
         foreach (var child in childElements)
         {
             if (child is ClassSyntaxElement expression)
             {
-                _currentClassDeclarationSyntax = (ClassDeclarationSyntax) expression.GenerateCodeNode();
+                _currentClassDeclarationSyntax = (ClassDeclarationSyntax)expression.GenerateCodeNode();
                 _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(_currentClassDeclarationSyntax);
             }
 
@@ -113,14 +137,15 @@ public class Document
         var options = CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.CSharp9);
         // Create CompilationUnitSyntax
         var syntaxFactory = SyntaxFactory.CompilationUnit();
-        
+
 
         foreach (var us in RootElement.Usings)
         {
             syntaxFactory = syntaxFactory.AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(us)));
         }
-       
-        _currentNameSpaceSyntax = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(RootElement.NameSpace)).NormalizeWhitespace();
+
+        _currentNameSpaceSyntax = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(RootElement.NameSpace))
+            .NormalizeWhitespace();
 
         RecurseThroughChildElements(RootElement.Children);
 
@@ -132,17 +157,17 @@ public class Document
 
         // Create a namespace: (namespace CodeGenerationSample)
         //var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName("CodeGenerationSample")).NormalizeWhitespace();
-        
+
         //  Create a class: (class Order)
         //var classDeclaration = SyntaxFactory.ClassDeclaration("Order");
 
         // Add the public modifier: (public class Order)
-       // classDeclaration = classDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+        // classDeclaration = classDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
         // Inherit BaseEntity<T> and implement IHaveIdentity: (public class Order : BaseEntity<T>, IHaveIdentity)
-       // classDeclaration = classDeclaration.AddBaseListTypes(
-            //SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("BaseEntity<Order>")),
-            //SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("IHaveIdentity")));
+        // classDeclaration = classDeclaration.AddBaseListTypes(
+        //SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("BaseEntity<Order>")),
+        //SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("IHaveIdentity")));
 
         // Create a string variable: (bool canceled;)
         //var variableDeclaration = SyntaxFactory.VariableDeclaration(SyntaxFactory.ParseTypeName("bool"))
@@ -154,10 +179,10 @@ public class Document
 
         // Create a Property: (public int Quantity { get; set; })
         //var propertyDeclaration = SyntaxFactory.PropertyDeclaration(SyntaxFactory.ParseTypeName("int"), "Quantity")
-         //   .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-         //   .AddAccessorListAccessors(
-         //       SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
-         //       SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+        //   .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+        //   .AddAccessorListAccessors(
+        //       SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
+        //       SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
 
         // Create a stament with the body of a method.
         //var syntax = SyntaxFactory.ParseStatement("canceled = true;");

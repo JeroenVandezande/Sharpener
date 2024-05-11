@@ -1,3 +1,4 @@
+using harpener.SyntaxTree.Scopes;
 using Sharpener.Enums;
 using Sharpener.SyntaxTree.Literals;
 using Sharpener.SyntaxTree.Scopes;
@@ -45,6 +46,13 @@ public class TokenParser
                         
                         break;
                     }
+
+                    case TokenType.ImplementationSection:
+                    {
+                        document.AddNewElementToCurrentAndMakeCurrent(new ImplementationSectionSyntaxElement());
+                        document.IsInImplementationPartOfFile = true;
+                        break;
+                    }
                     
                     case TokenType.PropertyKeyword:
                     {
@@ -66,10 +74,21 @@ public class TokenParser
                     
                     case TokenType.CodeBlockEnd:
                     {
+                        if (document.CurrentScope is MethodElement)
+                        {
+                            document.returnFromCurrentScope();
+                        }
                         var current = document.returnFromCurrentScope();
                         current.OriginalSourceCodeStopLineNumber = token.LineNumber;
                         current.OriginalSourceCodeStopColumnNumber = token.TokenIndex;
                         current.FinishSyntaxElement(document);
+                        break;
+                    }
+
+                    case TokenType.CaseKeyword:
+                    {
+                        document.AddNewElementToCurrentAndMakeCurrent(new CaseSyntaxElement()
+                            .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
                     }
 
@@ -102,12 +121,22 @@ public class TokenParser
                     case TokenType.MethodKeyword:
                     {
                         if (document.LastKnownInCodeBlock) break;
-                        var me = new MethodElement()
-                            .WithVisibility(document.LastKnownVisibilityLevel)
-                            .WithStaticApplied(document.LastKnownStatic)
-                            .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex); 
-                        document.AddNewElementToCurrentAndMakeCurrent(me);
-                        document.LastKnownStatic = false;
+                        if (document.IsInImplementationPartOfFile)
+                        {
+                            var me = new MethodImplementationElement()
+                                .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex);
+                            document.AddNewElementToCurrentAndMakeCurrent(me);
+                        }
+                        else
+                        {
+                            var me = new MethodElement()
+                                .WithVisibility(document.LastKnownVisibilityLevel)
+                                .WithStaticApplied(document.LastKnownStatic)
+                                .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex);
+                            document.AddNewElementToCurrentAndMakeCurrent(me);
+                            document.LastKnownStatic = false;
+                        }
+
                         break;
                     }
 
