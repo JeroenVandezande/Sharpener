@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Sharpener": {
-      "commandName": "Project",
-      "commandLineArgs": "../../../Examples/ComplexFile1.pas"
-    }
-  }
-}

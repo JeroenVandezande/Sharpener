@@ -434,3 +434,9 @@ SharpererRTL/bin/Debug/netstandard2.0/SharpererRTL.pdb
 Sharpener/Examples/ComplexFile1.pas.cs
 
 Sharpener/Examples/ComplexFile1.pas.json
+
+Sharpener/bin/Debug/net8.0/
+
+Sharpener_UnitTests/bin/Debug/net8.0/
+
+Sharpener/Properties/launchSettings.json

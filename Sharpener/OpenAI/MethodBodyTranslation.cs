@@ -1,0 +1,32 @@
+using OpenAI_API;
+using OpenAI_API.Chat;
+using OpenAI_API.Models;
+
+namespace Sharpener.OpenAI;
+
+public static class MethodBodyTranslation
+{
+    private static OpenAIAPI _API = new OpenAIAPI(new APIAuthentication(KeyContainer.APIKey));
+    private static Conversation _chat = _API.Chat.CreateConversation();
+
+    static MethodBodyTranslation()
+    {
+        _chat.Model = Model.GPT4_Turbo;
+        _chat.RequestParameters.Temperature = 0;
+        _chat.AppendSystemMessage(@"You are a master in translating code from Remobjects Oxygen to C#.
+        Refrain from explaining, do not say anything else.
+        Do not add a code-block around the resulting code.
+        Translate the given Oxygene method to c#.
+        Only return the method body, NOT the method definition.
+        Make sure to keep the comments above the statements as they are in Oxygene.
+        insert a New Line before each comment.");
+    }
+    
+    public static string TranslateOxygeneToCS(string oxygeneCode)
+    {
+        string result = String.Empty;
+        _chat.AppendUserInput(oxygeneCode);
+        result = _chat.GetResponseFromChatbotAsync().Result;
+        return result;
+    }
+}

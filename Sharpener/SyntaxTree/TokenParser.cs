@@ -12,6 +12,7 @@ public class TokenParser
     private IToken _TwoTokensBack;
     public void ParseTokens(Tokenizer tonkenizer, ref Document document)
     {
+        var isInInterfacePartOfFile = false;
         foreach (var token in tonkenizer.Tokens)
         {
             var tokenWithText = token as ITokenWithText;
@@ -40,6 +41,12 @@ public class TokenParser
                         break;
                     }
 
+                    case TokenType.InterfaceKeyword:
+                    {
+                        isInInterfacePartOfFile = true;
+                        break;
+                    }
+                    
                     case TokenType.PropertyKeyword:
                     {
                         document.AddNewElementToCurrentAndMakeCurrent(new PropertySyntaxElement()
@@ -96,10 +103,19 @@ public class TokenParser
                     case TokenType.MethodKeyword:
                     {
                         if (document.LastKnownInCodeBlock) break;
-                        document.AddNewElementToCurrentAndMakeCurrent(new MethodElement()
+                        var me = new MethodElement()
                             .WithVisibility(document.LastKnownVisibilityLevel)
                             .WithStaticApplied(document.LastKnownStatic)
-                            .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
+                            .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex);
+                        if (isInInterfacePartOfFile)
+                        {
+                            
+                        }
+                        else
+                        {
+                            document.AddNewElementToCurrentAndMakeCurrent(me);
+                        }
+
                         document.LastKnownStatic = false;
                         break;
                     }

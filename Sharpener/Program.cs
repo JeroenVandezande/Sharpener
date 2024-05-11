@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Newtonsoft.Json;
+using Sharpener.OpenAI;
 using Sharpener.SyntaxTree;
 
 namespace Sharpener
@@ -12,6 +13,7 @@ namespace Sharpener
             if (args.Length == 0)
                 return; // return if no file was dragged onto exe
             string filename = args[0];
+            KeyContainer.APIKey = args[1];
             var lines = File.ReadLines(filename).ToArray();
             var tokenizer = new Tokenizer();
             

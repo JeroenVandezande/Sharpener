@@ -1,6 +1,8 @@
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpener.Enums;
+using Sharpener.OpenAI;
 
 namespace Sharpener.SyntaxTree.Scopes;
 
@@ -95,22 +97,32 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
             return methodDeclaration;
         }
 
-        
-        foreach (var child in Children)
+        //methodDeclaration = methodDeclaration.WithBody(ch.GenerateCodeNode());
+
+        var cscode = MethodBodyTranslation.TranslateOxygeneToCS(OriginalSourceCode);
+        var cscodeLines = cscode.Split("\n").ToList();
+        var methodStatements = new List<StatementSyntax>();
+        SyntaxTrivia previousComment = SyntaxFactory.Comment("");
+        bool hasComment = false;
+        foreach (var codeline in cscodeLines)
         {
-            if (child is IGenerateStatementSyntax)
+            if (codeline.Trim().StartsWith("//"))
             {
-                var ch = (IGenerateStatementSyntax) child;
-                methodDeclaration = methodDeclaration.AddBodyStatements(ch.GenerateCodeNode());
+                previousComment = SyntaxFactory.Comment(codeline.Trim());
+                hasComment = true;
             }
-            
-            if (child is IGenerateCodeBlock)
+            else
             {
-                var ch = (IGenerateCodeBlock) child;
-                methodDeclaration = methodDeclaration.WithBody(ch.GenerateCodeNode());
+                var ms = SyntaxFactory.ParseStatement(codeline);
+                if (hasComment)
+                {
+                    ms.WithLeadingTrivia(previousComment);
+                    hasComment = false;
+                }
+                methodStatements.Add(ms);
             }
         }
-
+        methodDeclaration = methodDeclaration.WithBody(SyntaxFactory.Block(methodStatements));
         return methodDeclaration;
     }
 }
