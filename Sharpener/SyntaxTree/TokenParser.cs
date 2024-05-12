@@ -74,7 +74,7 @@ public class TokenParser
                     
                     case TokenType.CodeBlockEnd:
                     {
-                        if (document.CurrentScope is MethodElement)
+                        if ((document.CurrentScope is MethodElement) && document.IsInClassPartOfFile)
                         {
                             document.returnFromCurrentScope();
                         }
@@ -156,7 +156,7 @@ public class TokenParser
                     }
                     case TokenType.ClassKeyword:
                     {
-                        if (document.CurrentScope is not ClassSyntaxElement)
+                        if (!(document.IsInClassPartOfFile || document.IsInImplementationPartOfFile))
                         {
                             document.AddNewElementToCurrentAndMakeCurrent(new ClassSyntaxElement()
                                 .WithClassName(document.LastKnownVariable)
@@ -164,6 +164,7 @@ public class TokenParser
                                 .WithStaticApplied(document.LastKnownStatic));
                             document.LastKnownStatic = false;
                             document.LastKnownVisibilityLevel = VisibilityLevel.None;
+                            document.IsInClassPartOfFile = true;
                         }
                         else
                         {

@@ -2,7 +2,7 @@ using Sharpener.Enums;
 
 namespace Sharpener.SyntaxTree.Scopes;
 
-public class CaseSyntaxElement: SyntaxElement, ISyntaxElementAutoReturnsFromScope
+public class CaseSyntaxElement: SyntaxElement, ISyntaxElementWithScope
 {
     
 }

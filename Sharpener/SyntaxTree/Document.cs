@@ -12,6 +12,7 @@ namespace Sharpener.SyntaxTree;
 public class Document
 {
     public bool IsInImplementationPartOfFile { get; set; }
+    public bool IsInClassPartOfFile { get; set; }
     public String[] OriginalOxygeneCode { get; set; }
     public NameSpaceElement RootElement { get; set; }
     [JsonIgnore] [IgnoreDataMember] public Stack<SyntaxElement> Scopes { get; } = new Stack<SyntaxElement>();
@@ -39,7 +40,7 @@ public class Document
     {
         if (parent is ClassSyntaxElement cse)
         {
-            if (cse.ClassName.ToLower() == className)
+            if (cse.ClassName.ToLower() == className.ToLower())
             {
                 return cse;
             }
@@ -47,7 +48,11 @@ public class Document
 
         foreach (var c in parent.Children)
         {
-            return _FindClassByName(className, c);
+            var found = _FindClassByName(className, c);
+            if (found != null)
+            {
+                return found;
+            }
         }
 
         return null;
@@ -55,6 +60,10 @@ public class Document
     
     public ClassSyntaxElement FindClassByName(string className)
     {
+        if (String.IsNullOrEmpty(className))
+        {
+            return null;
+        }
         return _FindClassByName(className, RootElement);
     }
 
@@ -62,6 +71,7 @@ public class Document
     public bool LastKnownStatic { get; set; }
     public string LastKnownVariable { get; set; }
     public bool LastKnownInCodeBlock { get; set; }
+    
 
     public SyntaxElement returnFromCurrentScope()
     {

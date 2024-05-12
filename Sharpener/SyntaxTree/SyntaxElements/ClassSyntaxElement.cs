@@ -10,7 +10,13 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
     public List<String> InheritsFrom { get; set; } = new List<string>();
     public VisibilityLevel Visibility { get; set; }
     public bool IsStatic { get; set; }
-    
+
+    public override void FinishSyntaxElement(Document document)
+    {
+        base.FinishSyntaxElement(document);
+        document.IsInClassPartOfFile = false;
+    }
+
     public ClassSyntaxElement WithVisibility(VisibilityLevel visibilityLevel)
     {
         Visibility = visibilityLevel;

@@ -28,7 +28,7 @@ public class MethodImplementationElement : SyntaxElement, ISyntaxElementWithScop
             {
                 if (e is MethodElement me)
                 {
-                    if (me.MethodName.ToLower() == MethodName)
+                    if (me.MethodName.ToLower() == MethodName.ToLower())
                     {
                         me.OriginalSourceCode = OriginalSourceCode;
                     }
