@@ -113,10 +113,17 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
             _NextParamIsReturnType = true;
             return;
         }
+        
+        if (tokenType == TokenType.Colon)
+        {
+            _NextParamIsReturnType = true;
+            return;
+        }
 
         if (_NextParamIsReturnType)
         {
             ReturnType = param;
+            _NextParamIsReturnType = false;
             return;
         }
         
@@ -168,7 +175,7 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
         }
 
         var cscode = MethodBodyTranslation.TranslateOxygeneToCS(OriginalSourceCode);
-        var cscodeLines = cscode.Split("\r\n").ToList();
+        var cscodeLines = cscode.Split("\n").ToList();
         var methodStatements = new List<StatementSyntax>();
         SyntaxTrivia previousComment = SyntaxFactory.Comment("");
         bool hasComment = false;

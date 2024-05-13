@@ -4,13 +4,10 @@ using Sharpener.Enums;
 
 namespace Sharpener.SyntaxTree.Scopes;
 
-public class SimpleAttributeSyntaxElement : SyntaxElement, IGenerateMemberSyntax
+public class SimpleAttributeSyntaxElement : SyntaxElement
 {
     public String AttributeText { get; set; }
-    public MemberDeclarationSyntax GenerateCodeNode()
-    {
-        throw new NotImplementedException();
-    }
+    
 }
 
 public class AttributeSyntaxElement : SyntaxElement, IGenerateMemberSyntax

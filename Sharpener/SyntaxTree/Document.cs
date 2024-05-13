@@ -150,7 +150,7 @@ public class Document
 
     public string CreateCSharpCode()
     {
-        var options = CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.CSharp9);
+        //var options = CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.CSharp9);
         // Create CompilationUnitSyntax
         var syntaxFactory = SyntaxFactory.CompilationUnit();
 

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using OpenAI_API;
 using OpenAI_API.Chat;
 using OpenAI_API.Models;
@@ -8,10 +9,15 @@ public static class MethodBodyTranslation
 {
     private static OpenAIAPI _API = new OpenAIAPI(new APIAuthentication(KeyContainer.APIKey));
     private static Conversation _chat = _API.Chat.CreateConversation();
+    private static Stopwatch _stopWatch = new Stopwatch();
+    
+    public static bool SkipOpenAICalls { get; set; }
 
     static MethodBodyTranslation()
     {
-        _chat.Model = Model.GPT4_32k_Context;
+        _stopWatch.Start();
+        var model =  new Model("gpt-4o") { OwnedBy = "openai" };
+        _chat.Model = model;
         _chat.RequestParameters.Temperature = 0;
         _chat.AppendSystemMessage(@"You are a master in translating code from Remobjects Oxygene to C#.
         Refrain from explaining, do not say anything else.
@@ -23,9 +29,14 @@ public static class MethodBodyTranslation
     
     public static string TranslateOxygeneToCS(string oxygeneCode)
     {
+        while (_stopWatch.ElapsedMilliseconds < 2000)
+        {
+            Thread.Sleep(100);
+        }
         string result = String.Empty;
         _chat.AppendUserInput(oxygeneCode);
         result = _chat.GetResponseFromChatbotAsync().Result;
+        _stopWatch.Restart();
         return result;
     }
 }

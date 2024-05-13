@@ -21,19 +21,19 @@ public class TokenParser
                     case TokenType.Variable:
                     {
                         // If the last element was static then add it as a property
-                        if (document.LastKnownStatic)
-                        {
-                            document.AddNewElementToCurrentAndMakeCurrent(new PropertySyntaxElement()
-                                    .WithVisibility(document.LastKnownVisibilityLevel)
-                                    .WithStaticApplied(document.LastKnownStatic));
-                            document.LastKnownStatic = false;
-                        }
+                        //if (document.LastKnownStatic)
+                       // {
+                        //    document.AddNewElementToCurrentAndMakeCurrent(new PropertySyntaxElement()
+                        //            .WithVisibility(document.LastKnownVisibilityLevel)
+                        //            .WithStaticApplied(document.LastKnownStatic));
+                        //    document.LastKnownStatic = false;
+                       // }
 
                         // If we are in a code block then add it as a variable
-                        if (document.CurrentElement is CodeBlockSyntaxElement)
-                        {
-                            document.AddNewElementToCurrentAndMakeCurrent(new LiteralSyntaxElement());
-                        }
+                       // if (document.CurrentElement is CodeBlockSyntaxElement)
+                        //{
+                       //     document.AddNewElementToCurrentAndMakeCurrent(new LiteralSyntaxElement());
+                       // }
                         
                         document.CurrentElement.AddParameter(tokenWithText.TokenText, token.TokenType);
                         document.LastKnownVariable = tokenWithText.TokenText;
@@ -44,6 +44,14 @@ public class TokenParser
                     case TokenType.InterfaceKeyword:
                     {
                         
+                        break;
+                    }
+                    
+                    case TokenType.OpenBracket:
+                    {
+                        if (document.LastKnownInCodeBlock) break;
+                        document.AddNewElementToCurrentAndMakeCurrent(new SimpleAttributeSyntaxElement()
+                            .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
                     }
 
@@ -226,6 +234,16 @@ public class TokenParser
                         if (document.CurrentScope is MethodElement)
                         {
                             document.CurrentElement.AddParameter(null, TokenType.ClosedParathesis);
+                        }
+
+                        break;
+                    }
+                    
+                    case TokenType.Colon:
+                    {
+                        if (document.CurrentScope is MethodElement)
+                        {
+                            document.CurrentElement.AddParameter(null, TokenType.Colon);
                         }
 
                         break;
