@@ -11,7 +11,7 @@ public static class MethodBodyTranslation
 
     static MethodBodyTranslation()
     {
-        _chat.Model = Model.GPT4_Turbo;
+        _chat.Model = Model.GPT4_32k_Context;
         _chat.RequestParameters.Temperature = 0;
         _chat.AppendSystemMessage(@"You are a master in translating code from Remobjects Oxygene to C#.
         Refrain from explaining, do not say anything else.
