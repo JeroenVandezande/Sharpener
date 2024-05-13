@@ -6,6 +6,7 @@ namespace Sharpener.SyntaxTree.Scopes;
 
 public class EnumSyntaxElement : SyntaxElement, IGenerateMemberSyntax
 {
+    private bool _pastLastEnumValue = false;
     public String EnumName { get; set; }
     public List<String> EnumValues { get; set; } = new List<string>();
     public VisibilityLevel Visibility { get; set; }
@@ -30,7 +31,16 @@ public class EnumSyntaxElement : SyntaxElement, IGenerateMemberSyntax
     
     public override void AddParameter(string param, TokenType tokenType)
     {
-        EnumValues.Add(param);
+        if (!_pastLastEnumValue)
+        {
+            EnumValues.Add(param);
+        }
+    }
+
+    public override void SemicolonWasDetected()
+    {
+        base.SemicolonWasDetected();
+        _pastLastEnumValue = true;
     }
 
     public MemberDeclarationSyntax GenerateCodeNode()

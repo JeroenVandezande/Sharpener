@@ -20,6 +20,7 @@ public interface ISyntaxElement
     public int OriginalSourceCodeStopColumnNumber { get; set; }
     public void AddParameter(string param, TokenType tokenType);
     public void FinishSyntaxElement(Document document);
+    void SemicolonWasDetected();
 }
 
 public interface IGenerateMemberSyntax : ISyntaxElement
@@ -76,7 +77,11 @@ public abstract class SyntaxElement: ISyntaxElement
         var subset = document.OriginalOxygeneCode.Skip(OriginalSourceCodeStartLineNumber - 1).Take(OriginalSourceCodeStopLineNumber - OriginalSourceCodeStartLineNumber + 1);
         OriginalSourceCode = String.Join(Environment.NewLine, subset);
     }
-    
+
+    public virtual void SemicolonWasDetected()
+    {
+    }
+
     public SyntaxElement WithStartSourceCodePosition(int startLineNumber, int startColumnNumber)
     {
         OriginalSourceCodeStartLineNumber = startLineNumber;
