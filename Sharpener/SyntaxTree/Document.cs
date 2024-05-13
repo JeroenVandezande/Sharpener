@@ -134,6 +134,12 @@ public class Document
                 _currentClassDeclarationSyntax = (ClassDeclarationSyntax)expression.GenerateCodeNode();
                 _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(_currentClassDeclarationSyntax);
             }
+            
+            if (child is EnumSyntaxElement enumExpression)
+            {
+                var enumDeclarationSyntax = (EnumDeclarationSyntax)enumExpression.GenerateCodeNode();
+                _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(enumDeclarationSyntax);
+            }
 
             if (child.Children.Count > 0)
             {

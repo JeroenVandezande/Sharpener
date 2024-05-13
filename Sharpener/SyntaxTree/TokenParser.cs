@@ -172,6 +172,16 @@ public class TokenParser
                         }
                         break;
                     }
+                    
+                    case TokenType.EnumKeyword:
+                    {
+                        document.AddNewElementToCurrentAndMakeCurrent(new EnumSyntaxElement()
+                            .WithEnumName(document.LastKnownVariable)
+                            .WithVisibility(document.LastKnownVisibilityLevel));
+                        document.LastKnownStatic = false;
+                        document.LastKnownVisibilityLevel = VisibilityLevel.None;
+                        break;
+                    }
 
                     case TokenType.Comment:
                     {
