@@ -168,7 +168,7 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
         }
 
         var cscode = MethodBodyTranslation.TranslateOxygeneToCS(OriginalSourceCode);
-        var cscodeLines = cscode.Split("\n").ToList();
+        var cscodeLines = cscode.Split("\r\n").ToList();
         var methodStatements = new List<StatementSyntax>();
         SyntaxTrivia previousComment = SyntaxFactory.Comment("");
         bool hasComment = false;
@@ -184,7 +184,7 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
                 var ms = SyntaxFactory.ParseStatement(codeline);
                 if (hasComment)
                 {
-                    ms.WithLeadingTrivia(previousComment);
+                    ms = ms.WithLeadingTrivia(previousComment);
                     hasComment = false;
                 }
                 methodStatements.Add(ms);
