@@ -10,6 +10,8 @@ public static class MethodBodyTranslation
     private static OpenAIAPI _API = new OpenAIAPI(new APIAuthentication(KeyContainer.APIKey));
     private static Conversation _chat = _API.Chat.CreateConversation();
     private static Stopwatch _stopWatch = new Stopwatch();
+    private static readonly int _RateLimit = 500;
+    private static readonly int _RateDelayInms = (int)(1000.0 / _RateLimit) + 2; //+2 for safety
     
     public static bool SkipOpenAICalls { get; set; }
 
@@ -30,9 +32,9 @@ public static class MethodBodyTranslation
     public static string TranslateOxygeneToCS(string oxygeneCode)
     {
         if (SkipOpenAICalls) return "/* " + oxygeneCode + " */";
-        while (_stopWatch.ElapsedMilliseconds < 2000)
+        while (_stopWatch.ElapsedMilliseconds < _RateDelayInms)
         {
-            Thread.Sleep(100);
+            Thread.Sleep(5);
         }
         string result = String.Empty;
         _chat.AppendUserInput(oxygeneCode);
