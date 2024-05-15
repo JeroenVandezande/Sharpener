@@ -29,7 +29,7 @@ public static class MethodBodyTranslation
     
     public static string TranslateOxygeneToCS(string oxygeneCode)
     {
-        if(SkipOpenAICalls) return String.Empty;
+        if (SkipOpenAICalls) return "/* " + oxygeneCode + " */";
         while (_stopWatch.ElapsedMilliseconds < 2000)
         {
             Thread.Sleep(100);
