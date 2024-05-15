@@ -14,6 +14,7 @@ namespace Sharpener
                 return; // return if no file was dragged onto exe
             string filename = args[0];
             KeyContainer.APIKey = args[1];
+            MethodBodyTranslation.SkipOpenAICalls = args[2].ToLower() == "skipapi" ? true : false; 
             var lines = File.ReadLines(filename).ToArray();
             var tokenizer = new Tokenizer();
             
