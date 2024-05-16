@@ -1,0 +1,15 @@
+Things TODO for Sharpener
+
+Attributes - Dana
+Constants (type inference)
+class Variables
+class Variables (type inference)
+Properties - Jeroen
+Interfaces (ISometing, ...)
+Delegate definitions
+Events
+Records
+External Methods
+Aspects
+Interface Delegation
+
