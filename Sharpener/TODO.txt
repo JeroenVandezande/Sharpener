@@ -5,7 +5,7 @@ Constants (type inference)
 class Variables
 class Variables (type inference)
 Properties - Jeroen
-Interfaces (ISometing, ...)
+Interfaces (ISomething, ...)
 Delegate definitions
 Events
 Records
