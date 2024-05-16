@@ -1,6 +1,6 @@
 Things TODO for Sharpener
 
-API Rate limiting - Jeroen
+API Rate limiting - DONE
 Attributes - Dana
 Constants (type inference)
 class Variables
