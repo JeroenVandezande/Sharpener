@@ -50,6 +50,7 @@ public class TokenParser
                     case TokenType.OpenBracket:
                     {
                         if (document.LastKnownInCodeBlock) break;
+                        if (document.CurrentElement is PropertySyntaxElement) break;
                         document.AddNewElementToCurrentAndMakeCurrent(new SimpleAttributeSyntaxElement()
                             .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
