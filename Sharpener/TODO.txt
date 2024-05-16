@@ -4,7 +4,8 @@ Attributes - Dana
 Constants (type inference)
 class Variables
 class Variables (type inference)
-Properties - Jeroen
+Properties (Indexer) - Jeroen
+Properties (Getter/Setter) - Jeroen
 Interfaces (ISomething, ...)
 Delegate definitions
 Events
