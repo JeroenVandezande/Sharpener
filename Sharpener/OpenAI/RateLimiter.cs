@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 
 namespace Sharpener.OpenAI;
@@ -5,49 +6,55 @@ namespace Sharpener.OpenAI;
 internal class APIRate
 {
     public DateTime TimeOfTransmission { get; set; }
-    public int NumberOfTokes { get; set; }
+    public int NumberOfTokens { get; set; }
 }
 
-public static class RateLimiter
+public class RateLimiter
 {
-    private static int _maxRate = 30000;
-    private static Queue<APIRate> _rates = new Queue<APIRate>(); 
-    private static List<string> _Tokenize(string input)
-    {
-        var tokens = new List<string>();
-        var tokenMatches = Regex.Matches(input, @"\w+|[^\w\s]");
-        foreach (Match match in tokenMatches)
-        {
-            tokens.Add(match.Value);
-        }
-        return tokens;
-    }
-    
-    private static int _GetTokenCount(string input)
-    {
-        return _Tokenize(input).Count;
-    }
-    
-    public static void WaitIfNeeded(string apiRequest)
-    {
-        var r = new APIRate();
-        r.NumberOfTokes = _GetTokenCount(apiRequest);
-        r.TimeOfTransmission = DateTime.Now;
-        _rates.Enqueue(r);
-        var totalTokensUsed = _maxRate + 1;
-        while (totalTokensUsed >= _maxRate)
-        {
-            while (_rates.Count > 0 && (DateTime.Now - _rates.Peek().TimeOfTransmission).TotalMilliseconds > 1000)
-            {
-                _rates.Dequeue();
-            }
+    private readonly ConcurrentQueue<APIRate> _tokenUsageQueue = new ConcurrentQueue<APIRate>();
 
-            totalTokensUsed = 0;
-            foreach (var rate in _rates)
-            {
-                totalTokensUsed += rate.NumberOfTokes;
-            }
+    public int CombinedRateLimit { get; set; }  // Combined max tokens per minute
+    
+    
+    public  void WaitIfNeeded(int completionTokens)
+    {
+        
+        // Track the tokens used by this request and response
+        _tokenUsageQueue.Enqueue(new APIRate { NumberOfTokens = completionTokens, TimeOfTransmission = DateTime.Now });
+        LogState("After Enqueue");
+
+        CleanUpOldEntries();
+
+        var totalTokensUsed = _tokenUsageQueue.Sum(rate => rate.NumberOfTokens);
+
+        // Wait if the total tokens used exceed the rate limit
+        while (totalTokensUsed >= CombinedRateLimit)
+        {
             Thread.Sleep(100);
+            CleanUpOldEntries();
+            totalTokensUsed = _tokenUsageQueue.Sum(rate => rate.NumberOfTokens);
+            LogState($"During Waiting: TotalTokensUsed={totalTokensUsed}");
         }
     }
+    
+    private void CleanUpOldEntries()
+    {
+        while (_tokenUsageQueue.TryPeek(out var oldestEntry) && (DateTime.Now - oldestEntry.TimeOfTransmission).TotalMilliseconds > 60000)
+        {
+            _tokenUsageQueue.TryDequeue(out _);
+        }
+        LogState("After Cleanup");
+    }
+
+    private void LogState(string context)
+    {
+        Console.WriteLine($"{context}:");
+        foreach (var rate in _tokenUsageQueue)
+        {
+            Console.WriteLine($"Time: {rate.TimeOfTransmission:HH:mm:ss.fff}, Tokens: {rate.NumberOfTokens}");
+        }
+        var totalTokensUsed = _tokenUsageQueue.Sum(rate => rate.NumberOfTokens);
+        Console.WriteLine($"Total Tokens Used: {totalTokensUsed} / {CombinedRateLimit}");
+    }
+
 }
