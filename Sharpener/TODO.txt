@@ -14,4 +14,5 @@ Records
 External Methods
 Aspects
 Interface Delegation
+Notify keyword -> Fody
 
