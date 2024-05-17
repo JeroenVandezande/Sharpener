@@ -47,6 +47,15 @@ public class TokenParser
                         break;
                     }
                     
+                    case TokenType.NullableTypeDefinition:
+                    {
+                        if (document.CurrentElement is PropertySyntaxElement pse)
+                        {
+                            pse.IsNullable = true;
+                        }
+                        break;
+                    }
+                    
                     case TokenType.OpenBracket:
                     {
                         if (document.LastKnownInCodeBlock) break;

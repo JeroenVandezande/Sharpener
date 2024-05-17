@@ -8,6 +8,8 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
 {
     public string PropertyName { get; set; }
     public string Propertytype { get; set; }
+    
+    public bool IsNullable { get; set; }
     public VisibilityLevel VisibilityLevel { get; set; }
     public bool IsStatic { get; set; }
 
@@ -56,8 +58,10 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
                 break;
         }
         // Create a Property
+        var propType = OxygeneTypeTranslator.ConvertOxygeneTypeToCS(Propertytype);
+        propType = propType + (IsNullable ? "?" : "");
         var propertyDeclaration = SyntaxFactory
-            .PropertyDeclaration(SyntaxFactory.ParseTypeName(Propertytype), PropertyName)
+            .PropertyDeclaration(SyntaxFactory.ParseTypeName(propType), PropertyName)
             .AddModifiers(SyntaxFactory.Token(vis))
             .AddAccessorListAccessors(
                SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
