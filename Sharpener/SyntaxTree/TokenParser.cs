@@ -245,6 +245,11 @@ public class TokenParser
                         {
                             document.CurrentElement.AddParameter(null, TokenType.ClosedParathesis);
                         }
+                        
+                        if (document.CurrentScope is ClassSyntaxElement cse)
+                        {
+                            cse.IsClassDefinitionFinished = true;
+                        }
 
                         break;
                     }
@@ -275,24 +280,40 @@ public class TokenParser
                     case TokenType.PublicKeyword:
                     {
                         document.LastKnownVisibilityLevel = VisibilityLevel.Public;
+                        if (document.CurrentScope is ClassSyntaxElement cse)
+                        {
+                            cse.IsClassDefinitionFinished = true;
+                        }
                         break;
                     }
                     
                     case TokenType.ProtectedKeyword:
                     {
                         document.LastKnownVisibilityLevel = VisibilityLevel.Protected;
+                        if (document.CurrentScope is ClassSyntaxElement cse)
+                        {
+                            cse.IsClassDefinitionFinished = true;
+                        }
                         break;
                     }
                     
                     case TokenType.PrivateKeyword:
                     {
                         document.LastKnownVisibilityLevel = VisibilityLevel.Private;
+                        if (document.CurrentScope is ClassSyntaxElement cse)
+                        {
+                            cse.IsClassDefinitionFinished = true;
+                        }
                         break;
                     }
                     
                     case TokenType.AssemblyKeyword:
                     {
                         document.LastKnownVisibilityLevel = VisibilityLevel.Assembly;
+                        if (document.CurrentScope is ClassSyntaxElement cse)
+                        {
+                            cse.IsClassDefinitionFinished = true;
+                        }
                         break;
                     }
                 }

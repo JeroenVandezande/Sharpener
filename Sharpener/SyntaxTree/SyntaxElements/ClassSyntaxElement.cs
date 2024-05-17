@@ -11,6 +11,8 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
     public VisibilityLevel Visibility { get; set; }
     public bool IsStatic { get; set; }
 
+    public bool IsClassDefinitionFinished { get; set; } = false;
+
     public override void FinishSyntaxElement(Document document)
     {
         base.FinishSyntaxElement(document);
@@ -37,7 +39,10 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
     
     public override void AddParameter(string param, TokenType tokenType)
     {
-        InheritsFrom.Add(param);
+        if (!IsClassDefinitionFinished)
+        {
+            InheritsFrom.Add(param);
+        }
     }
 
     public MemberDeclarationSyntax GenerateCodeNode()
