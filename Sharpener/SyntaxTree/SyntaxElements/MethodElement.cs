@@ -96,7 +96,7 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
 
     public MethodElement WithVisibility(VisibilityLevel visibilityLevel)
     {
-        visibilityLevel = visibilityLevel;
+        VisibilityLevel = visibilityLevel;
         return this;
     }
 
