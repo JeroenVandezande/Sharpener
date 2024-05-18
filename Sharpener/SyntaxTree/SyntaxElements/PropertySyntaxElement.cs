@@ -66,6 +66,12 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
             .AddAccessorListAccessors(
                SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
                SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+        
+        if (IsStatic)
+        {
+            propertyDeclaration = propertyDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
+        }
+        
         return propertyDeclaration;
     }
 }

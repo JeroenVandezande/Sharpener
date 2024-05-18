@@ -15,8 +15,8 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
 
     public override void FinishSyntaxElement(Document document)
     {
-        base.FinishSyntaxElement(document);
         document.IsInClassPartOfFile = false;
+        base.FinishSyntaxElement(document);
     }
 
     public ClassSyntaxElement WithVisibility(VisibilityLevel visibilityLevel)

@@ -3,7 +3,8 @@ Things TODO for Sharpener
 API Rate limiting - DONE
 Attributes - Dana
 Constants (type inference)
-class Variables
+class Variables - DONE
+class Variables (Initialization) - Jeroen
 class Variables (type inference)
 Properties (Indexer) - Jeroen
 Properties (Getter/Setter) - Jeroen
