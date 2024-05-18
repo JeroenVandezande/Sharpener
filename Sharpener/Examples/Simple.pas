@@ -4,6 +4,7 @@ uses
   System.Linq;
 
 type
+  [AttributeHere]
   Program = class
   public
     class method Main(): Int32;

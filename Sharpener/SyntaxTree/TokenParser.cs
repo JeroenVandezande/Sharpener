@@ -74,7 +74,7 @@ public class TokenParser
                     {
                         if (document.LastKnownInCodeBlock) break;
                         if (document.CurrentElement is PropertySyntaxElement) break;
-                        document.AddNewElementToCurrentAndMakeCurrent(new SimpleAttributeSyntaxElement()
+                        document.AddNewElementToCurrentAndMakeCurrent(new AttributeSyntaxElement()
                             .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
                     }
@@ -83,8 +83,9 @@ public class TokenParser
                     {
                         if (document.LastKnownInCodeBlock) break;
                         if (document.CurrentElement is PropertySyntaxElement) break;
-                        if (document.CurrentElement is SimpleAttributeSyntaxElement)
+                        if (document.CurrentElement is AttributeSyntaxElement)
                         {
+                            document.CurrentElement.FinishSyntaxElement(document);
                             document.returnFromCurrentScope();
                         }
                         break;

@@ -15,6 +15,9 @@ public class Document
     public bool IsInClassPartOfFile { get; set; }
     public String[] OriginalOxygeneCode { get; set; }
     public NameSpaceElement RootElement { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public List<IAttributeElement> AttributeCache { get; set; } = new List<IAttributeElement>();
     [JsonIgnore] [IgnoreDataMember] public Stack<SyntaxElement> Scopes { get; } = new Stack<SyntaxElement>();
 
     [JsonIgnore] [IgnoreDataMember] public SyntaxElement CurrentElement { get; set; }
@@ -96,6 +99,19 @@ public class Document
                 ps.Children.Add(element);
                 element.Parent = ps;
             }
+
+            if (element is AttributeSyntaxElement attributeElement)
+            {
+                AttributeCache.Add(attributeElement);
+            }
+            else
+            {
+                if (AttributeCache.Count > 0)
+                {
+                    CurrentElement.Attributes = new List<IAttributeElement>(AttributeCache);
+                    AttributeCache.Clear();
+                }
+            }
         }
 
         if (RootElement == null)
@@ -115,6 +131,7 @@ public class Document
         }
         AddNewElementToCurrent(element);
         CurrentElement = element;
+        
         if (element is ISyntaxElementWithScope)
         {
             Scopes.Push(element);

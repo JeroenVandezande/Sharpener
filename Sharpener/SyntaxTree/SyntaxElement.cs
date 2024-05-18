@@ -6,6 +6,7 @@ using Sharpener.Enums;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Sharpener.SyntaxTree.Scopes;
 
 namespace Sharpener.SyntaxTree;
 
@@ -47,6 +48,12 @@ public interface ISyntaxElementWithScope
 {
 }
 
+public interface IAttributeElement
+{
+    public bool AttributeRequiresCodeConversion { get; set; }
+    public String AttributeText { get; set; }
+}
+
 public interface ISyntaxElementAutoReturnsFromScope
 {
 }
@@ -61,6 +68,9 @@ public abstract class SyntaxElement: ISyntaxElement
     [JsonIgnore] 
     [IgnoreDataMember] 
     public ISyntaxElement Parent { get; set; }
+    [JsonIgnore] 
+    [IgnoreDataMember]
+    public List<IAttributeElement> Attributes { get; set; }
 
     public string OriginalSourceCode { get; set; }
     public int OriginalSourceCodeStartLineNumber { get; set; }
@@ -74,6 +84,7 @@ public abstract class SyntaxElement: ISyntaxElement
 
     public virtual void FinishSyntaxElement(Document document)
     {
+
         var subset = document.OriginalOxygeneCode.Skip(OriginalSourceCodeStartLineNumber - 1).Take(OriginalSourceCodeStopLineNumber - OriginalSourceCodeStartLineNumber + 1);
         OriginalSourceCode = String.Join(Environment.NewLine, subset);
     }

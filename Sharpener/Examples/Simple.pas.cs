@@ -7,7 +7,9 @@ namespace SimpleConsoleApp
     {
         public static Int32 Main()
         {
-            Console.WriteLine("'The magic happens here.'");
+            begin // add your own code here
+            writeLn('The magic happens here.');
+            end; * /
         }
     }
 }

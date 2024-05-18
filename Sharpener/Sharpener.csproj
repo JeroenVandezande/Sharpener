@@ -17,11 +17,13 @@
 
   <ItemGroup>
     <Compile Remove="Examples\ComplexFile1.pas.cs" />
+    <Compile Remove="Examples\EIAVariableFilters.pas.cs" />
     <Compile Remove="Examples\Simple.pas.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Examples\ComplexFile1.pas.cs" />
+    <None Include="Examples\EIAVariableFilters.pas.cs" />
   </ItemGroup>
 
 </Project>
