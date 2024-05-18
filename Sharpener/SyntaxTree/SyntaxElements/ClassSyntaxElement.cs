@@ -37,12 +37,18 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
         return this;
     }
     
-    public override void AddParameter(string param, TokenType tokenType)
+    public override bool WithToken(Document document, IToken token)
     {
-        if (!IsClassDefinitionFinished)
+        if (token is ITokenWithText param)
         {
-            InheritsFrom.Add(param);
+            if (!IsClassDefinitionFinished)
+            {
+                InheritsFrom.Add(param.TokenText);
+                return true;
+            }
         }
+
+        return false;
     }
 
     public MemberDeclarationSyntax GenerateCodeNode()

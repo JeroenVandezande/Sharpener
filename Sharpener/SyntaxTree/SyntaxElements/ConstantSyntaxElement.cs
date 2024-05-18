@@ -17,19 +17,24 @@ public class ConstantSyntaxElement: SyntaxElement, ISyntaxElementWithScope
         return this;
     }
 
-    public override void AddParameter(string param, TokenType tokenType)
+    public override bool WithToken(Document document, IToken token)
     {
-        if (String.IsNullOrEmpty(ConstantName))
+        if (token is ITokenWithText param)
         {
-            ConstantName = param;
-            return;
+            if (String.IsNullOrEmpty(ConstantName))
+            {
+                ConstantName = param.TokenText;
+                return true;
+            }
+
+            if (String.IsNullOrEmpty(ConstantValue))
+            {
+                ConstantValue = param.TokenText;
+                return true;
+            }
         }
-        
-        if (String.IsNullOrEmpty(ConstantValue))
-        {
-            ConstantValue = param;
-            return;
-        }
+
+        return false;
     }
     
 }

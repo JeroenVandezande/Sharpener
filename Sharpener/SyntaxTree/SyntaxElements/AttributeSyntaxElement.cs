@@ -10,21 +10,25 @@ public class AttributeSyntaxElement : SyntaxElement, IAttributeElement
     public String AttributeText { get; set; }
     public bool AttributeRequiresCodeConversion { get; set; }
 
-    public override void AddParameter(string param, TokenType tokenType)
+    public override bool WithToken(Document document, IToken token)
     {
-        if (tokenType == TokenType.Variable)
+        if (token is ITokenWithText param)
         {
-            if (String.IsNullOrEmpty(AttributeText))
+            if (token.TokenType == TokenType.Variable)
             {
-                AttributeText = param;
+                if (String.IsNullOrEmpty(AttributeText))
+                {
+                    AttributeText = param.TokenText;
+                    return true;
+                }
             }
+            else
+            {
+                AttributeRequiresCodeConversion = false;
+            }
+        }
 
-            return;
-        }
-        else
-        {
-            AttributeRequiresCodeConversion = false;
-        }
+        return false;
     }
 
     public override void FinishSyntaxElement(Document document)

@@ -18,7 +18,7 @@ public class ConstructorSyntaxElement: SyntaxElement, ISyntaxElementWithScope, I
     
     public ConstructorSyntaxElement WithVisibility(VisibilityLevel visibilityLevel)
     {
-        visibilityLevel = visibilityLevel;
+        VisibilityLevel = visibilityLevel;
         return this;
     }
 
@@ -27,18 +27,25 @@ public class ConstructorSyntaxElement: SyntaxElement, ISyntaxElementWithScope, I
         IsStatic = isStaticApplied;
         return this;
     }
-    public override void AddParameter(string param, TokenType tokenType)
+    public override bool WithToken(Document document, IToken token)
     {
-        if (!_ParamType)
+        if (token is ITokenWithText param)
         {
-            _ParamName = param;
-            _ParamType = true;
+            if (!_ParamType)
+            {
+                _ParamName = param.TokenText;
+                _ParamType = true;
+                return true;
+            }
+            else
+            {
+                var kvp = new KeyValuePair<string, string>(_ParamName, param.TokenText);
+                Parameters.Add(kvp);
+                _ParamType = false;
+                return true;
+            }
         }
-        else
-        {
-            var kvp = new KeyValuePair<string, string>(_ParamName, param);
-            Parameters.Add(kvp);
-            _ParamType = false;
-        }
+
+        return false;
     }
 }

@@ -2,7 +2,7 @@ using Sharpener.Enums;
 
 namespace Sharpener.SyntaxTree.Scopes;
 
-public class NewObjectSyntaxElement: SyntaxElement, ISyntaxElementAutoReturnsFromScope
+/*public class NewObjectSyntaxElement: SyntaxElement, ISyntaxElementAutoReturnsFromScope
 {
     public string ClassName { get; set; }
     
@@ -13,4 +13,4 @@ public class NewObjectSyntaxElement: SyntaxElement, ISyntaxElementAutoReturnsFro
             ClassName = param;
         }
     }
-}
+}*/

@@ -8,7 +8,8 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
 {
     public string PropertyName { get; set; }
     public string Propertytype { get; set; }
-    
+    public string GetterCode { get; set; }
+    public string SetterCode { get; set; }
     public bool IsNullable { get; set; }
     public VisibilityLevel VisibilityLevel { get; set; }
     public bool IsStatic { get; set; }
@@ -41,23 +42,8 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
 
     public MemberDeclarationSyntax GenerateCodeNode()
     {
-        SyntaxKind vis = SyntaxKind.None;
-        switch (VisibilityLevel)
-        {
-            case VisibilityLevel.Public:
-                vis = SyntaxKind.PublicKeyword;
-                break;
-            case VisibilityLevel.Private:
-                vis = SyntaxKind.PrivateKeyword;
-                break;
-            case VisibilityLevel.Protected:
-                vis = SyntaxKind.ProtectedKeyword;
-                break;
-            case VisibilityLevel.Assembly:
-                vis = SyntaxKind.AssemblyKeyword;
-                break;
-        }
-        
+        var vis = Tools.VisibilityToSyntaxKind(VisibilityLevel);
+       
         // Create a Property
         if (String.IsNullOrEmpty(Propertytype)) return null;
         var propType = OxygeneTypeTranslator.ConvertOxygeneTypeToCS(Propertytype);

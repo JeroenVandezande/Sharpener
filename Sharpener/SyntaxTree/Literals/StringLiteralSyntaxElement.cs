@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Sharpener.SyntaxTree.Literals
 {
-    public class LiteralSyntaxElement : SyntaxElement, IGenerateExpressionSyntax
+    /*public class LiteralSyntaxElement : SyntaxElement, IGenerateExpressionSyntax
     {
         public string Literal { get; set; }
         public override void AddParameter(string param, TokenType tokenType)
@@ -26,6 +26,6 @@ namespace Sharpener.SyntaxTree.Literals
         {
             return SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(Literal));
         }
-    }
+    }*/
 
 }

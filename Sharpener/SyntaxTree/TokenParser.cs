@@ -15,6 +15,14 @@ public class TokenParser
     {
         foreach (var token in tonkenizer.Tokens)
         {
+            if (document.CurrentElement != null)
+            {
+                if (document.CurrentElement.WithToken(document, token))
+                {
+                    continue;
+                }
+            }
+            
             var tokenWithText = token as ITokenWithText;
             switch (token.TokenType)
                 {
@@ -49,13 +57,25 @@ public class TokenParser
                            
                        }
                         
-                        document.CurrentElement.AddParameter(tokenWithText.TokenText, token.TokenType);
+                        //document.CurrentElement.AddParameter(tokenWithText.TokenText, token.TokenType);
                         document.LastKnownVariable = tokenWithText.TokenText;
 
                         break;
                     }
 
                     case TokenType.InterfaceKeyword:
+                    {
+                        
+                        break;
+                    }
+                    
+                    case TokenType.ReadGetterKeyword:
+                    {
+                        
+                        break;
+                    }
+                    
+                    case TokenType.WriteSetterKeyword:
                     {
                         
                         break;
