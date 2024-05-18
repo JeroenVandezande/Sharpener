@@ -117,6 +117,19 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
     {
         if (token is ITokenWithText param)
         {
+            if(token.TokenType == TokenType.EmptyKeyword)
+            {
+                if (document.CurrentScope is MethodElement me)
+                {
+                    var current = document.returnFromCurrentScope();
+                    current.OriginalSourceCodeStopLineNumber = token.LineNumber;
+                    current.OriginalSourceCodeStopColumnNumber = token.TokenIndex;
+                    current.FinishSyntaxElement(document);
+                    me.IsEmpty = true;
+                    return true;
+                }
+            }
+            
             if (token.TokenType == TokenType.ClosedParathesis)
             {
                 _NextParamIsReturnType = true;

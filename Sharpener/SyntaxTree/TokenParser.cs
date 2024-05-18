@@ -301,32 +301,9 @@ public class TokenParser
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
                             document.IsInClassPartOfFile = true;
-                            cse.IsClassDefinitionFinished = true;
+                            cse.ElementIsFinished = true;
                         }
 
-                        break;
-                    }
-                    
-                    case TokenType.Colon:
-                    {
-                        /*if (document.CurrentScope is MethodElement)
-                        {
-                            document.CurrentElement.AddParameter(null, TokenType.Colon);
-                        }*/
-
-                        break;
-                    }
-                    
-                    case TokenType.EmptyKeyword:
-                    {
-                        if (document.CurrentScope is MethodElement me)
-                        {
-                            var current = document.returnFromCurrentScope();
-                            current.OriginalSourceCodeStopLineNumber = token.LineNumber;
-                            current.OriginalSourceCodeStopColumnNumber = token.TokenIndex;
-                            current.FinishSyntaxElement(document);
-                            me.IsEmpty = true;
-                        }
                         break;
                     }
 
@@ -336,7 +313,7 @@ public class TokenParser
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
                             document.IsInClassPartOfFile = true;
-                            cse.IsClassDefinitionFinished = true;
+                            cse.ElementIsFinished = true;
                         }
                         break;
                     }
@@ -347,7 +324,7 @@ public class TokenParser
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
                             document.IsInClassPartOfFile = true;
-                            cse.IsClassDefinitionFinished = true;
+                            cse.ElementIsFinished = true;
                         }
                         break;
                     }
@@ -358,7 +335,7 @@ public class TokenParser
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
                             document.IsInClassPartOfFile = true;
-                            cse.IsClassDefinitionFinished = true;
+                            cse.ElementIsFinished = true;
                         }
                         break;
                     }
@@ -369,7 +346,7 @@ public class TokenParser
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
                             document.IsInClassPartOfFile = true;
-                            cse.IsClassDefinitionFinished = true;
+                            cse.ElementIsFinished = true;
                         }
                         break;
                     }

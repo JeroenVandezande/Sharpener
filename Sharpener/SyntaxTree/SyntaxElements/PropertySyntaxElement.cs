@@ -6,10 +6,12 @@ namespace Sharpener.SyntaxTree.Scopes;
 
 public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMemberSyntax
 {
+    private bool _getterIsNext = false;
+    private bool _setterIsNext = false;
     public string PropertyName { get; set; }
     public string Propertytype { get; set; }
-    public string GetterCode { get; set; }
-    public string SetterCode { get; set; }
+    public string GetterCode { get; set; } = String.Empty;
+    public string SetterCode { get; set; } = String.Empty;
     public bool IsNullable { get; set; }
     public VisibilityLevel VisibilityLevel { get; set; }
     public bool IsStatic { get; set; }
@@ -28,6 +30,42 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
 
     public override bool WithToken(Document document, IToken token)
     {
+        if (token.TokenType == TokenType.ReadGetterKeyword)
+        {
+            _getterIsNext = true;
+            _setterIsNext = false;
+            return true;
+        }
+        
+        if (token.TokenType == TokenType.WriteSetterKeyword)
+        {
+            _getterIsNext = false;
+            _setterIsNext = true;
+            return true;
+        }
+        
+        if (token.TokenType == TokenType.SemiColon)
+        {
+            _getterIsNext = false;
+            _setterIsNext = false;
+            ElementIsFinished = true;
+            return true;
+        }
+
+        if (_getterIsNext)
+        {
+            // TODO get the getter Oxygene code
+            //GetterCode += 
+            return true;
+        }
+        
+        if (_setterIsNext)
+        {
+            // TODO get the setter Oxygene code
+            //SetterCode += 
+            return true;
+        }
+        
         if (token is ITokenWithText param)
         {
             if (String.IsNullOrEmpty(PropertyName))

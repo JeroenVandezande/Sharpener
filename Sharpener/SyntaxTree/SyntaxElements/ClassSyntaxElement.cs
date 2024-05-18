@@ -10,9 +10,6 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
     public List<String> InheritsFrom { get; set; } = new List<string>();
     public VisibilityLevel Visibility { get; set; }
     public bool IsStatic { get; set; }
-
-    public bool IsClassDefinitionFinished { get; set; } = false;
-
     public override void FinishSyntaxElement(Document document)
     {
         document.IsInClassPartOfFile = false;
@@ -41,7 +38,7 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
     {
         if (token is ITokenWithText param)
         {
-            if (!IsClassDefinitionFinished)
+            if (!ElementIsFinished)
             {
                 InheritsFrom.Add(param.TokenText);
                 return true;
