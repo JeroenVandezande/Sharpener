@@ -94,6 +94,8 @@ public class NameSpaceElement : SyntaxElement, ISyntaxElementWithScope
 {
     public List<String> Usings { get; set; } = new List<string>(){"System"};
     public String NameSpace { get; set; }
+    
+    public bool ElementIsFinished { get; set; }
     public override void AddParameter(string param, TokenType tokenType)
     {
         if (String.IsNullOrEmpty(NameSpace))
@@ -102,6 +104,10 @@ public class NameSpaceElement : SyntaxElement, ISyntaxElementWithScope
         }
         else
         {
+            if (ElementIsFinished)
+            {
+                return;
+            }
             if (!Usings.Contains(param))
             {
                 Usings.Add(param);

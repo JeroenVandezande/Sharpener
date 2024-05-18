@@ -137,6 +137,10 @@ public class TokenParser
 
                     case TokenType.TypeDeclarationKeyword:
                     {
+                        if (document.CurrentElement is NameSpaceElement nse)
+                        {
+                            nse.ElementIsFinished = true;
+                        }
                         document.AddNewElementToCurrentAndMakeCurrent(new TypeSyntaxElement().WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
                     }
