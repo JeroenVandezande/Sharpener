@@ -113,45 +113,53 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
         return this;
     }
     
-    public override void AddParameter(string param, TokenType tokenType)
+    public override bool WithToken(Document document, IToken token)
     {
-        if (tokenType == TokenType.ClosedParathesis)
+        if (token is ITokenWithText param)
         {
-            _NextParamIsReturnType = true;
-            return;
-        }
-        
-        if (tokenType == TokenType.Colon)
-        {
-            _NextParamIsReturnType = true;
-            return;
-        }
-
-        if (_NextParamIsReturnType)
-        {
-            ReturnType = param;
-            _NextParamIsReturnType = false;
-            return;
-        }
-        
-        if (string.IsNullOrEmpty(MethodName))
-        {
-            MethodName = param;
-        }
-        else
-        {
-            if (!_ParamType)
+            if (token.TokenType == TokenType.ClosedParathesis)
             {
-                _ParamName = param;
-                _ParamType = true;
+                _NextParamIsReturnType = true;
+                return true;
+            }
+
+            if (token.TokenType == TokenType.Colon)
+            {
+                _NextParamIsReturnType = true;
+                return true;
+            }
+
+            if (_NextParamIsReturnType)
+            {
+                ReturnType = param.TokenText;
+                _NextParamIsReturnType = false;
+                return true;
+            }
+
+            if (string.IsNullOrEmpty(MethodName))
+            {
+                MethodName = param.TokenText;
+                return true;
             }
             else
             {
-                var kvp = new KeyValuePair<string, string>(_ParamName, param);
-                Parameters.Add(kvp);
-                _ParamType = false;
+                if (!_ParamType)
+                {
+                    _ParamName = param.TokenText;
+                    _ParamType = true;
+                    return true;
+                }
+                else
+                {
+                    var kvp = new KeyValuePair<string, string>(_ParamName, param.TokenText);
+                    Parameters.Add(kvp);
+                    _ParamType = false;
+                    return true;
+                }
             }
         }
+
+        return false;
     }
 
     public MemberDeclarationSyntax GenerateCodeNode()
