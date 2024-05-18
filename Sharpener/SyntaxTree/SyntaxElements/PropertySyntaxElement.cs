@@ -57,7 +57,9 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
                 vis = SyntaxKind.AssemblyKeyword;
                 break;
         }
+        
         // Create a Property
+        if (String.IsNullOrEmpty(Propertytype)) return null;
         var propType = OxygeneTypeTranslator.ConvertOxygeneTypeToCS(Propertytype);
         propType = propType + (IsNullable ? "?" : "");
         var propertyDeclaration = SyntaxFactory

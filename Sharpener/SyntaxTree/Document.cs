@@ -100,18 +100,7 @@ public class Document
                 element.Parent = ps;
             }
 
-            if (element is AttributeSyntaxElement attributeElement)
-            {
-                AttributeCache.Add(attributeElement);
-            }
-            else
-            {
-                if (AttributeCache.Count > 0)
-                {
-                    CurrentElement.Attributes = new List<IAttributeElement>(AttributeCache);
-                    AttributeCache.Clear();
-                }
-            }
+           
         }
 
         if (RootElement == null)
@@ -131,6 +120,19 @@ public class Document
         }
         AddNewElementToCurrent(element);
         CurrentElement = element;
+        
+        if (element is AttributeSyntaxElement attributeElement)
+        {
+            AttributeCache.Add(attributeElement);
+        }
+        else
+        {
+            if (AttributeCache.Count > 0)
+            {
+                CurrentElement.Attributes = new List<IAttributeElement>(AttributeCache);
+                AttributeCache.Clear();
+            }
+        }
         
         if (element is ISyntaxElementWithScope)
         {

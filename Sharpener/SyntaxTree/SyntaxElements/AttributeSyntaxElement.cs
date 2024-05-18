@@ -5,16 +5,20 @@ using System.Reflection;
 
 namespace Sharpener.SyntaxTree.Scopes;
 
-public class AttributeSyntaxElement : SyntaxElement, IAttributeElement, ISyntaxElementWithScope
+public class AttributeSyntaxElement : SyntaxElement, IAttributeElement
 {
-    public String AttributeText { get; set; } = "["; // Default attribute starting character
+    public String AttributeText { get; set; }
     public bool AttributeRequiresCodeConversion { get; set; }
 
     public override void AddParameter(string param, TokenType tokenType)
     {
         if (tokenType == TokenType.Variable)
         {
-            AttributeText += param;
+            if (String.IsNullOrEmpty(AttributeText))
+            {
+                AttributeText = param;
+            }
+
             return;
         }
         else
@@ -25,14 +29,17 @@ public class AttributeSyntaxElement : SyntaxElement, IAttributeElement, ISyntaxE
 
     public override void FinishSyntaxElement(Document document)
     {
-        if (!AttributeRequiresCodeConversion)
-        {
-            AttributeText += "]";
-        }
         base.FinishSyntaxElement(document);
         if (AttributeRequiresCodeConversion)
         {
             AttributeText = this.OriginalSourceCode;
         }
+    }
+
+    public AttributeSyntax GenerateCodeNode()
+    {
+        AttributeSyntax result;
+        result = SyntaxFactory.Attribute(SyntaxFactory.ParseName(AttributeText));
+        return result;
     }
 }

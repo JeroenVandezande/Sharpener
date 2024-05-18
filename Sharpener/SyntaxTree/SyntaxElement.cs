@@ -52,6 +52,7 @@ public interface IAttributeElement
 {
     public bool AttributeRequiresCodeConversion { get; set; }
     public String AttributeText { get; set; }
+    public AttributeSyntax  GenerateCodeNode();
 }
 
 public interface ISyntaxElementAutoReturnsFromScope

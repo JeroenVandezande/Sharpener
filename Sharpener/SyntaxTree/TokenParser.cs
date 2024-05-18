@@ -73,7 +73,7 @@ public class TokenParser
                     case TokenType.OpenBracket:
                     {
                         if (document.LastKnownInCodeBlock) break;
-                        if (document.CurrentElement is PropertySyntaxElement) break;
+                        //if (document.CurrentElement is PropertySyntaxElement) break;
                         document.AddNewElementToCurrentAndMakeCurrent(new AttributeSyntaxElement()
                             .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
@@ -82,11 +82,11 @@ public class TokenParser
                     case TokenType.ClosedBracket:
                     {
                         if (document.LastKnownInCodeBlock) break;
-                        if (document.CurrentElement is PropertySyntaxElement) break;
+                       // if (document.CurrentElement is PropertySyntaxElement) break;
                         if (document.CurrentElement is AttributeSyntaxElement)
                         {
                             document.CurrentElement.FinishSyntaxElement(document);
-                            document.returnFromCurrentScope();
+                            //document.returnFromCurrentScope();
                         }
                         break;
                     }
@@ -162,7 +162,7 @@ public class TokenParser
 
                     case TokenType.NewKeyword:
                     {
-                        document.AddNewElementToCurrentAndMakeCurrent(new NewObjectSyntaxElement());
+                        //document.AddNewElementToCurrentAndMakeCurrent(new NewObjectSyntaxElement());
                         break;
                     }
 

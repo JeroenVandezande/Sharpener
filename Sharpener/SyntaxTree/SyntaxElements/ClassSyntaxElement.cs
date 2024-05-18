@@ -74,14 +74,33 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
                  classDeclaration.AddBaseListTypes(
                      SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName(inh)));
          }
-
+         
          foreach (var child in Children)
          {
              if (child is IGenerateMemberSyntax)
              {
-                 classDeclaration = classDeclaration.AddMembers(((IGenerateMemberSyntax)child).GenerateCodeNode());
+                 var c = ((IGenerateMemberSyntax)child).GenerateCodeNode();
+                 if(c == null) continue;
+                 classDeclaration = classDeclaration.AddMembers(c);
              }
          }
+         
+         var attributeSyntaxList = new List<AttributeSyntax>();
+         if (Attributes != null)
+         {
+             foreach (var attr in Attributes)
+             {
+                 attributeSyntaxList.Add(attr.GenerateCodeNode());
+             }
+         }
+         
+         var attributeListSyntax = SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList(attributeSyntaxList));
+
+         if (attributeSyntaxList.Count > 0)
+         {
+             classDeclaration = classDeclaration.WithAttributeLists(SyntaxFactory.SingletonList(attributeListSyntax));
+         }
+         
          return classDeclaration;
     }
 }

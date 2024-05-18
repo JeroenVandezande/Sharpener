@@ -173,7 +173,7 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
         {
             return methodDeclaration;
         }
-
+        
         var cscode = MethodBodyTranslation.TranslateOxygeneToCS(OriginalSourceCode);
         var cscodeLines = cscode.Split("\n").ToList();
         var methodStatements = new List<StatementSyntax>();
@@ -198,6 +198,23 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
             }
         }
         methodDeclaration = methodDeclaration.WithBody(SyntaxFactory.Block(methodStatements));
+
+        var attributeSyntaxList = new List<AttributeSyntax>();
+        if (Attributes != null)
+        {
+            foreach (var attr in Attributes)
+            {
+                attributeSyntaxList.Add(attr.GenerateCodeNode());
+            }
+        }
+         
+        var attributeListSyntax = SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList(attributeSyntaxList));
+
+        if (attributeSyntaxList.Count > 0)
+        {
+            methodDeclaration = methodDeclaration.WithAttributeLists(SyntaxFactory.SingletonList(attributeListSyntax));
+        }
+
         return methodDeclaration;
     }
 }
