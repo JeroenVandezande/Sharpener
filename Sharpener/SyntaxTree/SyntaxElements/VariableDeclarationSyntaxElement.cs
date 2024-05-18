@@ -36,18 +36,24 @@ public class ClassVariableDeclarationSyntaxElement: SyntaxElement, ISyntaxElemen
         return this;
     }
 
-    public override void AddParameter(string param, TokenType tokenType)
+    public override bool WithToken(Document document, IToken token)
     {
-        if (String.IsNullOrEmpty(VariableName))
+        if (token is ITokenWithText param)
         {
-            VariableName = param;
-            return;
+            if (String.IsNullOrEmpty(VariableName))
+            {
+                VariableName = param.TokenText;
+                return true;
+            }
+
+            if (String.IsNullOrEmpty(Variabletype))
+            {
+                Variabletype = param.TokenText;
+                return true;
+            }
         }
-        if (String.IsNullOrEmpty(Variabletype))
-        {
-            Variabletype = param;
-            return;
-        }
+
+        return false;
     }
 
     public MemberDeclarationSyntax GenerateCodeNode()

@@ -293,10 +293,10 @@ public class TokenParser
 
                     case TokenType.ClosedParathesis:
                     {
-                        if (document.CurrentScope is MethodElement)
+                        /*if (document.CurrentScope is MethodElement)
                         {
                             document.CurrentElement.AddParameter(null, TokenType.ClosedParathesis);
-                        }
+                        }*/
                         
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
@@ -309,10 +309,10 @@ public class TokenParser
                     
                     case TokenType.Colon:
                     {
-                        if (document.CurrentScope is MethodElement)
+                        /*if (document.CurrentScope is MethodElement)
                         {
                             document.CurrentElement.AddParameter(null, TokenType.Colon);
-                        }
+                        }*/
 
                         break;
                     }

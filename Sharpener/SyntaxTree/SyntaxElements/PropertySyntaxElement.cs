@@ -26,18 +26,24 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
         return this;
     }
 
-    public override void AddParameter(string param, TokenType tokenType)
+    public override bool WithToken(Document document, IToken token)
     {
-        if (String.IsNullOrEmpty(PropertyName))
+        if (token is ITokenWithText param)
         {
-            PropertyName = param;
-            return;
+            if (String.IsNullOrEmpty(PropertyName))
+            {
+                PropertyName = param.TokenText;
+                return true;
+            }
+
+            if (String.IsNullOrEmpty(Propertytype))
+            {
+                Propertytype = param.TokenText;
+                return true;
+            }
         }
-        if (String.IsNullOrEmpty(Propertytype))
-        {
-            Propertytype = param;
-            return;
-        }
+
+        return false;
     }
 
     public MemberDeclarationSyntax GenerateCodeNode()
