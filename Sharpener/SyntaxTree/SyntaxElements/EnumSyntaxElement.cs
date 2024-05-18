@@ -29,76 +29,31 @@ public class EnumSyntaxElement : SyntaxElement, IGenerateMemberSyntax
         return this;
     }
     
-    public override void AddParameter(string param, TokenType tokenType)
+    public override bool WithToken(Document document, IToken token)
     {
-        if (!_pastLastEnumValue)
+        if (token.TokenType == TokenType.SemiColon)
         {
-            EnumValues.Add(param);
+            _pastLastEnumValue = true;
+            return true;
         }
-    }
+        
+        if (token is ITokenWithText param)
+        {
+            if (!_pastLastEnumValue)
+            {
+                EnumValues.Add(param.TokenText);
+                return true;
+            }
+        }
 
-    public override void SemicolonWasDetected()
-    {
-        base.SemicolonWasDetected();
-        _pastLastEnumValue = true;
+        return false;
     }
-
+    
     public MemberDeclarationSyntax GenerateCodeNode()
     {
         var enumDeclaration = SyntaxFactory.EnumDeclaration(EnumName);
-        /*var classDeclaration = SyntaxFactory.ClassDeclaration(ClassName);
 
-        SyntaxKind vis = SyntaxKind.None;
-        switch (Visibility)
-        {
-            case VisibilityLevel.Public:
-                vis = SyntaxKind.PublicKeyword;
-                break;
-            case VisibilityLevel.Private:
-                vis = SyntaxKind.PrivateKeyword;
-                break;
-            case VisibilityLevel.Protected:
-                vis = SyntaxKind.ProtectedKeyword;
-                break;
-            case VisibilityLevel.Assembly:
-                vis = SyntaxKind.InternalKeyword;
-                break;
-        }
-        
-         classDeclaration = classDeclaration.AddModifiers(SyntaxFactory.Token(vis));
-
-         foreach (var inh in InheritsFrom)
-         {
-             classDeclaration =
-                 classDeclaration.AddBaseListTypes(
-                     SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName(inh)));
-         }
-
-         foreach (var child in Children)
-         {
-             if (child is IGenerateMemberSyntax)
-             {
-                 classDeclaration = classDeclaration.AddMembers(((IGenerateMemberSyntax)child).GenerateCodeNode());
-             }
-         }
-         return classDeclaration;*/
-        
-        SyntaxKind vis = SyntaxKind.None;
-        switch (Visibility)
-        {
-            case VisibilityLevel.Public:
-                vis = SyntaxKind.PublicKeyword;
-                break;
-            case VisibilityLevel.Private:
-                vis = SyntaxKind.PrivateKeyword;
-                break;
-            case VisibilityLevel.Protected:
-                vis = SyntaxKind.ProtectedKeyword;
-                break;
-            case VisibilityLevel.Assembly:
-                vis = SyntaxKind.InternalKeyword;
-                break;
-        }
+        SyntaxKind vis = Tools.VisibilityToSyntaxKind(Visibility);
         
         enumDeclaration = enumDeclaration.AddModifiers(SyntaxFactory.Token(vis));
 

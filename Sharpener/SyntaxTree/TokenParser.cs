@@ -277,7 +277,6 @@ public class TokenParser
                         {
                             document.returnFromCurrentScope();
                         }
-                        document.CurrentElement.SemicolonWasDetected();
 
                         break;
                     }
