@@ -20,6 +20,9 @@ public static class Tools
             case VisibilityLevel.Assembly:
                 vis = SyntaxKind.AssemblyKeyword;
                 break;
+            case VisibilityLevel.Protected:
+                vis = SyntaxKind.ProtectedKeyword;
+                break;
         }
 
         return vis;
