@@ -11,9 +11,11 @@ namespace Sharpener.SyntaxTree;
 
 public class Document
 {
+    public bool IsNotifyKeywordUsedInFile { get; set; }
     public bool IsInImplementationPartOfFile { get; set; }
     public bool IsInClassPartOfFile { get; set; }
     public String[] OriginalOxygeneCode { get; set; }
+    public PropertySyntaxElement LastUsedProperty { get; set; }
     public NameSpaceElement RootElement { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]

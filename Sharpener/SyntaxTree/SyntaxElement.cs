@@ -116,6 +116,13 @@ public class NameSpaceElement : SyntaxElement, ISyntaxElementWithScope
     
     public override bool WithToken(Document document, IToken token)
     {
+        if (document.IsNotifyKeywordUsedInFile)
+        {
+            if (!Usings.Contains("PropertyChanged"))
+            {
+                Usings.Add("PropertyChanged");
+            }
+        }
         if (token is ITokenWithText param)
         {
             if (String.IsNullOrEmpty(NameSpace))

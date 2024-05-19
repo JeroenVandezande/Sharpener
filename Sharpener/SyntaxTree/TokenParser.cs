@@ -71,31 +71,20 @@ public class TokenParser
                         break;
                     }
                     
-                    case TokenType.ReadGetterKeyword:
+                    case TokenType.NotifyPropertyChangedImplementation:
                     {
-                        
-                        break;
-                    }
-                    
-                    case TokenType.WriteSetterKeyword:
-                    {
-                        
-                        break;
-                    }
-                    
-                    case TokenType.NullableTypeDefinition:
-                    {
-                        if (document.CurrentElement is PropertySyntaxElement pse)
+                        if (document.LastUsedProperty != null)
                         {
-                            pse.IsNullable = true;
+                            document.LastUsedProperty.HasNotifyPatternApplied = true;
                         }
                         break;
                     }
                     
+                    
+                    
                     case TokenType.OpenBracket:
                     {
                         if (document.LastKnownInCodeBlock) break;
-                        //if (document.CurrentElement is PropertySyntaxElement) break;
                         document.AddNewElementToCurrentAndMakeCurrent(new AttributeSyntaxElement()
                             .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
@@ -104,11 +93,9 @@ public class TokenParser
                     case TokenType.ClosedBracket:
                     {
                         if (document.LastKnownInCodeBlock) break;
-                       // if (document.CurrentElement is PropertySyntaxElement) break;
                         if (document.CurrentElement is AttributeSyntaxElement)
                         {
                             document.CurrentElement.FinishSyntaxElement(document);
-                            //document.returnFromCurrentScope();
                         }
                         break;
                     }

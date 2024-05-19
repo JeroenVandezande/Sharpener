@@ -7,6 +7,7 @@ namespace Sharpener.SyntaxTree.Scopes;
 
 public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMemberSyntax
 {
+    private bool _useNotifyInFile;
     private bool _getterIsNext = false;
     private bool _setterIsNext = false;
     private int _getterStart;
@@ -36,6 +37,13 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
 
     public override bool WithToken(Document document, IToken token)
     {
+        _useNotifyInFile = document.IsNotifyKeywordUsedInFile;
+        if (token.TokenType == TokenType.NullableTypeDefinition)
+        {
+            IsNullable = true;
+            return true;
+        }
+        
         if ((token.TokenType == TokenType.OpenBracket) || (token.TokenType == TokenType.ClosedBracket))
         {
             if (!ElementIsFinished)
@@ -46,12 +54,6 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
             {
                 return false;
             }
-        }
-
-        if (token.TokenType == TokenType.NotifyPropertyChangedImplementation)
-        {
-            HasNotifyPatternApplied = true;
-            return true;
         }
         
         if (token.TokenType == TokenType.ReadGetterKeyword)
@@ -100,6 +102,7 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
             _setterIsNext = false;
             ElementIsFinished = true;
             document.returnFromCurrentScope();
+            document.LastUsedProperty = this;
             return true;
         }
         
@@ -158,9 +161,37 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
         }
 
+        var attributeSyntaxList = new List<AttributeSyntax>();
+        
         if (IsStatic)
         {
             propertyDeclaration = propertyDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
+        }
+        else
+        {
+            if (_useNotifyInFile)
+            {
+                if (!HasNotifyPatternApplied)
+                {
+                    attributeSyntaxList.Add(SyntaxFactory.Attribute(SyntaxFactory.ParseName("DoNotNotify")));
+                }
+            }
+        }
+        
+        
+        if (Attributes != null)
+        {
+            foreach (var attr in Attributes)
+            {
+                attributeSyntaxList.Add(attr.GenerateCodeNode());
+            }
+        }
+         
+        var attributeListSyntax = SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList(attributeSyntaxList));
+
+        if (attributeSyntaxList.Count > 0)
+        {
+            propertyDeclaration = propertyDeclaration.WithAttributeLists(SyntaxFactory.SingletonList(attributeListSyntax));
         }
         
         return propertyDeclaration;

@@ -30,6 +30,10 @@ namespace Sharpener
             var tp = new TokenParser();
             var doc = new Document();
             doc.OriginalOxygeneCode = lines;
+            if (lines.Any(l => l.ToLower().Contains("notify;")))
+            {
+                doc.IsNotifyKeywordUsedInFile = true;
+            }
             tp.ParseTokens(tokenizer, ref doc);
             string json = JsonConvert.SerializeObject(doc, Formatting.Indented, new JsonSerializerSettings
             {
