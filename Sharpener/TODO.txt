@@ -2,6 +2,7 @@ Things TODO for Sharpener
 
 API Rate limiting - DONE
 Attributes - Dana
+Constructors
 Constants (type inference)
 class Variables - DONE
 class Variables (Initialization) - Jeroen
@@ -18,4 +19,5 @@ Aspects
 Interface Delegation
 Notify keyword -> Fody - DONE
 Tuples
+Regions
 

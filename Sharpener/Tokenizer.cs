@@ -49,6 +49,11 @@ namespace Sharpener
             // Run Tokenizer
             foreach (var line in lines)
             {
+                if (line.ToLower().Contains("$region") || line.ToLower().Contains("$endregion")) //TODO fix regions is a proper way
+                {
+                    index++;
+                    continue;
+                }
                 ParseLine(line, index);
                 index++;
             }
