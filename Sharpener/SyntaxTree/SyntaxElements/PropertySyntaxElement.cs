@@ -13,6 +13,7 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
     public string GetterCode { get; set; } = String.Empty;
     public string SetterCode { get; set; } = String.Empty;
     public bool IsNullable { get; set; }
+    public bool HasNotifyPatternApplied { get; set; }
     public VisibilityLevel VisibilityLevel { get; set; }
     public bool IsStatic { get; set; }
 
@@ -30,6 +31,12 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
 
     public override bool WithToken(Document document, IToken token)
     {
+        if (token.TokenType == TokenType.NotifyPropertyChangedImplementation)
+        {
+            HasNotifyPatternApplied = true;
+            return true;
+        }
+        
         if (token.TokenType == TokenType.ReadGetterKeyword)
         {
             _getterIsNext = true;
