@@ -146,7 +146,16 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
         {
             propertyDeclaration = propertyDeclaration.AddAccessorListAccessors(
                 SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
-                    .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.ParseExpression(PropertyGetterTranslation.TranslateOxygeneToCS(GetterCode)))));
+                    .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.ParseExpression(PropertyGetterTranslation.TranslateOxygeneToCS(GetterCode))))
+                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+        }
+        
+        if (!String.IsNullOrEmpty(SetterCode))
+        {
+            propertyDeclaration = propertyDeclaration.AddAccessorListAccessors(
+                SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
+                    .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.ParseExpression(PropertySetterTranslation.TranslateOxygeneToCS(SetterCode))))
+                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
         }
 
         if (IsStatic)
