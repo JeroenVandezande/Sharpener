@@ -6,8 +6,9 @@ Constants (type inference)
 class Variables - DONE
 class Variables (Initialization) - Jeroen
 class Variables (type inference)
-Properties (Indexer) - Jeroen
-Properties (Getter/Setter) - Jeroen
+Properties (Indexer) - DOES NOT EXIST IN C#
+Properties (Getter/Setter) - DONE
+Properties (Initialization) - Jeroen
 Interfaces (ISomething, ...)
 Delegate definitions
 Events
@@ -15,6 +16,6 @@ Records
 External Methods
 Aspects
 Interface Delegation
-Notify keyword -> Fody
+Notify keyword -> Fody - DONE
 Tuples
 

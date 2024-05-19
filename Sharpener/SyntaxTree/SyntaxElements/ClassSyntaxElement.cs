@@ -36,11 +36,22 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
     
     public override bool WithToken(Document document, IToken token)
     {
+        if (document.IsNotifyKeywordUsedInFile)
+        {
+            if (!InheritsFrom.Contains("INotifyPropertyChanged"))
+            {
+                InheritsFrom.Add("INotifyPropertyChanged");
+            }
+        }
+        
         if (token is ITokenWithText param)
         {
             if (!ElementIsFinished)
             {
-                InheritsFrom.Add(param.TokenText);
+                if (!InheritsFrom.Contains(param.TokenText))
+                {
+                    InheritsFrom.Add(param.TokenText);
+                }
                 return true;
             }
         }
