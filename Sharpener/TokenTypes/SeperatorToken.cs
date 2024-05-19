@@ -9,10 +9,14 @@ namespace Sharpener
 {
     public class SeperatorToken : BaseToken
     {
-        public SeperatorToken(int line, int tokenIndex, TokenType tokenType)
+        public int StartColumn { get; set; }
+        public int EndColumn { get; set; }
+        public SeperatorToken(int line, int tokenIndex, int startColumn, int endColumn, TokenType tokenType)
             :base(line, tokenIndex)
         {
             TokenType = tokenType;
+            StartColumn = startColumn;
+            EndColumn = endColumn;
         }
 
         public override string ToString()

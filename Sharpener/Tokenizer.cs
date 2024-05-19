@@ -58,7 +58,7 @@ namespace Sharpener
         {
             //check if line has a line comment on it
             
-            foreach (var token in KeywordSearch(line.Trim(), lineIndex))
+            foreach (var token in KeywordSearch(line, lineIndex))
             {
                 Tokens.Add(token);
             }
@@ -122,7 +122,7 @@ namespace Sharpener
                         continue;
                     }
                     
-                    tokens.Add(new SeperatorToken(lineIndex, tokenAmount, sepType));
+                    tokens.Add(new SeperatorToken(lineIndex, tokenAmount, i, i - 1, sepType));
                     continue;
                 }
 
@@ -184,7 +184,7 @@ namespace Sharpener
             TokenType tokenType;
             if (TokenizerConstants.KeywordSyntax.TryGetValue(buffer.ToString().ToLower(), out tokenType))
             {
-                tokens.Add(new KeywordToken(lineIndex, tokenAmount, tokenType));
+                tokens.Add(new KeywordToken(lineIndex, tokenAmount, index - buffer.Length, index, tokenType));
                 buffer.Clear();
                 return;
             }

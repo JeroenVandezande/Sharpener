@@ -19,6 +19,8 @@ public class TokenParser
             {
                 if (document.CurrentElement.WithToken(document, token))
                 {
+                    _TwoTokensBack = _PreviousToken;
+                    _PreviousToken = token;
                     continue;
                 }
             }
@@ -265,10 +267,7 @@ public class TokenParser
                         {
                             document.returnFromCurrentScope();
                         }
-                        if (document.CurrentScope is PropertySyntaxElement)
-                        {
-                            document.returnFromCurrentScope();
-                        }
+                        
                         if (document.CurrentScope is ConstantSyntaxElement)
                         {
                             document.returnFromCurrentScope();

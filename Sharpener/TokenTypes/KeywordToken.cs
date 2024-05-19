@@ -9,10 +9,14 @@ namespace Sharpener
 {
     public class KeywordToken: BaseToken
     {
-        public KeywordToken(int lineNumber, int tokenIndex, TokenType tokenType)
+        public int StartColumn { get; set; }
+        public int EndColumn { get; set; }
+        public KeywordToken(int lineNumber, int tokenIndex, int startColumn, int endColumn, TokenType tokenType)
             : base(lineNumber, tokenIndex)
         {
             TokenType = tokenType;
+            StartColumn = startColumn;
+            EndColumn = endColumn;
         }
 
         public override string ToString()

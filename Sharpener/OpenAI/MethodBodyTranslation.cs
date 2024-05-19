@@ -16,7 +16,7 @@ public static class MethodBodyTranslation
 
     static MethodBodyTranslation()
     {
-        _Limit.CombinedRateLimit = 25000;
+        _Limit.CombinedRateLimit = 28000;
         var model =  new Model("gpt-4o") { OwnedBy = "openai" };
         _chat.Model = model;
         _chat.RequestParameters.Temperature = 0;
