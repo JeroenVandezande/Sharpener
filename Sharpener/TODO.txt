@@ -20,7 +20,7 @@ Events
 Records
 External Methods
 Aspects
-Interface Delegation
+Interface Delegation (fSomething implements ISomething)
 Notify keyword -> Fody - DONE
 Tuples
 Regions
