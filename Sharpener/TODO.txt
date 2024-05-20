@@ -6,7 +6,7 @@ Fix method return types
 FEATURES:
 API Rate limiting - DONE
 Attributes - Dana
-Constructors
+Constructors - Dana
 Constants (type inference)
 class Variables - DONE
 class Variables (Initialization) - Jeroen
