@@ -96,6 +96,7 @@ public class TokenParser
                         if (document.CurrentElement is AttributeSyntaxElement)
                         {
                             document.CurrentElement.FinishSyntaxElement(document);
+                            document.returnFromCurrentScope();
                         }
                         break;
                     }
@@ -128,6 +129,10 @@ public class TokenParser
                     case TokenType.CodeBlockEnd:
                     {
                         if ((document.CurrentScope is MethodElement) && document.IsInClassPartOfFile)
+                        {
+                            document.returnFromCurrentScope();
+                        }
+                        if ((document.CurrentScope is ConstructorSyntaxElement) && document.IsInClassPartOfFile)
                         {
                             document.returnFromCurrentScope();
                         }
@@ -199,10 +204,25 @@ public class TokenParser
 
                     case TokenType.ConstructorKeyword:
                     {
-                        document.AddNewElementToCurrentAndMakeCurrent(new ConstructorSyntaxElement()
-                            .WithVisibility(document.LastKnownVisibilityLevel)
-                            .WithStaticApplied(document.LastKnownStatic));
-                        document.LastKnownStatic = false;
+                        if (document.LastKnownInCodeBlock) break;
+                        if (document.IsInImplementationPartOfFile)
+                        {
+                            var me = new ConstructorSyntaxImplmentationElement()
+                                .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex);
+                            document.AddNewElementToCurrentAndMakeCurrent(me);
+                        }
+                        else
+                        {
+                            var className = String.Empty;
+                            if (document.CurrentScope is ClassSyntaxElement cse) className = cse.ClassName;
+                            var me = new ConstructorSyntaxElement()
+                                .WithVisibility(document.LastKnownVisibilityLevel)
+                                .WithStaticApplied(document.LastKnownStatic)
+                                .WithClassName(className)
+                                .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex);
+                            document.AddNewElementToCurrentAndMakeCurrent(me);
+                            document.LastKnownStatic = false;
+                        }
                         break;
                     }
                     

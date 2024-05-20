@@ -1,4 +1,5 @@
 {
+  "IsNotifyKeywordUsedInFile": false,
   "IsInImplementationPartOfFile": false,
   "IsInClassPartOfFile": false,
   "OriginalOxygeneCode": [
@@ -9,6 +10,7 @@
     "",
     "type",
     "  [AttributeHere]",
+    "  [SecondAttribute]",
     "  Program = class",
     "  public",
     "    class method Main(): Int32;",
@@ -19,24 +21,37 @@
     "  end;",
     "end."
   ],
+  "LastUsedProperty": null,
   "RootElement": {
     "Usings": [
       "System",
       "System.Linq"
     ],
     "NameSpace": "SimpleConsoleApp",
-    "ElementIsFinished": true,
     "Children": [
       {
         "$type": "Sharpener.SyntaxTree.Scopes.AttributeSyntaxElement, Sharpener",
-        "AttributeText": "[AttributeHere]",
+        "AttributeText": "AttributeHere",
         "AttributeRequiresCodeConversion": false,
         "Children": [],
         "OriginalSourceCode": "",
         "OriginalSourceCodeStartLineNumber": 7,
         "OriginalSourceCodeStartColumnNumber": 0,
         "OriginalSourceCodeStopLineNumber": 0,
-        "OriginalSourceCodeStopColumnNumber": 0
+        "OriginalSourceCodeStopColumnNumber": 0,
+        "ElementIsFinished": false
+      },
+      {
+        "$type": "Sharpener.SyntaxTree.Scopes.AttributeSyntaxElement, Sharpener",
+        "AttributeText": "SecondAttribute",
+        "AttributeRequiresCodeConversion": false,
+        "Children": [],
+        "OriginalSourceCode": "",
+        "OriginalSourceCodeStartLineNumber": 8,
+        "OriginalSourceCodeStartColumnNumber": 0,
+        "OriginalSourceCodeStopLineNumber": 0,
+        "OriginalSourceCodeStopColumnNumber": 0,
+        "ElementIsFinished": false
       },
       {
         "$type": "Sharpener.SyntaxTree.Scopes.ClassSyntaxElement, Sharpener",
@@ -44,12 +59,11 @@
         "InheritsFrom": [],
         "Visibility": "Public",
         "IsStatic": false,
-        "IsClassDefinitionFinished": true,
         "Children": [
           {
             "$type": "Sharpener.SyntaxTree.Scopes.MethodElement, Sharpener",
             "MethodName": "Main",
-            "ReturnType": "Int32",
+            "ReturnType": "void",
             "Parameters": [],
             "VisibilityLevel": "Public",
             "IsStatic": true,
@@ -69,35 +83,40 @@
                     "OriginalSourceCodeStartLineNumber": 0,
                     "OriginalSourceCodeStartColumnNumber": 0,
                     "OriginalSourceCodeStopLineNumber": 0,
-                    "OriginalSourceCodeStopColumnNumber": 0
+                    "OriginalSourceCodeStopColumnNumber": 0,
+                    "ElementIsFinished": false
                   }
                 ],
                 "OriginalSourceCode": null,
-                "OriginalSourceCodeStartLineNumber": 11,
+                "OriginalSourceCodeStartLineNumber": 12,
                 "OriginalSourceCodeStartColumnNumber": 0,
                 "OriginalSourceCodeStopLineNumber": 0,
-                "OriginalSourceCodeStopColumnNumber": 0
+                "OriginalSourceCodeStopColumnNumber": 0,
+                "ElementIsFinished": false
               }
             ],
             "OriginalSourceCode": "    class method Main(): Int32;\r\n    begin\r\n      // add your own code here\r\n      writeLn('The magic happens here.');\r\n    end;",
-            "OriginalSourceCodeStartLineNumber": 10,
+            "OriginalSourceCodeStartLineNumber": 11,
             "OriginalSourceCodeStartColumnNumber": 1,
-            "OriginalSourceCodeStopLineNumber": 14,
-            "OriginalSourceCodeStopColumnNumber": 0
+            "OriginalSourceCodeStopLineNumber": 15,
+            "OriginalSourceCodeStopColumnNumber": 0,
+            "ElementIsFinished": false
           }
         ],
-        "OriginalSourceCode": "namespace SimpleConsoleApp;\r\n\r\nuses\r\n  System.Linq;\r\n\r\ntype\r\n  [AttributeHere]\r\n  Program = class\r\n  public\r\n    class method Main(): Int32;\r\n    begin\r\n      // add your own code here\r\n      writeLn('The magic happens here.');\r\n    end;\r\n  end;\r\nend.",
+        "OriginalSourceCode": "namespace SimpleConsoleApp;\r\n\r\nuses\r\n  System.Linq;\r\n\r\ntype\r\n  [AttributeHere]\r\n  [SecondAttribute]\r\n  Program = class\r\n  public\r\n    class method Main(): Int32;\r\n    begin\r\n      // add your own code here\r\n      writeLn('The magic happens here.');\r\n    end;\r\n  end;\r\nend.",
         "OriginalSourceCodeStartLineNumber": 0,
         "OriginalSourceCodeStartColumnNumber": 0,
-        "OriginalSourceCodeStopLineNumber": 15,
-        "OriginalSourceCodeStopColumnNumber": 0
+        "OriginalSourceCodeStopLineNumber": 16,
+        "OriginalSourceCodeStopColumnNumber": 0,
+        "ElementIsFinished": true
       }
     ],
     "OriginalSourceCode": null,
     "OriginalSourceCodeStartLineNumber": 0,
     "OriginalSourceCodeStartColumnNumber": 0,
     "OriginalSourceCodeStopLineNumber": 0,
-    "OriginalSourceCodeStopColumnNumber": 0
+    "OriginalSourceCodeStopColumnNumber": 0,
+    "ElementIsFinished": true
   },
   "LastKnownVisibilityLevel": "Public",
   "LastKnownStatic": false,

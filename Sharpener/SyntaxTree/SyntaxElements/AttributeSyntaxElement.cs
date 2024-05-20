@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Sharpener.SyntaxTree.Scopes;
 
-public class AttributeSyntaxElement : SyntaxElement, IAttributeElement
+public class AttributeSyntaxElement : SyntaxElement, IAttributeElement, ISyntaxElementWithScope
 {
     public String AttributeText { get; set; }
     public bool AttributeRequiresCodeConversion { get; set; }

@@ -16,7 +16,7 @@ namespace Sharpener
             KeyContainer.APIKey = args[1];
             if (args.Length > 2)
             {
-                MethodBodyTranslation.SkipOpenAICalls = args[2].ToLower() == "skipapi" ? true : false;
+                KeyContainer.SkipOpenAICalls = args[2].ToLower() == "skipapi" ? true : false;
             }
 
             var lines = File.ReadLines(filename).ToArray();

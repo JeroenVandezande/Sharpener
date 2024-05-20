@@ -5,6 +5,7 @@ uses
 
 type
   [AttributeHere]
+  [SecondAttribute]
   Program = class
   public
     class method Main(): Int32;

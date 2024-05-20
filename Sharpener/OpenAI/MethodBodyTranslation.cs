@@ -12,7 +12,7 @@ public static class MethodBodyTranslation
     private static RateLimiter _Limit = new RateLimiter();
    
     
-    public static bool SkipOpenAICalls { get; set; }
+    public static bool SkipOpenAICalls { get { return KeyContainer.SkipOpenAICalls; } }
 
     static MethodBodyTranslation()
     {
@@ -31,7 +31,7 @@ public static class MethodBodyTranslation
     
     public static string TranslateOxygeneToCS(string oxygeneCode)
     {
-        if (SkipOpenAICalls) return "/* " + oxygeneCode + " */";
+        if (KeyContainer.SkipOpenAICalls) return "/* " + oxygeneCode + " */";
        
         string result = String.Empty;
         _chat.AppendUserInput(oxygeneCode);
