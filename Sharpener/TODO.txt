@@ -1,7 +1,7 @@
 Things TODO for Sharpener
 
 BUGS:
-Fix method return types - Jeroen
+Fix method return types - DONE
 
 FEATURES:
 Method Overloads
