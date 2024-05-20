@@ -11,6 +11,7 @@ Constants (type inference)
 class Variables - DONE
 class Variables (Initialization) - Jeroen
 class Variables (type inference)
+Default Indexer
 Properties (Indexer) - DOES NOT EXIST IN C#
 Properties (Getter/Setter) - DONE
 Properties (Initialization) - Jeroen
