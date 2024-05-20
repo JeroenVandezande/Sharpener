@@ -25,6 +25,16 @@ public class TokenParser
                 }
             }
             
+            if (document.PreviousElement != null)
+            {
+                if (document.PreviousElement.WithToken(document, token))
+                {
+                    _TwoTokensBack = _PreviousToken;
+                    _PreviousToken = token;
+                    continue;
+                }
+            }
+            
             var tokenWithText = token as ITokenWithText;
             switch (token.TokenType)
                 {
@@ -70,17 +80,6 @@ public class TokenParser
                         
                         break;
                     }
-                    
-                    case TokenType.NotifyPropertyChangedImplementation:
-                    {
-                        if (document.LastUsedProperty != null)
-                        {
-                            document.LastUsedProperty.HasNotifyPatternApplied = true;
-                        }
-                        break;
-                    }
-                    
-                    
                     
                     case TokenType.OpenBracket:
                     {

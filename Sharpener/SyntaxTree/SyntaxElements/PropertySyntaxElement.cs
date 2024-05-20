@@ -44,6 +44,12 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
             return true;
         }
         
+        if (token.TokenType == TokenType.NotifyPropertyChangedImplementation)
+        {
+            HasNotifyPatternApplied = true;
+            return true;
+        }
+        
         if ((token.TokenType == TokenType.OpenBracket) || (token.TokenType == TokenType.ClosedBracket))
         {
             if (!ElementIsFinished)
@@ -102,7 +108,6 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
             _setterIsNext = false;
             ElementIsFinished = true;
             document.returnFromCurrentScope();
-            document.LastUsedProperty = this;
             return true;
         }
         

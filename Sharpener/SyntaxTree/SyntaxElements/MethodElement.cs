@@ -88,12 +88,14 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
     private bool _ParamType;
     private String _ParamName;
     private bool _NextParamIsReturnType;
+    private bool _inParamSection;
     public string MethodName { get; set; }
     public string ReturnType { get; set; } = "void";
     public List<KeyValuePair<string, string>> Parameters { get; } = new List<KeyValuePair<string, string>>();
     public VisibilityLevel VisibilityLevel { get; set; }
     public bool IsStatic { get; set; }
     public bool IsEmpty { get; set; }
+    public bool HasOverrideApplied { get; set; }
 
     public override void FinishSyntaxElement(Document document)
     {
@@ -115,33 +117,56 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
     
     public override bool WithToken(Document document, IToken token)
     {
-        if (token is ITokenWithText param)
+        if(token.TokenType == TokenType.EmptyKeyword)
         {
-            if(token.TokenType == TokenType.EmptyKeyword)
-            {
-                if (document.CurrentScope is MethodElement me)
-                {
-                    var current = document.returnFromCurrentScope();
-                    current.OriginalSourceCodeStopLineNumber = token.LineNumber;
-                    current.OriginalSourceCodeStopColumnNumber = token.TokenIndex;
-                    current.FinishSyntaxElement(document);
-                    me.IsEmpty = true;
-                    return true;
-                }
-            }
-            
-            if (token.TokenType == TokenType.ClosedParathesis)
-            {
-                _NextParamIsReturnType = true;
-                return true;
-            }
+            IsEmpty = true;
+            return true;
+        }
+        
+        if(token.TokenType == TokenType.OverrideKeyword)
+        {
+            HasOverrideApplied = true;
+            return true;
+        }
 
+        if (ElementIsFinished)
+        {
+            return false;
+        }
+        
+        if (token.TokenType == TokenType.ClosedParathesis)
+        {
+            _inParamSection = false;
+            return true;
+        }
+        
+        if (token.TokenType == TokenType.OpenParathesis)
+        {
+            _inParamSection = true;
+            return true;
+        }
+
+        if (!_inParamSection)
+        {
             if (token.TokenType == TokenType.Colon)
             {
                 _NextParamIsReturnType = true;
                 return true;
             }
+            
+            if (token.TokenType == TokenType.SemiColon)
+            {
+                var current = document.returnFromCurrentScope();
+                current.OriginalSourceCodeStopLineNumber = token.LineNumber;
+                current.OriginalSourceCodeStopColumnNumber = token.TokenIndex;
+                current.FinishSyntaxElement(document);
+                ElementIsFinished = true;
+                return true;
+            }
+        }
 
+        if (token is ITokenWithText param)
+        {
             if (_NextParamIsReturnType)
             {
                 ReturnType = param.TokenText;
@@ -241,6 +266,11 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
         if (attributeSyntaxList.Count > 0)
         {
             methodDeclaration = methodDeclaration.WithAttributeLists(SyntaxFactory.SingletonList(attributeListSyntax));
+        }
+
+        if (HasOverrideApplied)
+        {
+            methodDeclaration = methodDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.OverrideKeyword));
         }
 
         return methodDeclaration;

@@ -15,7 +15,7 @@ public class Document
     public bool IsInImplementationPartOfFile { get; set; }
     public bool IsInClassPartOfFile { get; set; }
     public String[] OriginalOxygeneCode { get; set; }
-    public PropertySyntaxElement LastUsedProperty { get; set; }
+    [JsonIgnore] [IgnoreDataMember] public SyntaxElement PreviousElement { get; set; }
     public NameSpaceElement RootElement { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]
@@ -86,7 +86,8 @@ public class Document
         {
             result = Scopes.Pop();
         }
-        
+
+        PreviousElement = CurrentElement;
         CurrentElement = Scopes.Peek();
         return result;
     }
@@ -101,8 +102,6 @@ public class Document
                 ps.Children.Add(element);
                 element.Parent = ps;
             }
-
-           
         }
 
         if (RootElement == null)
@@ -121,6 +120,7 @@ public class Document
             }
         }
         AddNewElementToCurrent(element);
+        PreviousElement = CurrentElement;
         CurrentElement = element;
         
         if (element is AttributeSyntaxElement attributeElement)
