@@ -1,5 +1,9 @@
 Things TODO for Sharpener
 
+BUGS:
+Fix method return types
+
+FEATURES:
 API Rate limiting - DONE
 Attributes - Dana
 Constructors
