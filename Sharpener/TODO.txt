@@ -20,7 +20,7 @@ Default Indexer
 Properties (Indexer) - DOES NOT EXIST IN C#
 Properties (Getter/Setter) - DONE
 Properties (Initialization) - Jeroen
-Interfaces (ISomething, ...)
+Interfaces (ISomething, ...) - Jeroen
 Delegate definitions
 Events
 Records

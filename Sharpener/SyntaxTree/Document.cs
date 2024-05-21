@@ -76,6 +76,7 @@ public class Document
     public bool LastKnownStatic { get; set; }
     public string LastKnownVariable { get; set; }
     public bool LastKnownInCodeBlock { get; set; }
+    public bool IsInTypePartOfFile { get; set; }
     
 
     public SyntaxElement returnFromCurrentScope()

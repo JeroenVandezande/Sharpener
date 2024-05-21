@@ -123,6 +123,13 @@ public class NameSpaceElement : SyntaxElement, ISyntaxElementWithScope
                 Usings.Add("PropertyChanged");
             }
         }
+        
+        if (token.TokenType == TokenType.TypeDeclarationKeyword)
+        {
+            ElementIsFinished = true;
+            return true;
+        }
+        
         if (token is ITokenWithText param)
         {
             if (String.IsNullOrEmpty(NameSpace))

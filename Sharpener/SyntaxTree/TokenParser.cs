@@ -40,20 +40,6 @@ public class TokenParser
                 {
                     case TokenType.Variable:
                     {
-                        // If the last element was static then add it as a property
-                        //if (document.LastKnownStatic)
-                       // {
-                        //    document.AddNewElementToCurrentAndMakeCurrent(new PropertySyntaxElement()
-                        //            .WithVisibility(document.LastKnownVisibilityLevel)
-                        //            .WithStaticApplied(document.LastKnownStatic));
-                        //    document.LastKnownStatic = false;
-                       // }
-
-                        // If we are in a code block then add it as a variable
-                       // if (document.CurrentElement is CodeBlockSyntaxElement)
-                        //{
-                       //     document.AddNewElementToCurrentAndMakeCurrent(new LiteralSyntaxElement());
-                       // }
                        if (document.IsInClassPartOfFile)
                        {
                            if (document.CurrentElement is ClassSyntaxElement)
@@ -68,16 +54,20 @@ public class TokenParser
                            }
                            
                        }
-                        
-                        //document.CurrentElement.AddParameter(tokenWithText.TokenText, token.TokenType);
+                       
                         document.LastKnownVariable = tokenWithText.TokenText;
-
                         break;
                     }
 
-                    case TokenType.InterfaceKeyword:
+                   case TokenType.InterfaceKeyword:
                     {
-                        
+                        if (document.IsInTypePartOfFile)
+                        {
+                            document.AddNewElementToCurrentAndMakeCurrent(new InterfaceSyntaxElement()
+                                .WithInterfaceName(document.LastKnownVariable)
+                                .WithVisibility(document.LastKnownVisibilityLevel));
+                            document.LastKnownVisibilityLevel = VisibilityLevel.None;
+                        }
                         break;
                     }
                     
@@ -151,10 +141,7 @@ public class TokenParser
 
                     case TokenType.TypeDeclarationKeyword:
                     {
-                        if (document.CurrentElement is NameSpaceElement nse)
-                        {
-                            nse.ElementIsFinished = true;
-                        }
+                        document.IsInTypePartOfFile = true;
                         document.AddNewElementToCurrentAndMakeCurrent(new TypeSyntaxElement().WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
                         break;
                     }
@@ -170,12 +157,6 @@ public class TokenParser
                     case TokenType.VarKeyword:
                     {
                         document.AddNewElementToCurrentAndMakeCurrent(new TypeInferanceDeclarationSyntaxElement());
-                        break;
-                    }
-
-                    case TokenType.NewKeyword:
-                    {
-                        //document.AddNewElementToCurrentAndMakeCurrent(new NewObjectSyntaxElement());
                         break;
                     }
 

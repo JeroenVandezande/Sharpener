@@ -63,24 +63,9 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
     {
         var classDeclaration = SyntaxFactory.ClassDeclaration(ClassName);
 
-        SyntaxKind vis = SyntaxKind.None;
-        switch (Visibility)
-        {
-            case VisibilityLevel.Public:
-                vis = SyntaxKind.PublicKeyword;
-                break;
-            case VisibilityLevel.Private:
-                vis = SyntaxKind.PrivateKeyword;
-                break;
-            case VisibilityLevel.Protected:
-                vis = SyntaxKind.ProtectedKeyword;
-                break;
-            case VisibilityLevel.Assembly:
-                vis = SyntaxKind.InternalKeyword;
-                break;
-        }
+        SyntaxKind vis = Tools.VisibilityToSyntaxKind(Visibility);
         
-         classDeclaration = classDeclaration.AddModifiers(SyntaxFactory.Token(vis));
+        classDeclaration = classDeclaration.AddModifiers(SyntaxFactory.Token(vis));
 
          foreach (var inh in InheritsFrom)
          {
