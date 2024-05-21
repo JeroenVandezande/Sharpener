@@ -5,6 +5,9 @@ Fix method return types - DONE
 
 FEATURES:
 Method Overloads
+Generic Methods
+Generic Types
+Extension Methods
 Arrays
 API Rate limiting - DONE
 Attributes - Dana
@@ -21,6 +24,7 @@ Interfaces (ISomething, ...)
 Delegate definitions
 Events
 Records
+Unsafe Code
 External Methods
 Aspects
 Interface Delegation (fSomething implements ISomething)
