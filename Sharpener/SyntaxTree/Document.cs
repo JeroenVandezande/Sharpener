@@ -15,14 +15,23 @@ public class Document
     public bool IsInImplementationPartOfFile { get; set; }
     public bool IsInClassPartOfFile { get; set; }
     public String[] OriginalOxygeneCode { get; set; }
-    [JsonIgnore] [IgnoreDataMember] public SyntaxElement PreviousElement { get; set; }
+    
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public SyntaxElement PreviousElement { get; set; }
     public NameSpaceElement RootElement { get; set; }
+
     [JsonIgnore]
     [IgnoreDataMember]
     public List<IAttributeElement> AttributeCache { get; set; } = new List<IAttributeElement>();
-    [JsonIgnore] [IgnoreDataMember] public Stack<SyntaxElement> Scopes { get; } = new Stack<SyntaxElement>();
 
-    [JsonIgnore] [IgnoreDataMember] public SyntaxElement CurrentElement { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public Stack<SyntaxElement> Scopes { get; } = new Stack<SyntaxElement>();
+
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public SyntaxElement CurrentElement { get; set; }
 
     [JsonIgnore]
     [IgnoreDataMember]
@@ -62,13 +71,14 @@ public class Document
 
         return null;
     }
-    
+
     public ClassSyntaxElement FindClassByName(string className)
     {
         if (String.IsNullOrEmpty(className))
         {
             return null;
         }
+
         return _FindClassByName(className, RootElement);
     }
 
@@ -77,7 +87,7 @@ public class Document
     public string LastKnownVariable { get; set; }
     public bool LastKnownInCodeBlock { get; set; }
     public bool IsInTypePartOfFile { get; set; }
-    
+
 
     public SyntaxElement returnFromCurrentScope()
     {
@@ -120,10 +130,11 @@ public class Document
                 returnFromCurrentScope();
             }
         }
+
         AddNewElementToCurrent(element);
         PreviousElement = CurrentElement;
         CurrentElement = element;
-        
+
         if (element is AttributeSyntaxElement attributeElement)
         {
             AttributeCache.Add(attributeElement);
@@ -136,7 +147,7 @@ public class Document
                 AttributeCache.Clear();
             }
         }
-        
+
         if (element is ISyntaxElementWithScope)
         {
             Scopes.Push(element);
@@ -156,7 +167,7 @@ public class Document
                 _currentClassDeclarationSyntax = (ClassDeclarationSyntax)expression.GenerateCodeNode();
                 _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(_currentClassDeclarationSyntax);
             }
-            
+
             if (child is EnumSyntaxElement enumExpression)
             {
                 var enumDeclarationSyntax = (EnumDeclarationSyntax)enumExpression.GenerateCodeNode();
