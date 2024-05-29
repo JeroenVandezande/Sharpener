@@ -9,16 +9,22 @@ namespace Sharpener.TokenTypes
 {
     public class OperatorToken : BaseToken
     {
-        public OperatorToken(int lineNumber, int tokenIndex, TokenType tokenType)
+        public OperatorToken(string text, int lineNumber, int tokenIndex, TokenType tokenType)
             : base(lineNumber, tokenIndex)
         {
+            StringRepresentation = text;
             TokenType = tokenType;
         }
-
-        public override string ToString()
+        
+        public string Description
         {
-            return String.Format("OperatorTokenType: {0}, Line: {1}, Token Index {2}",
-                    TokenType.ToString(), LineNumber, TokenIndex);
+            get => getDescription();
+        }
+
+        private string getDescription()
+        {
+            return String.Format("String: {0} OperatorTokenType: {1}, Line: {2}, Token Index {3}",
+                StringRepresentation, TokenType.ToString(), LineNumber, TokenIndex);
         }
     }
 }

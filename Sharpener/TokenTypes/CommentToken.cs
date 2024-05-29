@@ -13,6 +13,7 @@ namespace Sharpener.TokenTypes
             :base(line, tokenIndex)
         {
             TokenText = variableText;
+            StringRepresentation = TokenText;
             TokenType = TokenType.Comment;
         }
 
@@ -22,10 +23,16 @@ namespace Sharpener.TokenTypes
         public string TokenText { get; set; }
         
         public CommentType CommentType { get; set; }
-        public override string ToString()
+        
+        public string Description
         {
-            return String.Format("CommentTokenType: {0}, Line: {1}, Token Index {2}",
-                    TokenType.ToString(), LineNumber, TokenIndex);
+            get => getDescription();
+        }
+
+        private string getDescription()
+        {
+            return String.Format("String: {0} CommentTokenType: {1}, Line: {2}, Token Index {3}",
+                TokenText, TokenType.ToString(), LineNumber, TokenIndex);
         }
     }
 }

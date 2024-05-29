@@ -15,6 +15,12 @@ namespace Sharpener
             TokenIndex = tokenIndex;
         }
 
+        private string getDescription()
+        {
+            return String.Format("String: {0} \t TokenType: {1} \t Line: {2} \t Token Index {3}",
+                StringRepresentation, TokenType.ToString(), LineNumber, TokenIndex.ToString());
+        }
+
         /// <summary>
         /// Line number the token resides on
         /// </summary>
@@ -30,11 +36,14 @@ namespace Sharpener
         /// </summary>
         public TokenType TokenType { get; set; }
 
-        public override string ToString()
+        /// <summary>
+        /// Description of the token and where it is
+        /// </summary>
+        public string Description
         {
-            return String.Format("TokenType: {0}, Line: {1}, Token Index {2}",
-                    TokenType.ToString(), LineNumber, TokenIndex.ToString());
+            get => getDescription();
         }
-
+        
+        public string StringRepresentation { get; set; }
     }
 }

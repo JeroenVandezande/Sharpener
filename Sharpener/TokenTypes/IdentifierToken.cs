@@ -13,6 +13,7 @@ namespace Sharpener
             :base(line, tokenIndex)
         {
             TokenText = variableText;
+            StringRepresentation = TokenText;
             TokenType = TokenType.Variable;
         }
 
@@ -21,10 +22,15 @@ namespace Sharpener
         /// </summary>
         public string TokenText { get; set; }
 
-        public override string ToString()
+        public string Description
         {
-            return String.Format("IdentifierTokenText: {0}, Line: {1}, Token Index {2}",
-                    TokenText, LineNumber, TokenIndex);
+            get => getDescription();
+        }
+
+        private string getDescription()
+        {
+            return String.Format("String: {0} IdentifierTokenType: {1}, Line: {2}, Token Index {3}",
+                TokenText, TokenType.ToString(), LineNumber, TokenIndex);
         }
     }
 }

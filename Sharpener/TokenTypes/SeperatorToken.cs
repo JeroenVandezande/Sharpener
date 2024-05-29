@@ -11,18 +11,24 @@ namespace Sharpener
     {
         public int StartColumn { get; set; }
         public int EndColumn { get; set; }
-        public SeperatorToken(int line, int tokenIndex, int startColumn, int endColumn, TokenType tokenType)
+        public SeperatorToken(string text, int line, int tokenIndex, int startColumn, int endColumn, TokenType tokenType)
             :base(line, tokenIndex)
         {
+            StringRepresentation = text;
             TokenType = tokenType;
             StartColumn = startColumn;
             EndColumn = endColumn;
         }
 
-        public override string ToString()
+        public string Description
         {
-            return String.Format("SeperatorTokenType: {0}, Line: {1}, Token Index {2}",
-                    TokenType.ToString(), LineNumber, TokenIndex);
+            get => getDescription();
+        }
+
+        private string getDescription()
+        {
+            return String.Format("String: {0} SeperatorTokenType: {1}, Line: {2}, Token Index {3}",
+                StringRepresentation, TokenType.ToString(), LineNumber, TokenIndex);
         }
     }
 }

@@ -23,6 +23,16 @@ namespace Sharpener
         /// Type of the token
         /// </summary>
         public TokenType TokenType { get; }
+        
+        /// <summary>
+        /// Description of the token
+        /// </summary>
+        public string Description { get; }
+        
+        /// <summary>
+        /// Basic string representation of the token
+        /// </summary>
+        public string StringRepresentation { get; set; }
     }
     
     public interface ITokenWithText
