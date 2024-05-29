@@ -21,9 +21,6 @@ namespace SimpleConsoleApp
             {
                 (ITest)this.Worklist = value;
             }
-
-            get;
-            set;
         }
 
         public static Int32 Main()
