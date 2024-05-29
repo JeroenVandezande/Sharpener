@@ -11,7 +11,7 @@ Extension Methods
 Arrays
 API Rate limiting - DONE
 Attributes - Dana
-Constructors - Dana
+Constructors - DONE
 Constants (type inference)
 class Variables - DONE
 class Variables (Initialization) - Jeroen
@@ -27,8 +27,8 @@ Records
 Unsafe Code
 External Methods
 Aspects
-Interface Delegation (fSomething implements ISomething)
+Interface Delegation (fSomething implements ISomething) - Dana
+Null checks
 Notify keyword -> Fody - DONE
 Tuples
 Regions
-

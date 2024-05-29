@@ -1,5 +1,4 @@
 using System.Runtime.Serialization;
-using Microsoft.CodeAnalysis.CSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Sharpener.Enums;
@@ -33,22 +32,22 @@ public interface ISyntaxElement
 
 public interface IGenerateMemberSyntax : ISyntaxElement
 {
-    public MemberDeclarationSyntax GenerateCodeNode();
+    public List<MemberDeclarationSyntax> GenerateCodeNodes();
 }
 
 public interface IGenerateCodeBlock : ISyntaxElement
 {
-    public BlockSyntax GenerateCodeNode();
+    public List<BlockSyntax> GenerateCodeNodes();
 }
 
 public interface IGenerateExpressionSyntax : ISyntaxElement
 {
-    public ExpressionSyntax GenerateCode();
+    public List<ExpressionSyntax> GenerateCode();
 }
 
 public interface IGenerateStatementSyntax : ISyntaxElement
 {
-    public StatementSyntax GenerateCodeNode();
+    public List<StatementSyntax> GenerateCodeNodes();
 }
 
 public interface ISyntaxElementWithScope
@@ -59,7 +58,7 @@ public interface IAttributeElement
 {
     public bool AttributeRequiresCodeConversion { get; set; }
     public String AttributeText { get; set; }
-    public AttributeSyntax  GenerateCodeNode();
+    public List<AttributeSyntax>  GenerateCodeNodes();
 }
 
 public interface ISyntaxElementAutoReturnsFromScope

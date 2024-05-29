@@ -59,8 +59,9 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
         return false;
     }
 
-    public MemberDeclarationSyntax GenerateCodeNode()
+    public List<MemberDeclarationSyntax> GenerateCodeNodes()
     {
+        var result = new List<MemberDeclarationSyntax>();
         var classDeclaration = SyntaxFactory.ClassDeclaration(ClassName);
 
         SyntaxKind vis = Tools.VisibilityToSyntaxKind(Visibility);
@@ -78,9 +79,9 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
          {
              if (child is IGenerateMemberSyntax)
              {
-                 var c = ((IGenerateMemberSyntax)child).GenerateCodeNode();
+                 var c = ((IGenerateMemberSyntax)child).GenerateCodeNodes();
                  if(c == null) continue;
-                 classDeclaration = classDeclaration.AddMembers(c);
+                 classDeclaration = classDeclaration.AddMembers(c.ToArray());
              }
          }
          
@@ -89,7 +90,10 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
          {
              foreach (var attr in Attributes)
              {
-                 attributeSyntaxList.Add(attr.GenerateCodeNode());
+                 foreach (var member in attr.GenerateCodeNodes())
+                 {
+                    attributeSyntaxList.Add(member);
+                 }
              }
          }
          
@@ -100,6 +104,7 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
              classDeclaration = classDeclaration.WithAttributeLists(SyntaxFactory.SingletonList(attributeListSyntax));
          }
          
-         return classDeclaration;
+         result.Add(classDeclaration);
+         return result;
     }
 }

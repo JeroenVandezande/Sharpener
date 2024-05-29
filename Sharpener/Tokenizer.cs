@@ -11,7 +11,6 @@ namespace Sharpener
 {
     public class Tokenizer
     {
-        private bool _InCommentBlock = false; 
         public List<IToken> Tokens = new List<IToken>();
 
         public String Output
@@ -160,10 +159,6 @@ namespace Sharpener
                     tokens.Add(new OperatorToken(lineIndex, tokenAmount, op2Type));
                     continue;
                 }
-
-                // TODO: Match string literals ("string here!")
-                // TODO: Match numberical literals ( 1234 )
-                // TODO: Match boolean literals ( true, false )
             }
 
             if (buf.Length > 0)

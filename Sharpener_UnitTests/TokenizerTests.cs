@@ -19,14 +19,18 @@ namespace Sharpener_UnitTests
 
     public class TokenizerTests
     {
-        
+        private Tokenizer tokenizer;
+
+        public TokenizerTests()
+        {
+            tokenizer = new Tokenizer();
+        }
 
         [Fact]
         public void Tokenizer_Parse_LineComment()
         {
             // Arrange
             var lines = new List<string>() { "//Test Comment; IgnoreEverything after here. '\"" };
-            var tokenizer = new Tokenizer();
 
             // Act
             tokenizer.Parse(lines);
@@ -40,7 +44,6 @@ namespace Sharpener_UnitTests
         {
             // Arrange
             var lines = new List<string>() { "var exampleVariable := 9 //Test Comment; IgnoreEverything after here. '\"" };
-            var tokenizer = new Tokenizer();
 
             // Act
             tokenizer.Parse(lines);
@@ -53,6 +56,31 @@ namespace Sharpener_UnitTests
             // TODO: Make this a numerical LITERAL!
             // tokenizer.AssertToken<OperatorToken>(3, 0, TokenType.ClassDefinitionAndPropertyNullAccessor);
             tokenizer.AssertToken<CommentToken>(4, 4, TokenType.Comment);
+        }
+
+        [Fact]
+        public void TestParseAndConvert_WithSingleLineComment()
+        {
+            var lines = new List<string> { "// This is a single line comment" };
+            tokenizer.ParseAndConvert(lines);
+
+            tokenizer.Tokens.Should().HaveCount(1);
+            tokenizer.Tokens[0].Should().BeOfType<CommentToken>();
+            ((CommentToken)tokenizer.Tokens[0]).CommentType.Should().Be(CommentType.SingleLineDocComment);
+        }
+
+        [Fact]
+        public void TestParseAndConvert_WithMultipleTokens()
+        {
+            var lines = new List<string> { "int a = 5;" };
+            tokenizer.ParseAndConvert(lines);
+
+            tokenizer.Tokens.Should().HaveCount(5);
+            tokenizer.Tokens[0].Should().BeOfType<KeywordToken>();
+            tokenizer.Tokens[1].Should().BeOfType<IdentifierToken>();
+            tokenizer.Tokens[2].Should().BeOfType<OperatorToken>();
+            tokenizer.Tokens[3].Should().BeOfType<IdentifierToken>();
+            tokenizer.Tokens[4].Should().BeOfType<SeperatorToken>();
         }
     }
 }

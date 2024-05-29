@@ -8,12 +8,20 @@ namespace Sharpener.SyntaxTree.Scopes;
 public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMemberSyntax
 {
     private bool _useNotifyInFile;
-    private bool _getterIsNext = false;
-    private bool _setterIsNext = false;
     private int _getterStart;
     private int _getterEnd;
     private int _setterStart;
     private int _setterEnd;
+    private enum SpecialSyntaxToken
+    {
+        None,
+        Getter,
+        Setter,
+        Implements
+    }
+    private SpecialSyntaxToken _specialTokenState;
+    public string? ExplicitInterfaceName { get; set; }
+    public string? ExplicitPropertyName { get; set; }
     public string PropertyName { get; set; }
     public string Propertytype { get; set; }
     public string GetterCode { get; set; } = String.Empty;
@@ -49,6 +57,12 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
             HasNotifyPatternApplied = true;
             return true;
         }
+
+        if (token.TokenType == TokenType.ImplementsInheritanceKeyword)
+        {
+            _specialTokenState = SpecialSyntaxToken.Implements;
+            return true;
+        }
         
         if ((token.TokenType == TokenType.OpenBracket) || (token.TokenType == TokenType.ClosedBracket))
         {
@@ -65,47 +79,56 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
         if (token.TokenType == TokenType.ReadGetterKeyword)
         {
             _getterStart = ((KeywordToken)token).EndColumn + 1;
-            _getterIsNext = true;
-            _setterIsNext = false;
+            _specialTokenState = SpecialSyntaxToken.Getter;
             return true;
         }
         
         if (token.TokenType == TokenType.WriteSetterKeyword)
         {
-            if (_getterIsNext)
+            if (_specialTokenState == SpecialSyntaxToken.Getter)
             {
                 _getterEnd = ((KeywordToken)token).StartColumn;
                 GetterCode = document.OriginalOxygeneCode[token.LineNumber - 1]
                     .Substring(_getterStart, (_getterEnd - _getterStart));
             }
             _setterStart = ((KeywordToken)token).EndColumn + 1;
-            _getterIsNext = false;
-            _setterIsNext = true;
+            // _getterIsNext = false;
+            // _setterIsNext = true;
+            _specialTokenState = SpecialSyntaxToken.Setter;
             return true;
         }
         
         if (token.TokenType == TokenType.SemiColon)
         {
-            if (_getterIsNext)
+            switch (_specialTokenState)
             {
-                if (token is SeperatorToken kwt)
-                {
-                    _getterEnd = kwt.StartColumn;
-                    GetterCode = document.OriginalOxygeneCode[token.LineNumber - 1]
-                        .Substring(_getterStart, (_getterEnd - _getterStart));
-                }
+                case SpecialSyntaxToken.Getter:
+                    {
+                        if (token is SeperatorToken kwt)
+                        {
+                            _getterEnd = kwt.StartColumn;
+                            GetterCode = document.OriginalOxygeneCode[token.LineNumber - 1]
+                                .Substring(_getterStart, (_getterEnd - _getterStart));
+                        }
+                    }
+                    break;
+                case SpecialSyntaxToken.Setter:
+                    {
+                        if (token is SeperatorToken kwt)
+                        {
+                            _setterEnd = kwt.StartColumn;
+                            SetterCode = document.OriginalOxygeneCode[token.LineNumber - 1]
+                                .Substring(_setterStart, (_setterEnd - _setterStart));
+                        }
+                    }
+                    break;
+                case SpecialSyntaxToken.Implements:
+                    break;
+                case SpecialSyntaxToken.None:
+                    break;
             }
-            if (_setterIsNext)
-            {
-                if (token is SeperatorToken kwt)
-                {
-                    _setterEnd = kwt.StartColumn;
-                    SetterCode = document.OriginalOxygeneCode[token.LineNumber - 1]
-                        .Substring(_setterStart, (_setterEnd - _setterStart));
-                }
-            }
-            _getterIsNext = false;
-            _setterIsNext = false;
+
+            _specialTokenState = SpecialSyntaxToken.None;
             ElementIsFinished = true;
             document.returnFromCurrentScope();
             return true;
@@ -113,32 +136,83 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
         
         if (token is ITokenWithText param)
         {
-            if (String.IsNullOrEmpty(PropertyName))
+            switch (_specialTokenState)
             {
-                PropertyName = param.TokenText;
-                return true;
-            }
+                case SpecialSyntaxToken.None: // Regular case handles "PropertyName: Type" syntax
+                {
+                    if (String.IsNullOrEmpty(PropertyName))
+                    {
+                        PropertyName = param.TokenText;
+                        return true;
+                    }
 
-            if (String.IsNullOrEmpty(Propertytype))
-            {
-                Propertytype = param.TokenText;
-                return true;
+                    if (String.IsNullOrEmpty(Propertytype))
+                    {
+                        Propertytype = param.TokenText;
+                        return true;
+                    }
+                }
+                    break;
+                case SpecialSyntaxToken.Implements: // Case handles explicit interface implementation (i.e. implements)
+                {
+                    var explicitParts = param.TokenText.Split(".");
+                    if (explicitParts.Length != 2)
+                    {
+                        throw new FormatException(
+                            "Explicit Implementation Missing Format: \"implements IInterface.Member\"");
+                        
+                    }
+
+                    ExplicitInterfaceName = explicitParts[0];
+                    ExplicitPropertyName = explicitParts[1];
+                }
+                    break;
             }
         }
 
         return false;
     }
 
-    public MemberDeclarationSyntax GenerateCodeNode()
+    public List<MemberDeclarationSyntax> GenerateCodeNodes()
     {
+        var result = new List<MemberDeclarationSyntax>();
         var vis = Tools.VisibilityToSyntaxKind(VisibilityLevel);
 
+        
+        
         // Create a Property
         if (String.IsNullOrEmpty(Propertytype)) return null;
         var propType = OxygeneTypeTranslator.ConvertOxygeneTypeToCS(Propertytype);
         propType = propType + (IsNullable ? "?" : "");
+        
+        // Handle creating secondary type that references the first implicit one.
+        /*
+         * For example. The original Oxygene code:
+         * property UsedWorklist: IWorklist; implements ITest.Worklist
+         *
+         * Converts to
+         *
+         * public IWorklist UsedWorklist
+         * { 
+		        get {return Worklist;}
+		        set {Worklist = value;}
+		   }
+		   
+         */
+        var actualPropertyName = String.Empty;
+        if (!String.IsNullOrEmpty(ExplicitPropertyName))
+        {
+            actualPropertyName = ExplicitPropertyName;
+            var propertyDeclarationOriginalName = SyntaxFactory
+                .PropertyDeclaration(SyntaxFactory.ParseTypeName(propType), PropertyName)
+                .AddModifiers(SyntaxFactory.Token(vis));
+        }
+        else
+        {
+            actualPropertyName = PropertyName;
+        }
         var propertyDeclaration = SyntaxFactory
-            .PropertyDeclaration(SyntaxFactory.ParseTypeName(propType), PropertyName)
+            .PropertyDeclaration(SyntaxFactory.ParseTypeName(propType), actualPropertyName)
             .AddModifiers(SyntaxFactory.Token(vis));
 
         if (String.IsNullOrEmpty(GetterCode) && String.IsNullOrEmpty(SetterCode)) //implied getter/setter
@@ -165,7 +239,7 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
                     .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.ParseExpression(PropertySetterTranslation.TranslateOxygeneToCS(SetterCode))))
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
         }
-
+        
         var attributeSyntaxList = new List<AttributeSyntax>();
         
         if (IsStatic)
@@ -188,7 +262,10 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
         {
             foreach (var attr in Attributes)
             {
-                attributeSyntaxList.Add(attr.GenerateCodeNode());
+                foreach (var member in attr.GenerateCodeNodes())
+                {
+                    attributeSyntaxList.Add(member);
+                }
             }
         }
          
@@ -198,7 +275,7 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
         {
             propertyDeclaration = propertyDeclaration.WithAttributeLists(SyntaxFactory.SingletonList(attributeListSyntax));
         }
-        
-        return propertyDeclaration;
+        result.Add(propertyDeclaration);
+        return result;
     }
 }

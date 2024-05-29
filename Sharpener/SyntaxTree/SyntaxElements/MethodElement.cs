@@ -200,8 +200,10 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
         return false;
     }
 
-    public MemberDeclarationSyntax GenerateCodeNode()
+    public List<MemberDeclarationSyntax> GenerateCodeNodes()
     {
+        var result = new List<MemberDeclarationSyntax>();
+        
         //setup parameters
         var paramList = new List<ParameterSyntax>();
         foreach (var par in Parameters)
@@ -224,7 +226,8 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
         
         if (IsEmpty)
         {
-            return methodDeclaration;
+            result.Add(methodDeclaration);
+            return result;
         }
         
         var cscode = MethodBodyTranslation.TranslateOxygeneToCS(OriginalSourceCode);
@@ -257,7 +260,10 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
         {
             foreach (var attr in Attributes)
             {
-                attributeSyntaxList.Add(attr.GenerateCodeNode());
+                foreach (var member in attr.GenerateCodeNodes())
+                {
+                    attributeSyntaxList.Add(member);
+                }
             }
         }
          
@@ -273,6 +279,7 @@ public class MethodElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMem
             methodDeclaration = methodDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.OverrideKeyword));
         }
 
-        return methodDeclaration;
+        result.Add(methodDeclaration);
+        return result;
     }
 }

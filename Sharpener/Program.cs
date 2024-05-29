@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 using Newtonsoft.Json;
 using Sharpener.OpenAI;
@@ -10,8 +11,12 @@ namespace Sharpener
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0)
-                return; // return if no file was dragged onto exe
+            if (args.Length < 2)
+            {
+                Console.WriteLine("Not enough arguments provided to run!");
+                Debugger.Break();
+                return; // return if not enough arguments to run program
+            }
             string filename = args[0];
             KeyContainer.APIKey = args[1];
             if (args.Length > 2)

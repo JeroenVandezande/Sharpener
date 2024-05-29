@@ -44,8 +44,9 @@ public class InterfaceSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IG
         return false;
     }
 
-    public MemberDeclarationSyntax GenerateCodeNode()
+    public List<MemberDeclarationSyntax> GenerateCodeNodes()
     {
+        var result = new List<MemberDeclarationSyntax>();
         var interfaceDeclaration = SyntaxFactory.InterfaceDeclaration(InterfaceName);
 
         SyntaxKind vis = Tools.VisibilityToSyntaxKind(Visibility);
@@ -63,12 +64,15 @@ public class InterfaceSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IG
          {
              if (child is IGenerateMemberSyntax)
              {
-                 var c = ((IGenerateMemberSyntax)child).GenerateCodeNode();
+                 var c = ((IGenerateMemberSyntax)child).GenerateCodeNodes();
                  if(c == null) continue;
-                 interfaceDeclaration = interfaceDeclaration.AddMembers(c);
+                 foreach (var member in c)
+                 {
+                    interfaceDeclaration = interfaceDeclaration.AddMembers(member);
+                 }
              }
          }
-         
-         return interfaceDeclaration;
+         result.Add(interfaceDeclaration);
+         return result;
     }
 }

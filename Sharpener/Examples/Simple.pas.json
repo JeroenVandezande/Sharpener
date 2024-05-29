@@ -13,6 +13,9 @@
     "  [SecondAttribute]",
     "  Program = class",
     "  public",
+    "    property WorkList: TWorklist read TWorklist(UsedWorklist) write UsedWorklist;",
+    "    property UsedWorklist: IWorklist; implements ITest.Worklist;",
+    "  ",
     "    class method Main(): Int32;",
     "    begin",
     "      // add your own code here",
@@ -21,7 +24,6 @@
     "  end;",
     "end."
   ],
-  "LastUsedProperty": null,
   "RootElement": {
     "Usings": [
       "System",
@@ -61,52 +63,107 @@
         "IsStatic": false,
         "Children": [
           {
+            "$type": "Sharpener.SyntaxTree.Scopes.PropertySyntaxElement, Sharpener",
+            "ExplicitInterfaceName": null,
+            "ExplicitPropertyName": null,
+            "PropertyName": "WorkList",
+            "Propertytype": "TWorklist",
+            "GetterCode": "TWorklist(UsedWorklist) ",
+            "SetterCode": "UsedWorklist",
+            "IsNullable": false,
+            "HasNotifyPatternApplied": false,
+            "VisibilityLevel": "Public",
+            "IsStatic": false,
+            "Children": [],
+            "OriginalSourceCode": null,
+            "OriginalSourceCodeStartLineNumber": 11,
+            "OriginalSourceCodeStartColumnNumber": 0,
+            "OriginalSourceCodeStopLineNumber": 0,
+            "OriginalSourceCodeStopColumnNumber": 0,
+            "ElementIsFinished": true
+          },
+          {
+            "$type": "Sharpener.SyntaxTree.Scopes.PropertySyntaxElement, Sharpener",
+            "ExplicitInterfaceName": "ITest",
+            "ExplicitPropertyName": "Worklist",
+            "PropertyName": "UsedWorklist",
+            "Propertytype": "IWorklist",
+            "GetterCode": "",
+            "SetterCode": "",
+            "IsNullable": false,
+            "HasNotifyPatternApplied": false,
+            "VisibilityLevel": "Public",
+            "IsStatic": false,
+            "Children": [],
+            "OriginalSourceCode": null,
+            "OriginalSourceCodeStartLineNumber": 12,
+            "OriginalSourceCodeStartColumnNumber": 0,
+            "OriginalSourceCodeStopLineNumber": 0,
+            "OriginalSourceCodeStopColumnNumber": 0,
+            "ElementIsFinished": true
+          },
+          {
+            "$type": "Sharpener.SyntaxTree.Scopes.ClassVariableDeclarationSyntaxElement, Sharpener",
+            "VariableName": "ITest.Worklist",
+            "Variabletype": null,
+            "IsNullable": false,
+            "VisibilityLevel": "Public",
+            "IsStatic": false,
+            "Children": [],
+            "OriginalSourceCode": null,
+            "OriginalSourceCodeStartLineNumber": 12,
+            "OriginalSourceCodeStartColumnNumber": 6,
+            "OriginalSourceCodeStopLineNumber": 0,
+            "OriginalSourceCodeStopColumnNumber": 0,
+            "ElementIsFinished": false
+          },
+          {
             "$type": "Sharpener.SyntaxTree.Scopes.MethodElement, Sharpener",
             "MethodName": "Main",
-            "ReturnType": "void",
+            "ReturnType": "Int32",
             "Parameters": [],
             "VisibilityLevel": "Public",
             "IsStatic": true,
             "IsEmpty": false,
+            "HasOverrideApplied": false,
+            "Children": [],
+            "OriginalSourceCode": "    class method Main(): Int32;",
+            "OriginalSourceCodeStartLineNumber": 14,
+            "OriginalSourceCodeStartColumnNumber": 1,
+            "OriginalSourceCodeStopLineNumber": 14,
+            "OriginalSourceCodeStopColumnNumber": 7,
+            "ElementIsFinished": true
+          },
+          {
+            "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
             "Children": [
               {
-                "$type": "Sharpener.SyntaxTree.Scopes.CodeBlockSyntaxElement, Sharpener",
-                "Children": [
-                  {
-                    "$type": "Sharpener.SyntaxTree.Scopes.CommentSyntaxElement, Sharpener",
-                    "CommentLines": [
-                      "// add your own code here"
-                    ],
-                    "CommentType": "SingleLineDocComment",
-                    "Children": [],
-                    "OriginalSourceCode": null,
-                    "OriginalSourceCodeStartLineNumber": 0,
-                    "OriginalSourceCodeStartColumnNumber": 0,
-                    "OriginalSourceCodeStopLineNumber": 0,
-                    "OriginalSourceCodeStopColumnNumber": 0,
-                    "ElementIsFinished": false
-                  }
+                "$type": "Sharpener.SyntaxTree.Scopes.CommentSyntaxElement, Sharpener",
+                "CommentLines": [
+                  "// add your own code here"
                 ],
+                "CommentType": "SingleLineDocComment",
+                "Children": [],
                 "OriginalSourceCode": null,
-                "OriginalSourceCodeStartLineNumber": 12,
+                "OriginalSourceCodeStartLineNumber": 0,
                 "OriginalSourceCodeStartColumnNumber": 0,
                 "OriginalSourceCodeStopLineNumber": 0,
                 "OriginalSourceCodeStopColumnNumber": 0,
                 "ElementIsFinished": false
               }
             ],
-            "OriginalSourceCode": "    class method Main(): Int32;\r\n    begin\r\n      // add your own code here\r\n      writeLn('The magic happens here.');\r\n    end;",
-            "OriginalSourceCodeStartLineNumber": 11,
-            "OriginalSourceCodeStartColumnNumber": 1,
-            "OriginalSourceCodeStopLineNumber": 15,
+            "OriginalSourceCode": "    begin\r\n      // add your own code here\r\n      writeLn('The magic happens here.');\r\n    end;",
+            "OriginalSourceCodeStartLineNumber": 15,
+            "OriginalSourceCodeStartColumnNumber": 0,
+            "OriginalSourceCodeStopLineNumber": 18,
             "OriginalSourceCodeStopColumnNumber": 0,
             "ElementIsFinished": false
           }
         ],
-        "OriginalSourceCode": "namespace SimpleConsoleApp;\r\n\r\nuses\r\n  System.Linq;\r\n\r\ntype\r\n  [AttributeHere]\r\n  [SecondAttribute]\r\n  Program = class\r\n  public\r\n    class method Main(): Int32;\r\n    begin\r\n      // add your own code here\r\n      writeLn('The magic happens here.');\r\n    end;\r\n  end;\r\nend.",
+        "OriginalSourceCode": "namespace SimpleConsoleApp;\r\n\r\nuses\r\n  System.Linq;\r\n\r\ntype\r\n  [AttributeHere]\r\n  [SecondAttribute]\r\n  Program = class\r\n  public\r\n    property WorkList: TWorklist read TWorklist(UsedWorklist) write UsedWorklist;\r\n    property UsedWorklist: IWorklist; implements ITest.Worklist;\r\n  \r\n    class method Main(): Int32;\r\n    begin\r\n      // add your own code here\r\n      writeLn('The magic happens here.');\r\n    end;\r\n  end;\r\nend.",
         "OriginalSourceCodeStartLineNumber": 0,
         "OriginalSourceCodeStartColumnNumber": 0,
-        "OriginalSourceCodeStopLineNumber": 16,
+        "OriginalSourceCodeStopLineNumber": 19,
         "OriginalSourceCodeStopColumnNumber": 0,
         "ElementIsFinished": true
       }
@@ -121,5 +178,6 @@
   "LastKnownVisibilityLevel": "Public",
   "LastKnownStatic": false,
   "LastKnownVariable": "'The magic happens here.'",
-  "LastKnownInCodeBlock": false
+  "LastKnownInCodeBlock": true,
+  "IsInTypePartOfFile": false
 }

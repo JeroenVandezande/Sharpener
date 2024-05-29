@@ -140,8 +140,10 @@ public class ConstructorSyntaxElement: SyntaxElement, ISyntaxElementWithScope, I
         return false;
     }
 
-    public MemberDeclarationSyntax GenerateCodeNode()
+    public List<MemberDeclarationSyntax> GenerateCodeNodes()
     {
+        var constructorDeclarations = new List<MemberDeclarationSyntax>();
+        
         //setup parameters
         var paramList = new List<ParameterSyntax>();
         foreach (var par in Parameters)
@@ -164,7 +166,8 @@ public class ConstructorSyntaxElement: SyntaxElement, ISyntaxElementWithScope, I
 
         if (IsEmpty)
         {
-            return constructorDeclaration;
+            constructorDeclarations.Add(constructorDeclaration);
+            return constructorDeclarations;
         }
 
         var cscode = MethodBodyTranslation.TranslateOxygeneToCS(OriginalSourceCode);
@@ -197,7 +200,7 @@ public class ConstructorSyntaxElement: SyntaxElement, ISyntaxElementWithScope, I
         {
             foreach (var attr in Attributes)
             {
-                attributeSyntaxList.Add(attr.GenerateCodeNode());
+                attributeSyntaxList.AddRange(attr.GenerateCodeNodes());
             }
         }
 
@@ -207,7 +210,9 @@ public class ConstructorSyntaxElement: SyntaxElement, ISyntaxElementWithScope, I
         {
             constructorDeclaration = constructorDeclaration.WithAttributeLists(SyntaxFactory.SingletonList(attributeListSyntax));
         }
+        
+        constructorDeclarations.Add(constructorDeclaration);
 
-        return constructorDeclaration;
+        return constructorDeclarations;
     }
 }

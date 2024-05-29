@@ -56,8 +56,10 @@ public class ClassVariableDeclarationSyntaxElement: SyntaxElement, ISyntaxElemen
         return false;
     }
 
-    public MemberDeclarationSyntax GenerateCodeNode()
+    public List<MemberDeclarationSyntax> GenerateCodeNodes()
     {
+        var result = new List<MemberDeclarationSyntax>();
+        
         SyntaxKind vis = SyntaxKind.None;
         switch (VisibilityLevel)
         {
@@ -91,6 +93,7 @@ public class ClassVariableDeclarationSyntaxElement: SyntaxElement, ISyntaxElemen
             fieldDeclaration = fieldDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
         }
         
-        return fieldDeclaration;
+        result.Add(fieldDeclaration);
+        return result;
     }
 }

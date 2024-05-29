@@ -40,10 +40,10 @@ public class AttributeSyntaxElement : SyntaxElement, IAttributeElement, ISyntaxE
         }
     }
 
-    public AttributeSyntax GenerateCodeNode()
+    public List<AttributeSyntax> GenerateCodeNodes()
     {
-        AttributeSyntax result;
-        result = SyntaxFactory.Attribute(SyntaxFactory.ParseName(AttributeText));
+        List<AttributeSyntax> result = new List<AttributeSyntax>();
+        result.Add(SyntaxFactory.Attribute(SyntaxFactory.ParseName(AttributeText)));
         return result;
     }
 }

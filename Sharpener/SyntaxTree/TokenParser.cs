@@ -55,8 +55,8 @@ public class TokenParser
                            
                        }
                        
-                        document.LastKnownVariable = tokenWithText.TokenText;
-                        break;
+                       document.LastKnownVariable = tokenWithText.TokenText;
+                       break;
                     }
 
                    case TokenType.InterfaceKeyword:

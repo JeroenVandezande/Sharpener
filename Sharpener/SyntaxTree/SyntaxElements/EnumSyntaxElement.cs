@@ -49,8 +49,9 @@ public class EnumSyntaxElement : SyntaxElement, IGenerateMemberSyntax
         return false;
     }
     
-    public MemberDeclarationSyntax GenerateCodeNode()
+    public List<MemberDeclarationSyntax> GenerateCodeNodes()
     {
+        var result = new List<MemberDeclarationSyntax>();
         var enumDeclaration = SyntaxFactory.EnumDeclaration(EnumName);
 
         SyntaxKind vis = Tools.VisibilityToSyntaxKind(Visibility);
@@ -64,6 +65,7 @@ public class EnumSyntaxElement : SyntaxElement, IGenerateMemberSyntax
         }
 
         enumDeclaration = enumDeclaration.AddMembers(members.ToArray());
-        return enumDeclaration;
+        result.Add(enumDeclaration);
+        return result;
     }
 }

@@ -153,13 +153,13 @@ public class Document
         {
             if (child is ClassSyntaxElement expression)
             {
-                _currentClassDeclarationSyntax = (ClassDeclarationSyntax)expression.GenerateCodeNode();
+                _currentClassDeclarationSyntax = (ClassDeclarationSyntax)expression.GenerateCodeNodes()[0];
                 _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(_currentClassDeclarationSyntax);
             }
             
             if (child is EnumSyntaxElement enumExpression)
             {
-                var enumDeclarationSyntax = (EnumDeclarationSyntax)enumExpression.GenerateCodeNode();
+                var enumDeclarationSyntax = (EnumDeclarationSyntax)enumExpression.GenerateCodeNodes()[0];
                 _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(enumDeclarationSyntax);
             }
 
