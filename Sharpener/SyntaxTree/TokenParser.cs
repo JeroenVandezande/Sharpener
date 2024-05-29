@@ -40,7 +40,7 @@ public class TokenParser
                 {
                     case TokenType.Variable:
                     {
-                       if (document.IsInClass)
+                       if (document.CurrentContainingTypeElement == ContainingTypeElement.Class)
                        {
                            if (document.CurrentElement is ClassSyntaxElement)
                            {
@@ -117,11 +117,11 @@ public class TokenParser
                     
                     case TokenType.CodeBlockEnd:
                     {
-                        if ((document.CurrentScope is MethodElement) && document.IsInClass)
+                        if ((document.CurrentScope is MethodElement) && (document.CurrentContainingTypeElement == ContainingTypeElement.Class))
                         {
                             document.returnFromCurrentScope();
                         }
-                        if ((document.CurrentScope is ConstructorSyntaxElement) && document.IsInClass)
+                        if ((document.CurrentScope is ConstructorSyntaxElement) && (document.CurrentContainingTypeElement == ContainingTypeElement.Class))
                         {
                             document.returnFromCurrentScope();
                         }
@@ -213,7 +213,7 @@ public class TokenParser
                     }
                     case TokenType.ClassKeyword:
                     {
-                        if (!(document.IsInClass || document.IsInImplementationPartOfFile))
+                        if (!((document.CurrentContainingTypeElement == ContainingTypeElement.Class) || document.IsInImplementationPartOfFile))
                         {
                             document.AddNewElementToCurrentAndMakeCurrent(new ClassSyntaxElement()
                                 .WithClassName(document.LastKnownVariable)
@@ -222,10 +222,10 @@ public class TokenParser
                             document.LastKnownStatic = false;
                             document.LastKnownVisibilityLevel = VisibilityLevel.None;
                         }
-                        else
+                        /*else
                         {
                             document.LastKnownStatic = true;
-                        }
+                        }*/
                         break;
                     }
                     
@@ -286,7 +286,7 @@ public class TokenParser
                         
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
-                            document.IsInClass = true;
+                            document.CurrentContainingTypeElement = ContainingTypeElement.Class;
                             cse.ElementIsFinished = true;
                         }
 
@@ -298,7 +298,7 @@ public class TokenParser
                         document.LastKnownVisibilityLevel = VisibilityLevel.Public;
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
-                            document.IsInClass = true;
+                            document.CurrentContainingTypeElement = ContainingTypeElement.Class;
                             cse.ElementIsFinished = true;
                         }
                         break;
@@ -309,7 +309,7 @@ public class TokenParser
                         document.LastKnownVisibilityLevel = VisibilityLevel.Protected;
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
-                            document.IsInClass = true;
+                            document.CurrentContainingTypeElement = ContainingTypeElement.Class;
                             cse.ElementIsFinished = true;
                         }
                         break;
@@ -320,7 +320,7 @@ public class TokenParser
                         document.LastKnownVisibilityLevel = VisibilityLevel.Private;
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
-                            document.IsInClass = true;
+                            document.CurrentContainingTypeElement = ContainingTypeElement.Class;
                             cse.ElementIsFinished = true;
                         }
                         break;
@@ -331,7 +331,7 @@ public class TokenParser
                         document.LastKnownVisibilityLevel = VisibilityLevel.Assembly;
                         if (document.CurrentScope is ClassSyntaxElement cse)
                         {
-                            document.IsInClass = true;
+                            document.CurrentContainingTypeElement = ContainingTypeElement.Class;
                             cse.ElementIsFinished = true;
                         }
                         break;

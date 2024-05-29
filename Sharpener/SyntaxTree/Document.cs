@@ -9,6 +9,8 @@ using Sharpener.SyntaxTree.Scopes;
 
 namespace Sharpener.SyntaxTree;
 
+public enum ContainingTypeElement {None, Class, Interface, Record}
+
 public class Document
 {
     [JsonIgnore]
@@ -19,7 +21,7 @@ public class Document
     public bool LastKnownStatic { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]
-    public string LastKnownVariable { get; set; }
+    public string? LastKnownVariable { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]
     public bool LastKnownInCodeBlock { get; set; }
@@ -37,13 +39,7 @@ public class Document
     public bool IsInImplementationPartOfFile { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]
-    public bool IsInClass { get; set; }
-    [JsonIgnore]
-    [IgnoreDataMember]
-    public bool IsInInterface { get; set; }
-    [JsonIgnore]
-    [IgnoreDataMember]
-    public bool IsInRecord { get; set; }
+    public ContainingTypeElement CurrentContainingTypeElement { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]
     public string[]? OriginalOxygeneCode { get; set; }

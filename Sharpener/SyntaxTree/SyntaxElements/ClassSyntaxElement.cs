@@ -12,7 +12,7 @@ public class ClassSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IGener
     public bool IsStatic { get; set; }
     public override void FinishSyntaxElement(Document document)
     {
-        document.IsInClass = false;
+        document.CurrentContainingTypeElement = ContainingTypeElement.None;
         base.FinishSyntaxElement(document);
     }
 
