@@ -67,6 +67,7 @@ public class TokenParser
                                 .WithInterfaceName(document.LastKnownVariable)
                                 .WithVisibility(document.LastKnownVisibilityLevel));
                             document.LastKnownVisibilityLevel = VisibilityLevel.None;
+                            document.CurrentContainingTypeElement = ContainingTypeElement.Interface;
                         }
                         break;
                     }
@@ -96,13 +97,40 @@ public class TokenParser
                         document.IsInImplementationPartOfFile = true;
                         break;
                     }
-                    
-                    case TokenType.PropertyKeyword:
+
+                    case TokenType.EventKeyword:
                     {
-                        document.AddNewElementToCurrentAndMakeCurrent(new PropertySyntaxElement()
+                        if (document.CurrentScope is InterfaceSyntaxElement ise)
+                        {
+                            document.CurrentContainingTypeElement = ContainingTypeElement.Interface;
+                            ise.ElementIsFinished = true;
+                        }
+                        document.AddNewElementToCurrentAndMakeCurrent(new EventSyntaxElement()
                             .WithVisibility(document.LastKnownVisibilityLevel)
                             .WithStaticApplied(document.LastKnownStatic)
                             .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
+                        break;
+                    }
+                    
+                    case TokenType.PropertyKeyword:
+                    {
+                        if (document.CurrentScope is InterfaceSyntaxElement ise)
+                        {
+                            document.CurrentContainingTypeElement = ContainingTypeElement.Interface;
+                            ise.ElementIsFinished = true;
+                        }
+                        if (document.CurrentContainingTypeElement == ContainingTypeElement.Class || document.CurrentContainingTypeElement == ContainingTypeElement.Record)
+                        {
+                            document.AddNewElementToCurrentAndMakeCurrent(new PropertySyntaxElement()
+                                .WithVisibility(document.LastKnownVisibilityLevel)
+                                .WithStaticApplied(document.LastKnownStatic)
+                                .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
+                        }
+                        else if (document.CurrentContainingTypeElement == ContainingTypeElement.Interface)
+                        {
+                            document.AddNewElementToCurrentAndMakeCurrent(new PropertySyntaxInInterfaceElement()
+                                .WithStartSourceCodePosition(token.LineNumber, token.TokenIndex));
+                        }
                         document.LastKnownStatic = false;
                         break;
                     }
@@ -171,6 +199,11 @@ public class TokenParser
                         }
                         else
                         {
+                            if (document.CurrentScope is InterfaceSyntaxElement ise)
+                            {
+                                document.CurrentContainingTypeElement = ContainingTypeElement.Interface;
+                                ise.ElementIsFinished = true;
+                            }
                             var me = new MethodElement()
                                 .WithVisibility(document.LastKnownVisibilityLevel)
                                 .WithStaticApplied(document.LastKnownStatic)
@@ -289,6 +322,12 @@ public class TokenParser
                             document.CurrentContainingTypeElement = ContainingTypeElement.Class;
                             cse.ElementIsFinished = true;
                         }
+                        
+                        if (document.CurrentScope is InterfaceSyntaxElement ise)
+                        {
+                            document.CurrentContainingTypeElement = ContainingTypeElement.Interface;
+                            ise.ElementIsFinished = true;
+                        }
 
                         break;
                     }
@@ -301,6 +340,7 @@ public class TokenParser
                             document.CurrentContainingTypeElement = ContainingTypeElement.Class;
                             cse.ElementIsFinished = true;
                         }
+                        
                         break;
                     }
                     
@@ -312,6 +352,7 @@ public class TokenParser
                             document.CurrentContainingTypeElement = ContainingTypeElement.Class;
                             cse.ElementIsFinished = true;
                         }
+                        
                         break;
                     }
                     

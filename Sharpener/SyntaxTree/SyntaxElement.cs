@@ -125,6 +125,7 @@ public class NameSpaceElement : SyntaxElement, ISyntaxElementWithScope
         
         if (token.TokenType == TokenType.TypeDeclarationKeyword)
         {
+            document.IsInTypePartOfFile = true;
             ElementIsFinished = true;
             return true;
         }
