@@ -31,6 +31,52 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
     public VisibilityLevel VisibilityLevel { get; set; }
     public bool IsStatic { get; set; }
 
+    private AccessorDeclarationSyntax CreateExplicitGetter(string explicitInterfaceName, string explicitPropertyName)
+    {
+        return SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
+            .WithBody(
+                SyntaxFactory.Block(
+                    SyntaxFactory.SingletonList<StatementSyntax>(
+                        SyntaxFactory.ReturnStatement(
+                            SyntaxFactory.MemberAccessExpression(
+                                SyntaxKind.SimpleMemberAccessExpression,
+                                SyntaxFactory.CastExpression(
+                                    SyntaxFactory.ParseTypeName(explicitInterfaceName),
+                                    SyntaxFactory.ThisExpression()
+                                ),
+                                SyntaxFactory.IdentifierName(explicitPropertyName)
+                            )
+                        )
+                    )
+                )
+            );
+    }
+
+    private AccessorDeclarationSyntax CreateExplicitSetter(string explicitInterfaceName, string explicitPropertyName)
+    {
+        return SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
+            .WithBody(
+                SyntaxFactory.Block(
+                    SyntaxFactory.SingletonList<StatementSyntax>(
+                        SyntaxFactory.ExpressionStatement(
+                            SyntaxFactory.AssignmentExpression(
+                                SyntaxKind.SimpleAssignmentExpression,
+                                SyntaxFactory.MemberAccessExpression(
+                                    SyntaxKind.SimpleMemberAccessExpression,
+                                    SyntaxFactory.CastExpression(
+                                        SyntaxFactory.ParseTypeName(explicitInterfaceName),
+                                        SyntaxFactory.ThisExpression()
+                                    ),
+                                    SyntaxFactory.IdentifierName(explicitPropertyName)
+                                ),
+                                SyntaxFactory.IdentifierName("value")
+                            )
+                        )
+                    )
+                )
+            );
+    }
+
     public PropertySyntaxElement WithVisibility(VisibilityLevel visibilityLevel)
     {
         VisibilityLevel = visibilityLevel;
@@ -123,6 +169,9 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
                     }
                     break;
                 case SpecialSyntaxToken.Implements:
+                    // Return from here, so we don't leave the scope. We already left it in the previous element
+                    _specialTokenState = SpecialSyntaxToken.None;
+                    return true;
                     break;
                 case SpecialSyntaxToken.None:
                     break;
@@ -165,6 +214,7 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
 
                     ExplicitInterfaceName = explicitParts[0];
                     ExplicitPropertyName = explicitParts[1];
+                    return true;
                 }
                     break;
             }
@@ -177,15 +227,17 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
     {
         var result = new List<MemberDeclarationSyntax>();
         var vis = Tools.VisibilityToSyntaxKind(VisibilityLevel);
-
-        
         
         // Create a Property
         if (String.IsNullOrEmpty(Propertytype)) return null;
         var propType = OxygeneTypeTranslator.ConvertOxygeneTypeToCS(Propertytype);
         propType = propType + (IsNullable ? "?" : "");
         
-        // Handle creating secondary type that references the first implicit one.
+        var propertyDeclaration = SyntaxFactory
+            .PropertyDeclaration(SyntaxFactory.ParseTypeName(propType), PropertyName)
+            .AddModifiers(SyntaxFactory.Token(vis));
+        
+        // Handle creating secondary type that references the first explicit one.
         /*
          * For example. The original Oxygene code:
          * property UsedWorklist: IWorklist; implements ITest.Worklist
@@ -193,30 +245,41 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
          * Converts to
          *
          * public IWorklist UsedWorklist
-         * { 
-		        get {return Worklist;}
-		        set {Worklist = value;}
-		   }
-		   
+         * {
+         *      get { return ((ITest)this).Worklist; }
+         *      set { ((ITest)this).Worklist = value; }
+         * }
+         * IWorklist ITest.Worklist { get; set; }
          */
-        var actualPropertyName = String.Empty;
-        if (!String.IsNullOrEmpty(ExplicitPropertyName))
+        if (!String.IsNullOrEmpty(ExplicitPropertyName) && (!String.IsNullOrEmpty(ExplicitInterfaceName)))
         {
-            actualPropertyName = ExplicitPropertyName;
-            var propertyDeclarationOriginalName = SyntaxFactory
-                .PropertyDeclaration(SyntaxFactory.ParseTypeName(propType), PropertyName)
-                .AddModifiers(SyntaxFactory.Token(vis));
-        }
-        else
-        {
-            actualPropertyName = PropertyName;
-        }
-        var propertyDeclaration = SyntaxFactory
-            .PropertyDeclaration(SyntaxFactory.ParseTypeName(propType), actualPropertyName)
-            .AddModifiers(SyntaxFactory.Token(vis));
+            // Add getter and setter code for referencing explicit reference
+            propertyDeclaration = propertyDeclaration.AddAccessorListAccessors(
+                CreateExplicitGetter(ExplicitInterfaceName, ExplicitPropertyName),
+                CreateExplicitSetter(ExplicitInterfaceName, ExplicitPropertyName));
+            
+            // Create base explicit property
+            var getter = SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
+                .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
-        if (String.IsNullOrEmpty(GetterCode) && String.IsNullOrEmpty(SetterCode)) //implied getter/setter
+            // Create the setter accessor
+            var setter = SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
+                .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
+            // Create the explicit interface specifier
+            var explicitInterfaceSpecifier = SyntaxFactory.ExplicitInterfaceSpecifier(
+                SyntaxFactory.IdentifierName(ExplicitInterfaceName));
+            
+            // Create the property
+            var propertyDeclarationOriginalName = SyntaxFactory.PropertyDeclaration(SyntaxFactory.ParseTypeName(propType), ExplicitPropertyName)
+                .WithExplicitInterfaceSpecifier(explicitInterfaceSpecifier)
+                .AddAccessorListAccessors(getter, setter);
+            
+            result.Add(propertyDeclarationOriginalName);
+        }
+        else if (String.IsNullOrEmpty(GetterCode) && String.IsNullOrEmpty(SetterCode)) //implied getter/setter
         {
+            // Add "{ get; set; }" code
             propertyDeclaration = propertyDeclaration.AddAccessorListAccessors(
             SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
                 .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),

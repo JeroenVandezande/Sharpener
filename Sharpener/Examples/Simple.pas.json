@@ -103,21 +103,6 @@
             "ElementIsFinished": true
           },
           {
-            "$type": "Sharpener.SyntaxTree.Scopes.ClassVariableDeclarationSyntaxElement, Sharpener",
-            "VariableName": "ITest.Worklist",
-            "Variabletype": null,
-            "IsNullable": false,
-            "VisibilityLevel": "Public",
-            "IsStatic": false,
-            "Children": [],
-            "OriginalSourceCode": null,
-            "OriginalSourceCodeStartLineNumber": 12,
-            "OriginalSourceCodeStartColumnNumber": 6,
-            "OriginalSourceCodeStopLineNumber": 0,
-            "OriginalSourceCodeStopColumnNumber": 0,
-            "ElementIsFinished": false
-          },
-          {
             "$type": "Sharpener.SyntaxTree.Scopes.MethodElement, Sharpener",
             "MethodName": "Main",
             "ReturnType": "Int32",

@@ -6,11 +6,28 @@ namespace SimpleConsoleApp
     [AttributeHere, SecondAttribute]
     public class Program
     {
-        public static void Main()
+        public TWorklist WorkList { get =>; set =>; }
+
+        IWorklist ITest.Worklist { get; set; }
+
+        public IWorklist UsedWorklist
         {
-            begin // add your own code here
-            writeLn('The magic happens here.');
-            end; * /
+            get
+            {
+                return (ITest)this.Worklist;
+            }
+
+            set
+            {
+                (ITest)this.Worklist = value;
+            }
+
+            get;
+            set;
+        }
+
+        public static Int32 Main()
+        {
         }
     }
 }

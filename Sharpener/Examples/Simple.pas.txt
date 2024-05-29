@@ -23,29 +23,51 @@ KeywordTokenType: ClassKeyword, Line: 9, Token Index 2
 
 KeywordTokenType: PublicKeyword, Line: 10, Token Index 0
 
-KeywordTokenType: ClassKeyword, Line: 11, Token Index 0
-KeywordTokenType: MethodKeyword, Line: 11, Token Index 1
-IdentifierTokenText: Main, Line: 11, Token Index 2
-SeperatorTokenType: OpenParathesis, Line: 11, Token Index 3
-SeperatorTokenType: ClosedParathesis, Line: 11, Token Index 4
-SeperatorTokenType: Colon, Line: 11, Token Index 5
-IdentifierTokenText: Int32, Line: 11, Token Index 6
-SeperatorTokenType: SemiColon, Line: 11, Token Index 7
+KeywordTokenType: PropertyKeyword, Line: 11, Token Index 0
+IdentifierTokenText: WorkList, Line: 11, Token Index 1
+SeperatorTokenType: Colon, Line: 11, Token Index 2
+IdentifierTokenText: TWorklist, Line: 11, Token Index 3
+KeywordTokenType: ReadGetterKeyword, Line: 11, Token Index 4
+IdentifierTokenText: TWorklist, Line: 11, Token Index 5
+SeperatorTokenType: OpenParathesis, Line: 11, Token Index 6
+IdentifierTokenText: UsedWorklist, Line: 11, Token Index 7
+SeperatorTokenType: ClosedParathesis, Line: 11, Token Index 8
+KeywordTokenType: WriteSetterKeyword, Line: 11, Token Index 9
+IdentifierTokenText: UsedWorklist, Line: 11, Token Index 10
+SeperatorTokenType: SemiColon, Line: 11, Token Index 11
 
-KeywordTokenType: CodeBlockBegin, Line: 12, Token Index 0
+KeywordTokenType: PropertyKeyword, Line: 12, Token Index 0
+IdentifierTokenText: UsedWorklist, Line: 12, Token Index 1
+SeperatorTokenType: Colon, Line: 12, Token Index 2
+IdentifierTokenText: IWorklist, Line: 12, Token Index 3
+SeperatorTokenType: SemiColon, Line: 12, Token Index 4
+KeywordTokenType: ImplementsInheritanceKeyword, Line: 12, Token Index 5
+IdentifierTokenText: ITest.Worklist, Line: 12, Token Index 6
+SeperatorTokenType: SemiColon, Line: 12, Token Index 7
 
-CommentTokenType: Comment, Line: 13, Token Index 0
+KeywordTokenType: ClassKeyword, Line: 14, Token Index 0
+KeywordTokenType: MethodKeyword, Line: 14, Token Index 1
+IdentifierTokenText: Main, Line: 14, Token Index 2
+SeperatorTokenType: OpenParathesis, Line: 14, Token Index 3
+SeperatorTokenType: ClosedParathesis, Line: 14, Token Index 4
+SeperatorTokenType: Colon, Line: 14, Token Index 5
+IdentifierTokenText: Int32, Line: 14, Token Index 6
+SeperatorTokenType: SemiColon, Line: 14, Token Index 7
 
-KeywordTokenType: WriteLnMagicFunction, Line: 14, Token Index 0
-SeperatorTokenType: OpenParathesis, Line: 14, Token Index 1
-IdentifierTokenText: 'The magic happens here.', Line: 14, Token Index 2
-SeperatorTokenType: ClosedParathesis, Line: 14, Token Index 3
-SeperatorTokenType: SemiColon, Line: 14, Token Index 4
+KeywordTokenType: CodeBlockBegin, Line: 15, Token Index 0
 
-KeywordTokenType: CodeBlockEnd, Line: 15, Token Index 0
-SeperatorTokenType: SemiColon, Line: 15, Token Index 1
+CommentTokenType: Comment, Line: 16, Token Index 0
 
-KeywordTokenType: CodeBlockEnd, Line: 16, Token Index 0
-SeperatorTokenType: SemiColon, Line: 16, Token Index 1
+KeywordTokenType: WriteLnMagicFunction, Line: 17, Token Index 0
+SeperatorTokenType: OpenParathesis, Line: 17, Token Index 1
+IdentifierTokenText: 'The magic happens here.', Line: 17, Token Index 2
+SeperatorTokenType: ClosedParathesis, Line: 17, Token Index 3
+SeperatorTokenType: SemiColon, Line: 17, Token Index 4
 
-KeywordTokenType: EndOfFile, Line: 17, Token Index 0
+KeywordTokenType: CodeBlockEnd, Line: 18, Token Index 0
+SeperatorTokenType: SemiColon, Line: 18, Token Index 1
+
+KeywordTokenType: CodeBlockEnd, Line: 19, Token Index 0
+SeperatorTokenType: SemiColon, Line: 19, Token Index 1
+
+KeywordTokenType: EndOfFile, Line: 20, Token Index 0

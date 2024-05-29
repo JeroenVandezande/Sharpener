@@ -27,7 +27,7 @@ Records
 Unsafe Code
 External Methods
 Aspects
-Interface Delegation (fSomething implements ISomething) - Dana
+Interface Delegation (fSomething implements ISomething) - DONE
 Null checks
 Notify keyword -> Fody - DONE
 Tuples
