@@ -11,7 +11,7 @@ public class InterfaceSyntaxElement : SyntaxElement, ISyntaxElementWithScope, IG
     public VisibilityLevel Visibility { get; set; }
     public override void FinishSyntaxElement(Document document)
     {
-        document.IsInClassPartOfFile = false;
+        document.IsInClass = false;
         base.FinishSyntaxElement(document);
     }
     

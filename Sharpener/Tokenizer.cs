@@ -33,14 +33,14 @@ namespace Sharpener
             return sb.ToString();
         }
 
-        public IEnumerable<string> Lines { get; set; }
+        public IEnumerable<string>? Lines { get; set; }
 
-        public void ParseAndConvert(IEnumerable<string> lines)
+        public void ParseAndConvert(IEnumerable<string>? lines)
         {
             Parse(lines);
         }
 
-        public void Parse(IEnumerable<string> lines)
+        public void Parse(IEnumerable<string>? lines)
         {
             Lines = lines;
             var index = 1;
