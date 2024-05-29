@@ -12,7 +12,7 @@ Arrays
 API Rate limiting - DONE
 Attributes - Dana
 Constructors - DONE
-Constants (type inference)
+Constants (type inference) - Dana
 class Variables - DONE
 class Variables (Initialization) - Jeroen
 class Variables (type inference)

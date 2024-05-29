@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis;
 using Sharpener.Enums;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,5 +27,10 @@ public static class Tools
         }
 
         return vis;
+    }
+    
+    public static SyntaxToken VisibilityToSyntaxToken(VisibilityLevel visibilityLevel)
+    {
+        return SyntaxFactory.Token(VisibilityToSyntaxKind(visibilityLevel));
     }
 }

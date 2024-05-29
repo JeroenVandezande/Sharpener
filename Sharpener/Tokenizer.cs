@@ -27,7 +27,7 @@ namespace Sharpener
             var sb = new StringBuilder();
             foreach(var tok in Tokens)
             {
-                sb.AppendLine(tok.ToString());
+                sb.AppendLine(tok.Description);
             }
 
             return sb.ToString();
@@ -121,12 +121,12 @@ namespace Sharpener
                     // Forward Lookahead one character. Matches edge cases like ":" and ":="
                     if (SingleForwardLookAhead(TokenizerConstants.OperatorSyntax, parsedLine, character, i, out var opType))
                     {
-                        tokens.Add(new OperatorToken(lineIndex, tokenAmount, opType));
+                        tokens.Add(new OperatorToken(character.ToString() + parsedLine[i + 1].ToString(), lineIndex, tokenAmount, opType));
                         i++; // Add to i since we matched a forward character
                         continue;
                     }
                     
-                    tokens.Add(new SeperatorToken(lineIndex, tokenAmount, i, i - 1, sepType));
+                    tokens.Add(new SeperatorToken(character.ToString(), lineIndex, tokenAmount, i, i - 1, sepType));
                     continue;
                 }
 
@@ -156,7 +156,7 @@ namespace Sharpener
                         }
                     }
 
-                    tokens.Add(new OperatorToken(lineIndex, tokenAmount, op2Type));
+                    tokens.Add(new OperatorToken(character.ToString(),lineIndex, tokenAmount, op2Type));
                     continue;
                 }
             }
@@ -184,14 +184,14 @@ namespace Sharpener
             TokenType tokenType;
             if (TokenizerConstants.KeywordSyntax.TryGetValue(buffer.ToString().ToLower(), out tokenType))
             {
-                tokens.Add(new KeywordToken(lineIndex, tokenAmount, index - buffer.Length, index, tokenType));
+                tokens.Add(new KeywordToken(buffer.ToString(), lineIndex, tokenAmount, index - buffer.Length, index, tokenType));
                 buffer.Clear();
                 return;
             }
             
             if (TokenizerConstants.OperatorSyntax.TryGetValue(buffer.ToString().ToLower(), out tokenType))
             {
-                tokens.Add(new OperatorToken(lineIndex, tokenAmount, tokenType));
+                tokens.Add(new OperatorToken(buffer.ToString().ToLower(), lineIndex, tokenAmount, tokenType));
                 buffer.Clear();
                 return;
             }

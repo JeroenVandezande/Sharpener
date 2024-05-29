@@ -1,73 +1,126 @@
-KeywordTokenType: NamespaceKeyword, Line: 1, Token Index 0
-IdentifierTokenText: SimpleConsoleApp, Line: 1, Token Index 1
-SeperatorTokenType: SemiColon, Line: 1, Token Index 2
+String: namespace 	 TokenType: NamespaceKeyword 	 Line: 1 	 Token Index 0
+String: SimpleConsoleApp 	 TokenType: Variable 	 Line: 1 	 Token Index 1
+String: ; 	 TokenType: SemiColon 	 Line: 1 	 Token Index 2
 
-KeywordTokenType: UsesKeyword, Line: 3, Token Index 0
+String: uses 	 TokenType: UsesKeyword 	 Line: 3 	 Token Index 0
 
-IdentifierTokenText: System.Linq, Line: 4, Token Index 0
-SeperatorTokenType: SemiColon, Line: 4, Token Index 1
+String: System.Linq 	 TokenType: Variable 	 Line: 4 	 Token Index 0
+String: ; 	 TokenType: SemiColon 	 Line: 4 	 Token Index 1
 
-KeywordTokenType: TypeDeclarationKeyword, Line: 6, Token Index 0
+String: type 	 TokenType: TypeDeclarationKeyword 	 Line: 6 	 Token Index 0
 
-SeperatorTokenType: OpenBracket, Line: 7, Token Index 0
-IdentifierTokenText: AttributeHere, Line: 7, Token Index 1
-SeperatorTokenType: ClosedBracket, Line: 7, Token Index 2
+String: [ 	 TokenType: OpenBracket 	 Line: 7 	 Token Index 0
+String: AttributeHere 	 TokenType: Variable 	 Line: 7 	 Token Index 1
+String: ] 	 TokenType: ClosedBracket 	 Line: 7 	 Token Index 2
 
-SeperatorTokenType: OpenBracket, Line: 8, Token Index 0
-IdentifierTokenText: SecondAttribute, Line: 8, Token Index 1
-SeperatorTokenType: ClosedBracket, Line: 8, Token Index 2
+String: [ 	 TokenType: OpenBracket 	 Line: 8 	 Token Index 0
+String: SecondAttribute 	 TokenType: Variable 	 Line: 8 	 Token Index 1
+String: ] 	 TokenType: ClosedBracket 	 Line: 8 	 Token Index 2
 
-IdentifierTokenText: Program, Line: 9, Token Index 0
-OperatorTokenType: BooleanEquals, Line: 9, Token Index 1
-KeywordTokenType: ClassKeyword, Line: 9, Token Index 2
+String: Program 	 TokenType: Variable 	 Line: 9 	 Token Index 0
+String: = 	 TokenType: BooleanEquals 	 Line: 9 	 Token Index 1
+String: class 	 TokenType: ClassKeyword 	 Line: 9 	 Token Index 2
 
-KeywordTokenType: PublicKeyword, Line: 10, Token Index 0
+String: public 	 TokenType: PublicKeyword 	 Line: 10 	 Token Index 0
 
-KeywordTokenType: PropertyKeyword, Line: 11, Token Index 0
-IdentifierTokenText: WorkList, Line: 11, Token Index 1
-SeperatorTokenType: Colon, Line: 11, Token Index 2
-IdentifierTokenText: TWorklist, Line: 11, Token Index 3
-KeywordTokenType: ReadGetterKeyword, Line: 11, Token Index 4
-IdentifierTokenText: TWorklist, Line: 11, Token Index 5
-SeperatorTokenType: OpenParathesis, Line: 11, Token Index 6
-IdentifierTokenText: UsedWorklist, Line: 11, Token Index 7
-SeperatorTokenType: ClosedParathesis, Line: 11, Token Index 8
-KeywordTokenType: WriteSetterKeyword, Line: 11, Token Index 9
-IdentifierTokenText: UsedWorklist, Line: 11, Token Index 10
-SeperatorTokenType: SemiColon, Line: 11, Token Index 11
+String: property 	 TokenType: PropertyKeyword 	 Line: 11 	 Token Index 0
+String: WorkList 	 TokenType: Variable 	 Line: 11 	 Token Index 1
+String: : 	 TokenType: Colon 	 Line: 11 	 Token Index 2
+String: TWorklist 	 TokenType: Variable 	 Line: 11 	 Token Index 3
+String: read 	 TokenType: ReadGetterKeyword 	 Line: 11 	 Token Index 4
+String: TWorklist 	 TokenType: Variable 	 Line: 11 	 Token Index 5
+String: ( 	 TokenType: OpenParathesis 	 Line: 11 	 Token Index 6
+String: UsedWorklist 	 TokenType: Variable 	 Line: 11 	 Token Index 7
+String: ) 	 TokenType: ClosedParathesis 	 Line: 11 	 Token Index 8
+String: write 	 TokenType: WriteSetterKeyword 	 Line: 11 	 Token Index 9
+String: UsedWorklist 	 TokenType: Variable 	 Line: 11 	 Token Index 10
+String: ; 	 TokenType: SemiColon 	 Line: 11 	 Token Index 11
 
-KeywordTokenType: PropertyKeyword, Line: 12, Token Index 0
-IdentifierTokenText: UsedWorklist, Line: 12, Token Index 1
-SeperatorTokenType: Colon, Line: 12, Token Index 2
-IdentifierTokenText: IWorklist, Line: 12, Token Index 3
-SeperatorTokenType: SemiColon, Line: 12, Token Index 4
-KeywordTokenType: ImplementsInheritanceKeyword, Line: 12, Token Index 5
-IdentifierTokenText: ITest.Worklist, Line: 12, Token Index 6
-SeperatorTokenType: SemiColon, Line: 12, Token Index 7
+String: property 	 TokenType: PropertyKeyword 	 Line: 12 	 Token Index 0
+String: UsedWorklist 	 TokenType: Variable 	 Line: 12 	 Token Index 1
+String: : 	 TokenType: Colon 	 Line: 12 	 Token Index 2
+String: IWorklist 	 TokenType: Variable 	 Line: 12 	 Token Index 3
+String: ; 	 TokenType: SemiColon 	 Line: 12 	 Token Index 4
+String: implements 	 TokenType: ImplementsInheritanceKeyword 	 Line: 12 	 Token Index 5
+String: ITest.Worklist 	 TokenType: Variable 	 Line: 12 	 Token Index 6
+String: ; 	 TokenType: SemiColon 	 Line: 12 	 Token Index 7
 
-KeywordTokenType: ClassKeyword, Line: 14, Token Index 0
-KeywordTokenType: MethodKeyword, Line: 14, Token Index 1
-IdentifierTokenText: Main, Line: 14, Token Index 2
-SeperatorTokenType: OpenParathesis, Line: 14, Token Index 3
-SeperatorTokenType: ClosedParathesis, Line: 14, Token Index 4
-SeperatorTokenType: Colon, Line: 14, Token Index 5
-IdentifierTokenText: Int32, Line: 14, Token Index 6
-SeperatorTokenType: SemiColon, Line: 14, Token Index 7
+String: class 	 TokenType: ClassKeyword 	 Line: 14 	 Token Index 0
+String: method 	 TokenType: MethodKeyword 	 Line: 14 	 Token Index 1
+String: Main 	 TokenType: Variable 	 Line: 14 	 Token Index 2
+String: ( 	 TokenType: OpenParathesis 	 Line: 14 	 Token Index 3
+String: ) 	 TokenType: ClosedParathesis 	 Line: 14 	 Token Index 4
+String: : 	 TokenType: Colon 	 Line: 14 	 Token Index 5
+String: Int32 	 TokenType: Variable 	 Line: 14 	 Token Index 6
+String: ; 	 TokenType: SemiColon 	 Line: 14 	 Token Index 7
 
-KeywordTokenType: CodeBlockBegin, Line: 15, Token Index 0
+String: begin 	 TokenType: CodeBlockBegin 	 Line: 15 	 Token Index 0
 
-CommentTokenType: Comment, Line: 16, Token Index 0
+String: // add your own code here 	 TokenType: Comment 	 Line: 16 	 Token Index 0
 
-KeywordTokenType: WriteLnMagicFunction, Line: 17, Token Index 0
-SeperatorTokenType: OpenParathesis, Line: 17, Token Index 1
-IdentifierTokenText: 'The magic happens here.', Line: 17, Token Index 2
-SeperatorTokenType: ClosedParathesis, Line: 17, Token Index 3
-SeperatorTokenType: SemiColon, Line: 17, Token Index 4
+String: writeLn 	 TokenType: WriteLnMagicFunction 	 Line: 17 	 Token Index 0
+String: ( 	 TokenType: OpenParathesis 	 Line: 17 	 Token Index 1
+String: 'The magic happens here.' 	 TokenType: Variable 	 Line: 17 	 Token Index 2
+String: ) 	 TokenType: ClosedParathesis 	 Line: 17 	 Token Index 3
+String: ; 	 TokenType: SemiColon 	 Line: 17 	 Token Index 4
 
-KeywordTokenType: CodeBlockEnd, Line: 18, Token Index 0
-SeperatorTokenType: SemiColon, Line: 18, Token Index 1
+String: end 	 TokenType: CodeBlockEnd 	 Line: 18 	 Token Index 0
+String: ; 	 TokenType: SemiColon 	 Line: 18 	 Token Index 1
 
-KeywordTokenType: CodeBlockEnd, Line: 19, Token Index 0
-SeperatorTokenType: SemiColon, Line: 19, Token Index 1
+String: // Implicit Const 	 TokenType: Comment 	 Line: 19 	 Token Index 0
 
-KeywordTokenType: EndOfFile, Line: 20, Token Index 0
+String: const 	 TokenType: ConstKeyword 	 Line: 20 	 Token Index 0
+String: STRING_CONST 	 TokenType: Variable 	 Line: 20 	 Token Index 1
+String: = 	 TokenType: BooleanEquals 	 Line: 20 	 Token Index 2
+String: "MyConstantString" 	 TokenType: Variable 	 Line: 20 	 Token Index 3
+String: ; 	 TokenType: SemiColon 	 Line: 20 	 Token Index 4
+
+String: const 	 TokenType: ConstKeyword 	 Line: 21 	 Token Index 0
+String: INT_CONST 	 TokenType: Variable 	 Line: 21 	 Token Index 1
+String: = 	 TokenType: BooleanEquals 	 Line: 21 	 Token Index 2
+String: 80 	 TokenType: Variable 	 Line: 21 	 Token Index 3
+String: ; 	 TokenType: SemiColon 	 Line: 21 	 Token Index 4
+
+String: const 	 TokenType: ConstKeyword 	 Line: 22 	 Token Index 0
+String: DOUBLE_CONST 	 TokenType: Variable 	 Line: 22 	 Token Index 1
+String: = 	 TokenType: BooleanEquals 	 Line: 22 	 Token Index 2
+String: 155.0 	 TokenType: Variable 	 Line: 22 	 Token Index 3
+String: ; 	 TokenType: SemiColon 	 Line: 22 	 Token Index 4
+
+String: const 	 TokenType: ConstKeyword 	 Line: 23 	 Token Index 0
+String: e 	 TokenType: Variable 	 Line: 23 	 Token Index 1
+String: = 	 TokenType: BooleanEquals 	 Line: 23 	 Token Index 2
+String: 1e 	 TokenType: Variable 	 Line: 23 	 Token Index 3
+String: - 	 TokenType: SubtractOperator 	 Line: 23 	 Token Index 4
+String: 6 	 TokenType: Variable 	 Line: 23 	 Token Index 5
+String: ; 	 TokenType: SemiColon 	 Line: 23 	 Token Index 6
+
+String: // Explicit Consts 	 TokenType: Comment 	 Line: 25 	 Token Index 0
+
+String: const 	 TokenType: ConstKeyword 	 Line: 26 	 Token Index 0
+String: EXPLICITINT_CONST 	 TokenType: Variable 	 Line: 26 	 Token Index 1
+String: : 	 TokenType: Colon 	 Line: 26 	 Token Index 2
+String: Integer 	 TokenType: Variable 	 Line: 26 	 Token Index 3
+String: = 	 TokenType: BooleanEquals 	 Line: 26 	 Token Index 4
+String: 65536 	 TokenType: Variable 	 Line: 26 	 Token Index 5
+String: ; 	 TokenType: SemiColon 	 Line: 26 	 Token Index 6
+
+String: const 	 TokenType: ConstKeyword 	 Line: 27 	 Token Index 0
+String: EXPLICITOBJECT_CONST 	 TokenType: Variable 	 Line: 27 	 Token Index 1
+String: = 	 TokenType: BooleanEquals 	 Line: 27 	 Token Index 2
+String: System.Drawing.Color.FromArgb 	 TokenType: Variable 	 Line: 27 	 Token Index 3
+String: ( 	 TokenType: OpenParathesis 	 Line: 27 	 Token Index 4
+String: 0 	 TokenType: Variable 	 Line: 27 	 Token Index 5
+String: , 	 TokenType: Comma 	 Line: 27 	 Token Index 6
+String: 0 	 TokenType: Variable 	 Line: 27 	 Token Index 7
+String: , 	 TokenType: Comma 	 Line: 27 	 Token Index 8
+String: 50 	 TokenType: Variable 	 Line: 27 	 Token Index 9
+String: , 	 TokenType: Comma 	 Line: 27 	 Token Index 10
+String: 100 	 TokenType: Variable 	 Line: 27 	 Token Index 11
+String: ) 	 TokenType: ClosedParathesis 	 Line: 27 	 Token Index 12
+String: ; 	 TokenType: SemiColon 	 Line: 27 	 Token Index 13
+
+String: end 	 TokenType: CodeBlockEnd 	 Line: 28 	 Token Index 0
+String: ; 	 TokenType: SemiColon 	 Line: 28 	 Token Index 1
+
+String: end. 	 TokenType: EndOfFile 	 Line: 32 	 Token Index 0

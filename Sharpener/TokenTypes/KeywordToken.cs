@@ -11,18 +11,24 @@ namespace Sharpener
     {
         public int StartColumn { get; set; }
         public int EndColumn { get; set; }
-        public KeywordToken(int lineNumber, int tokenIndex, int startColumn, int endColumn, TokenType tokenType)
+        public KeywordToken(string text, int lineNumber, int tokenIndex, int startColumn, int endColumn, TokenType tokenType)
             : base(lineNumber, tokenIndex)
         {
             TokenType = tokenType;
             StartColumn = startColumn;
             EndColumn = endColumn;
+            StringRepresentation = text;
         }
 
-        public override string ToString()
+        public string Description
         {
-            return String.Format("KeywordTokenType: {0}, Line: {1}, Token Index {2}",
-                    TokenType.ToString(), LineNumber, TokenIndex);
+            get => getDescription();
+        }
+
+        private string getDescription()
+        {
+            return String.Format("String: {0} KeywordTokenType: {1}, Line: {2}, Token Index {3}",
+                StringRepresentation, TokenType.ToString(), LineNumber, TokenIndex);
         }
     }
 }

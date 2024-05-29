@@ -59,7 +59,7 @@ namespace Sharpener
                 {
                     stringBuilder.AppendLine("");
                 }
-                stringBuilder.AppendLine(token.ToString());
+                stringBuilder.AppendLine(token.Description);
 
                 prevLineIndex = token.LineNumber;
             }
