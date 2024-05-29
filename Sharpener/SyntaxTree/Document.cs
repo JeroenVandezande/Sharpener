@@ -11,6 +11,23 @@ namespace Sharpener.SyntaxTree;
 
 public class Document
 {
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public VisibilityLevel LastKnownVisibilityLevel { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool LastKnownStatic { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public string LastKnownVariable { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool LastKnownInCodeBlock { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool IsInTypePartOfFile { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
     public bool IsNotifyKeywordUsedInFile { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]
@@ -96,14 +113,6 @@ public class Document
 
         return _FindClassByName(className, RootElement);
     }
-
-    public VisibilityLevel LastKnownVisibilityLevel { get; set; }
-    public bool LastKnownStatic { get; set; }
-    public string LastKnownVariable { get; set; }
-    public bool LastKnownInCodeBlock { get; set; }
-    public bool IsInTypePartOfFile { get; set; }
-
-
     public SyntaxElement returnFromCurrentScope()
     {
         SyntaxElement result;
