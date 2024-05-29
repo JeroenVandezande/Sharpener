@@ -12,14 +12,29 @@ namespace Sharpener.SyntaxTree;
 public class Document
 {
     public bool IsNotifyKeywordUsedInFile { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool IsInInterfacePartOfFile { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
     public bool IsInImplementationPartOfFile { get; set; }
-    public bool IsInClassPartOfFile { get; set; }
-    public String[] OriginalOxygeneCode { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool IsInClass { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool IsInInterface { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool IsInRecord { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public string[]? OriginalOxygeneCode { get; set; }
     
     [JsonIgnore]
     [IgnoreDataMember]
-    public SyntaxElement PreviousElement { get; set; }
-    public NameSpaceElement RootElement { get; set; }
+    public SyntaxElement? PreviousElement { get; set; }
+    public NameSpaceElement? RootElement { get; set; }
 
     [JsonIgnore]
     [IgnoreDataMember]

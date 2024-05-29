@@ -5,21 +5,13 @@ using Sharpener.OpenAI;
 
 namespace Sharpener.SyntaxTree.Scopes;
 
-public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGenerateMemberSyntax
+public class PropertySyntaxElement: PropertySyntaxElementBase
 {
     private bool _useNotifyInFile;
     private int _getterStart;
     private int _getterEnd;
     private int _setterStart;
     private int _setterEnd;
-    private enum SpecialSyntaxToken
-    {
-        None,
-        Getter,
-        Setter,
-        Implements
-    }
-    private SpecialSyntaxToken _specialTokenState;
     public string? ExplicitInterfaceName { get; set; }
     public string? ExplicitPropertyName { get; set; }
     public string PropertyName { get; set; }
@@ -92,6 +84,7 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
     public override bool WithToken(Document document, IToken token)
     {
         _useNotifyInFile = document.IsNotifyKeywordUsedInFile;
+        
         if (token.TokenType == TokenType.NullableTypeDefinition)
         {
             IsNullable = true;
@@ -106,7 +99,7 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
 
         if (token.TokenType == TokenType.ImplementsInheritanceKeyword)
         {
-            _specialTokenState = SpecialSyntaxToken.Implements;
+            SpecialTokenState = SpecialSyntaxToken.Implements;
             return true;
         }
         
@@ -122,16 +115,21 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
             }
         }
         
+        if (base.WithToken(document, token))
+        {
+            return true;
+        }
+        
         if (token.TokenType == TokenType.ReadGetterKeyword)
         {
             _getterStart = ((KeywordToken)token).EndColumn + 1;
-            _specialTokenState = SpecialSyntaxToken.Getter;
+            SpecialTokenState = SpecialSyntaxToken.Getter;
             return true;
         }
         
         if (token.TokenType == TokenType.WriteSetterKeyword)
         {
-            if (_specialTokenState == SpecialSyntaxToken.Getter)
+            if (SpecialTokenState == SpecialSyntaxToken.Getter)
             {
                 _getterEnd = ((KeywordToken)token).StartColumn;
                 GetterCode = document.OriginalOxygeneCode[token.LineNumber - 1]
@@ -140,13 +138,13 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
             _setterStart = ((KeywordToken)token).EndColumn + 1;
             // _getterIsNext = false;
             // _setterIsNext = true;
-            _specialTokenState = SpecialSyntaxToken.Setter;
+            SpecialTokenState = SpecialSyntaxToken.Setter;
             return true;
         }
         
         if (token.TokenType == TokenType.SemiColon)
         {
-            switch (_specialTokenState)
+            switch (SpecialTokenState)
             {
                 case SpecialSyntaxToken.Getter:
                     {
@@ -170,14 +168,14 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
                     break;
                 case SpecialSyntaxToken.Implements:
                     // Return from here, so we don't leave the scope. We already left it in the previous element
-                    _specialTokenState = SpecialSyntaxToken.None;
+                    SpecialTokenState = SpecialSyntaxToken.None;
                     return true;
                     break;
                 case SpecialSyntaxToken.None:
                     break;
             }
 
-            _specialTokenState = SpecialSyntaxToken.None;
+            SpecialTokenState = SpecialSyntaxToken.None;
             ElementIsFinished = true;
             document.returnFromCurrentScope();
             return true;
@@ -185,7 +183,7 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
         
         if (token is ITokenWithText param)
         {
-            switch (_specialTokenState)
+            switch (SpecialTokenState)
             {
                 case SpecialSyntaxToken.None: // Regular case handles "PropertyName: Type" syntax
                 {
@@ -223,9 +221,9 @@ public class PropertySyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
         return false;
     }
 
-    public List<MemberDeclarationSyntax> GenerateCodeNodes()
+    public override List<MemberDeclarationSyntax> GenerateCodeNodes()
     {
-        var result = new List<MemberDeclarationSyntax>();
+        var result = base.GenerateCodeNodes();
         var vis = Tools.VisibilityToSyntaxKind(VisibilityLevel);
         
         // Create a Property
