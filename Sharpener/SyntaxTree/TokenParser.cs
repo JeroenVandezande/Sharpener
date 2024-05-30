@@ -17,9 +17,8 @@ public class TokenParser
         {
             if (HandleCurrentElement(document, token)) continue;
             if (HandlePreviousElement(document, token)) continue;
-
-            var tokenWithText = token as ITokenWithText;
-            HandleTokenTypes(document, token, tokenWithText);
+            
+            HandleTokenTypes(document, token);
         }
     }
 
@@ -49,8 +48,9 @@ public class TokenParser
         _previousToken = token;
     }
 
-    private void HandleTokenTypes(Document document, IToken token, ITokenWithText tokenWithText)
+    private void HandleTokenTypes(Document document, IToken token)
     {
+        var tokenWithText = token as ITokenWithText;
         switch (token.TokenType)
         {
             case TokenType.Variable:
