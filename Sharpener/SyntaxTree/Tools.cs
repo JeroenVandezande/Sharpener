@@ -50,11 +50,18 @@ public static class Tools
         var value = constantValue.Trim();
         if (value.StartsWith("$")) //Hex Value
         {
-            return Int64.Parse(value.ToLower().Substring(1),
+            return Int128.Parse(value.ToLower().Substring(1),
                 NumberStyles.HexNumber,
                 CultureInfo.InvariantCulture).ToString();
         }
-
+        
+        if (value.StartsWith("%")) //Binary Value
+        {
+            return Int128.Parse(value.ToLower().Substring(1),
+                NumberStyles.BinaryNumber,
+                CultureInfo.InvariantCulture).ToString();
+        }
+        
         // Return same value if no special values were found
         return constantValue;
     }
