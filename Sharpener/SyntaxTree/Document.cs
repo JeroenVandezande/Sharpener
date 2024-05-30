@@ -174,24 +174,38 @@ public class Document
         }
     }
 
-    private NamespaceDeclarationSyntax _currentNameSpaceSyntax;
-    private ClassDeclarationSyntax _currentClassDeclarationSyntax;
-    private InterfaceDeclarationSyntax _currentInterfaceDelDeclarationSyntax;
+    private NamespaceDeclarationSyntax? _currentNameSpaceSyntax;
 
     private void RecurseThroughChildElements(List<ISyntaxElement> childElements)
     {
+        if (_currentNameSpaceSyntax == null)
+        {
+            throw new ArgumentNullException("_currentNameSpaceSyntax should not be NULL when calling this method");
+        }
         foreach (var child in childElements)
         {
+            if (child is InterfaceSyntaxElement interfaceExpression)
+            {
+                foreach (var member in interfaceExpression.GenerateCodeNodes())
+                {
+                    _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(member);
+                }
+            }
+            
             if (child is ClassSyntaxElement expression)
             {
-                _currentClassDeclarationSyntax = (ClassDeclarationSyntax)expression.GenerateCodeNodes()[0];
-                _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(_currentClassDeclarationSyntax);
+                foreach (var member in expression.GenerateCodeNodes())
+                {
+                    _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(member);
+                }
             }
-
+            
             if (child is EnumSyntaxElement enumExpression)
             {
-                var enumDeclarationSyntax = (EnumDeclarationSyntax)enumExpression.GenerateCodeNodes()[0];
-                _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(enumDeclarationSyntax);
+                foreach (var member in enumExpression.GenerateCodeNodes())
+                {
+                    _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(member);
+                }
             }
 
             if (child.Children.Count > 0)

@@ -89,6 +89,7 @@ public class PropertySyntaxInInterfaceElement : PropertySyntaxElementBase
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
         }
         
+        result.Add(propertyDeclaration);
         return result;
     }
 }
