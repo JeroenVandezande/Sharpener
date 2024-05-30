@@ -35,7 +35,7 @@ namespace Sharpener
         public string StringRepresentation { get; set; }
     }
     
-    public interface ITokenWithText
+    public interface ITokenWithText: IToken
     {
         /// <summary>
         /// Text of the token

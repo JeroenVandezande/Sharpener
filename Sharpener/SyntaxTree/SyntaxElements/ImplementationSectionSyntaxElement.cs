@@ -1,6 +1,6 @@
 using Sharpener.SyntaxTree;
 
-namespace harpener.SyntaxTree.Scopes;
+namespace Sharpener.SyntaxTree.Scopes;
 
 public class ImplementationSectionSyntaxElement: SyntaxElement, ISyntaxElementWithScope
 {
