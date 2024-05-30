@@ -41,6 +41,7 @@ public class ConstantSyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
         if (_inTypeSection)
         {
             ConstantType += token.StringRepresentation;
+            return true;
         }
         
         if (token is ITokenWithText param)
@@ -73,14 +74,21 @@ public class ConstantSyntaxElement: SyntaxElement, ISyntaxElementWithScope, IGen
 
         if (token.TokenType == TokenType.SemiColon)
         {
+            ConstantValue = Tools.ConvertOxygeneSpecialValueToCS(ConstantValue);
+            
             _inValueSection = false;
             
             if (String.IsNullOrEmpty(ConstantType))
             {
                 ConstantType = GetTypeFromValue(ConstantValue);
             }
+            else
+            {
+                // Convert oxygene special built-in types to regular C# ones (i.e. Integer => int)
+                ConstantType = Tools.ConvertOxygeneSpecialTypeToCS(ConstantType);
+            }
 
-            // Oxygene allows constant types C# does not. This should be converted to static readonly types
+            // Oxygene allows constant types that C# does not. This should be converted to static readonly types
             _staticReadonlyType = !IsTypeValidConst(ConstantType);
             
             ElementIsFinished = true;

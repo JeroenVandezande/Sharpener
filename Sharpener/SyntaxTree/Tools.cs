@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.CodeAnalysis;
 using Sharpener.Enums;
 using Microsoft.CodeAnalysis.CSharp;
@@ -32,5 +33,29 @@ public static class Tools
     public static SyntaxToken VisibilityToSyntaxToken(VisibilityLevel visibilityLevel)
     {
         return SyntaxFactory.Token(VisibilityToSyntaxKind(visibilityLevel));
+    }
+    
+    public static string ConvertOxygeneSpecialTypeToCS(string oxygeneTypeName)
+    {
+        return oxygeneTypeName.ToLower() switch
+        {
+            "integer" => "int",
+            "boolean" => "bool",
+            _ => oxygeneTypeName
+        };
+    }
+
+    public static string ConvertOxygeneSpecialValueToCS(string constantValue)
+    {
+        var value = constantValue.Trim();
+        if (value.StartsWith("$")) //Hex Value
+        {
+            return Int64.Parse(value.ToLower().Substring(1),
+                NumberStyles.HexNumber,
+                CultureInfo.InvariantCulture).ToString();
+        }
+
+        // Return same value if no special values were found
+        return constantValue;
     }
 }

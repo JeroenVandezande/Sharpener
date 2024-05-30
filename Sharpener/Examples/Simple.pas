@@ -21,6 +21,8 @@ type
 	  const INT_CONST = 80;
 	  const DOUBLE_CONST = 155.0;
 	  const e = 1e-6;
+	  const hex1 = $A5;
+	  const hex2 = $15;
 	  
 	  // Explicit Consts
 	  const EXPLICITINT_CONST: Integer = 65536;

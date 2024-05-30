@@ -78,7 +78,7 @@ public class ClassVariableDeclarationSyntaxElement: SyntaxElement, ISyntaxElemen
         }
 
         // Create a Property
-        var varType = OxygeneTypeTranslator.ConvertOxygeneTypeToCS(Variabletype);
+        var varType = Tools.ConvertOxygeneSpecialTypeToCS(Variabletype);
         varType = varType + (IsNullable ? "?" : "");
 
         var variableDeclaration = SyntaxFactory.VariableDeclaration(SyntaxFactory.ParseTypeName(varType))

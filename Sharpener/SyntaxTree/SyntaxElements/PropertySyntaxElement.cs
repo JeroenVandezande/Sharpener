@@ -228,7 +228,7 @@ public class PropertySyntaxElement: PropertySyntaxElementBase
         
         // Create a Property
         if (String.IsNullOrEmpty(Propertytype)) return null;
-        var propType = OxygeneTypeTranslator.ConvertOxygeneTypeToCS(Propertytype);
+        var propType = Tools.ConvertOxygeneSpecialTypeToCS(Propertytype);
         propType = propType + (IsNullable ? "?" : "");
         
         var propertyDeclaration = SyntaxFactory

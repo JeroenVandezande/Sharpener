@@ -1,41 +1,5 @@
 {
   "IsNotifyKeywordUsedInFile": false,
-  "IsInImplementationPartOfFile": false,
-  "IsInClassPartOfFile": false,
-  "OriginalOxygeneCode": [
-    "namespace SimpleConsoleApp;",
-    "",
-    "uses",
-    "  System.Linq;",
-    "",
-    "type",
-    "  [AttributeHere]",
-    "  [SecondAttribute]",
-    "  Program = class",
-    "  public",
-    "    property WorkList: TWorklist read TWorklist(UsedWorklist) write UsedWorklist;",
-    "    property UsedWorklist: IWorklist; implements ITest.Worklist;",
-    "  ",
-    "    class method Main(): Int32;",
-    "    begin",
-    "      // add your own code here",
-    "      writeLn('The magic happens here.');",
-    "    end;",
-    "\t// Implicit Const",
-    "\t  const STRING_CONST = \"MyConstantString\";",
-    "\t  const INT_CONST = 80;",
-    "\t  const DOUBLE_CONST = 155.0;",
-    "\t  const e = 1e-6;",
-    "\t  ",
-    "\t  // Explicit Consts",
-    "\t  const EXPLICITINT_CONST: Integer = 65536;",
-    "\t  const EXPLICITOBJECT_CONST = System.Drawing.Color.FromArgb(0, 0, 50, 100);",
-    "  end;",
-    "  ",
-    "  ",
-    "  ",
-    "end."
-  ],
   "RootElement": {
     "Usings": [
       "System",
@@ -227,6 +191,34 @@
             "ElementIsFinished": true
           },
           {
+            "$type": "Sharpener.SyntaxTree.Scopes.ConstantSyntaxElement, Sharpener",
+            "ConstantName": "hex1",
+            "ConstantValue": "165",
+            "ConstantType": "byte",
+            "VisibilityLevel": "Public",
+            "Children": [],
+            "OriginalSourceCode": null,
+            "OriginalSourceCodeStartLineNumber": 24,
+            "OriginalSourceCodeStartColumnNumber": 0,
+            "OriginalSourceCodeStopLineNumber": 0,
+            "OriginalSourceCodeStopColumnNumber": 0,
+            "ElementIsFinished": true
+          },
+          {
+            "$type": "Sharpener.SyntaxTree.Scopes.ConstantSyntaxElement, Sharpener",
+            "ConstantName": "hex2",
+            "ConstantValue": "21",
+            "ConstantType": "byte",
+            "VisibilityLevel": "Public",
+            "Children": [],
+            "OriginalSourceCode": null,
+            "OriginalSourceCodeStartLineNumber": 25,
+            "OriginalSourceCodeStartColumnNumber": 0,
+            "OriginalSourceCodeStopLineNumber": 0,
+            "OriginalSourceCodeStopColumnNumber": 0,
+            "ElementIsFinished": true
+          },
+          {
             "$type": "Sharpener.SyntaxTree.Scopes.CommentSyntaxElement, Sharpener",
             "CommentLines": [
               "// Explicit Consts"
@@ -243,12 +235,12 @@
           {
             "$type": "Sharpener.SyntaxTree.Scopes.ConstantSyntaxElement, Sharpener",
             "ConstantName": "EXPLICITINT_CONST",
-            "ConstantValue": "Integer65536",
-            "ConstantType": "Integer",
+            "ConstantValue": "65536",
+            "ConstantType": "int",
             "VisibilityLevel": "Public",
             "Children": [],
             "OriginalSourceCode": null,
-            "OriginalSourceCodeStartLineNumber": 26,
+            "OriginalSourceCodeStartLineNumber": 28,
             "OriginalSourceCodeStartColumnNumber": 0,
             "OriginalSourceCodeStopLineNumber": 0,
             "OriginalSourceCodeStopColumnNumber": 0,
@@ -262,17 +254,17 @@
             "VisibilityLevel": "Public",
             "Children": [],
             "OriginalSourceCode": null,
-            "OriginalSourceCodeStartLineNumber": 27,
+            "OriginalSourceCodeStartLineNumber": 29,
             "OriginalSourceCodeStartColumnNumber": 0,
             "OriginalSourceCodeStopLineNumber": 0,
             "OriginalSourceCodeStopColumnNumber": 0,
             "ElementIsFinished": true
           }
         ],
-        "OriginalSourceCode": "namespace SimpleConsoleApp;\r\n\r\nuses\r\n  System.Linq;\r\n\r\ntype\r\n  [AttributeHere]\r\n  [SecondAttribute]\r\n  Program = class\r\n  public\r\n    property WorkList: TWorklist read TWorklist(UsedWorklist) write UsedWorklist;\r\n    property UsedWorklist: IWorklist; implements ITest.Worklist;\r\n  \r\n    class method Main(): Int32;\r\n    begin\r\n      // add your own code here\r\n      writeLn('The magic happens here.');\r\n    end;\r\n\t// Implicit Const\r\n\t  const STRING_CONST = \"MyConstantString\";\r\n\t  const INT_CONST = 80;\r\n\t  const DOUBLE_CONST = 155.0;\r\n\t  const e = 1e-6;\r\n\t  \r\n\t  // Explicit Consts\r\n\t  const EXPLICITINT_CONST: Integer = 65536;\r\n\t  const EXPLICITOBJECT_CONST = System.Drawing.Color.FromArgb(0, 0, 50, 100);\r\n  end;\r\n  ",
+        "OriginalSourceCode": "namespace SimpleConsoleApp;\r\n\r\nuses\r\n  System.Linq;\r\n\r\ntype\r\n  [AttributeHere]\r\n  [SecondAttribute]\r\n  Program = class\r\n  public\r\n    property WorkList: TWorklist read TWorklist(UsedWorklist) write UsedWorklist;\r\n    property UsedWorklist: IWorklist; implements ITest.Worklist;\r\n  \r\n    class method Main(): Int32;\r\n    begin\r\n      // add your own code here\r\n      writeLn('The magic happens here.');\r\n    end;\r\n\t// Implicit Const\r\n\t  const STRING_CONST = \"MyConstantString\";\r\n\t  const INT_CONST = 80;\r\n\t  const DOUBLE_CONST = 155.0;\r\n\t  const e = 1e-6;\r\n\t  const hex1 = $A5;\r\n\t  const hex2 = $15;\r\n\t  \r\n\t  // Explicit Consts\r\n\t  const EXPLICITINT_CONST: Integer = 65536;\r\n\t  const EXPLICITOBJECT_CONST = System.Drawing.Color.FromArgb(0, 0, 50, 100);\r\n  end;\r\n  ",
         "OriginalSourceCodeStartLineNumber": 0,
         "OriginalSourceCodeStartColumnNumber": 0,
-        "OriginalSourceCodeStopLineNumber": 28,
+        "OriginalSourceCodeStopLineNumber": 30,
         "OriginalSourceCodeStopColumnNumber": 0,
         "ElementIsFinished": true
       }
