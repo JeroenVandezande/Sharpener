@@ -59,7 +59,7 @@ public class Document
 
     [JsonIgnore]
     [IgnoreDataMember]
-    public SyntaxElement CurrentElement { get; set; }
+    public SyntaxElement? CurrentElement { get; set; }
 
     [JsonIgnore]
     [IgnoreDataMember]
