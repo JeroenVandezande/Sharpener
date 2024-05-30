@@ -18,7 +18,7 @@ public class PropertySyntaxElement: PropertySyntaxElementBase
     public string Propertytype { get; set; }
     public string GetterCode { get; set; } = String.Empty;
     public string SetterCode { get; set; } = String.Empty;
-    public bool IsNullable { get; set; }
+  
     public bool HasNotifyPatternApplied { get; set; }
     public VisibilityLevel VisibilityLevel { get; set; }
     public bool IsStatic { get; set; }
@@ -185,21 +185,6 @@ public class PropertySyntaxElement: PropertySyntaxElementBase
         {
             switch (SpecialTokenState)
             {
-                case SpecialSyntaxToken.None: // Regular case handles "PropertyName: Type" syntax
-                {
-                    if (String.IsNullOrEmpty(PropertyName))
-                    {
-                        PropertyName = param.TokenText;
-                        return true;
-                    }
-
-                    if (String.IsNullOrEmpty(Propertytype))
-                    {
-                        Propertytype = param.TokenText;
-                        return true;
-                    }
-                }
-                    break;
                 case SpecialSyntaxToken.Implements: // Case handles explicit interface implementation (i.e. implements)
                 {
                     var explicitParts = param.TokenText.Split(".");

@@ -9,8 +9,27 @@ using Sharpener.SyntaxTree.Scopes;
 
 namespace Sharpener.SyntaxTree;
 
+public enum ContainingTypeElement {None, Class, Interface, Record}
+
 public class Document
 {
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public VisibilityLevel LastKnownVisibilityLevel { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool LastKnownStatic { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public string? LastKnownVariable { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool LastKnownInCodeBlock { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
+    public bool IsInTypePartOfFile { get; set; }
+    [JsonIgnore]
+    [IgnoreDataMember]
     public bool IsNotifyKeywordUsedInFile { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]
@@ -20,13 +39,7 @@ public class Document
     public bool IsInImplementationPartOfFile { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]
-    public bool IsInClass { get; set; }
-    [JsonIgnore]
-    [IgnoreDataMember]
-    public bool IsInInterface { get; set; }
-    [JsonIgnore]
-    [IgnoreDataMember]
-    public bool IsInRecord { get; set; }
+    public ContainingTypeElement CurrentContainingTypeElement { get; set; }
     [JsonIgnore]
     [IgnoreDataMember]
     public string[]? OriginalOxygeneCode { get; set; }
@@ -96,14 +109,6 @@ public class Document
 
         return _FindClassByName(className, RootElement);
     }
-
-    public VisibilityLevel LastKnownVisibilityLevel { get; set; }
-    public bool LastKnownStatic { get; set; }
-    public string LastKnownVariable { get; set; }
-    public bool LastKnownInCodeBlock { get; set; }
-    public bool IsInTypePartOfFile { get; set; }
-
-
     public SyntaxElement returnFromCurrentScope()
     {
         SyntaxElement result;
@@ -169,24 +174,38 @@ public class Document
         }
     }
 
-    private NamespaceDeclarationSyntax _currentNameSpaceSyntax;
-    private ClassDeclarationSyntax _currentClassDeclarationSyntax;
-    private InterfaceDeclarationSyntax _currentInterfaceDelDeclarationSyntax;
+    private NamespaceDeclarationSyntax? _currentNameSpaceSyntax;
 
     private void RecurseThroughChildElements(List<ISyntaxElement> childElements)
     {
+        if (_currentNameSpaceSyntax == null)
+        {
+            throw new ArgumentNullException("_currentNameSpaceSyntax should not be NULL when calling this method");
+        }
         foreach (var child in childElements)
         {
+            if (child is InterfaceSyntaxElement interfaceExpression)
+            {
+                foreach (var member in interfaceExpression.GenerateCodeNodes())
+                {
+                    _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(member);
+                }
+            }
+            
             if (child is ClassSyntaxElement expression)
             {
-                _currentClassDeclarationSyntax = (ClassDeclarationSyntax)expression.GenerateCodeNodes()[0];
-                _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(_currentClassDeclarationSyntax);
+                foreach (var member in expression.GenerateCodeNodes())
+                {
+                    _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(member);
+                }
             }
-
+            
             if (child is EnumSyntaxElement enumExpression)
             {
-                var enumDeclarationSyntax = (EnumDeclarationSyntax)enumExpression.GenerateCodeNodes()[0];
-                _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(enumDeclarationSyntax);
+                foreach (var member in enumExpression.GenerateCodeNodes())
+                {
+                    _currentNameSpaceSyntax = _currentNameSpaceSyntax.AddMembers(member);
+                }
             }
 
             if (child.Children.Count > 0)
