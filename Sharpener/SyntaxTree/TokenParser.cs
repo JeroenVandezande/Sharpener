@@ -8,8 +8,8 @@ namespace Sharpener.SyntaxTree;
 
 public class TokenParser
 {
-    private IToken _previousToken;
-    private IToken _twoTokensBack;
+    private IToken? _previousToken;
+    private IToken? _twoTokensBack;
 
     public void ParseTokens(Tokenizer tokenizer, ref Document document)
     {
