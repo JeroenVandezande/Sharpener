@@ -17,7 +17,6 @@ public class TokenParser
         {
             if (HandleCurrentElement(document, token)) continue;
             if (HandlePreviousElement(document, token)) continue;
-            
             HandleTokenTypes(document, token);
         }
     }
@@ -50,11 +49,10 @@ public class TokenParser
 
     private void HandleTokenTypes(Document document, IToken token)
     {
-        var tokenWithText = token as ITokenWithText;
         switch (token.TokenType)
         {
             case TokenType.Variable:
-                HandleVariableToken(document, tokenWithText);
+                HandleVariableToken(document, token);
                 break;
             case TokenType.InterfaceKeyword:
                 HandleInterfaceKeyword(document);
@@ -129,8 +127,9 @@ public class TokenParser
         }
     }
 
-    private void HandleVariableToken(Document document, ITokenWithText tokenWithText)
+    private void HandleVariableToken(Document document, IToken token)
     {
+        var tokenWithText = token as ITokenWithText;
         if (document.CurrentContainingTypeElement == ContainingTypeElement.Class && document.CurrentElement is ClassSyntaxElement)
         {
             document.AddNewElementToCurrentAndMakeCurrent(new ClassVariableDeclarationSyntaxElement()
