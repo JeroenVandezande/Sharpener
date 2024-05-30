@@ -62,6 +62,11 @@ public static class Tools
                 CultureInfo.InvariantCulture).ToString();
         }
         
+        if (value.ToLower() == "nil") //NULL Value
+        {
+            return "null";
+        }
+        
         // Return same value if no special values were found
         return constantValue;
     }
