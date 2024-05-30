@@ -286,7 +286,7 @@ public class Document
 
         // Normalize and get code as string.
         var code = syntaxFactory
-            .NormalizeWhitespace()
+            .NormalizeWhitespace("    ")
             .ToFullString();
 
         // Output new code.
